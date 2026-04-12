@@ -134,6 +134,12 @@ int main(int argc, char** argv) {
         }
 
         sourceCode = collected.str();
+        // Debug-Ausgabe des gesammelten Quellcodes
+        if (parser.isVerbose()) {
+           std::cout << "\n===== GELESENER QUELLCODE =====\n";
+            std::cout << sourceCode << "\n";
+            std::cout << "===============================\n\n";
+        }
 
         if (parser.isVerbose()) {
             std::cout << "Gesammelter Quellcode: " << sourceCode.size() << " bytes\n\n";
