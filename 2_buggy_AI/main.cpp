@@ -1,16 +1,20 @@
-#include "/home/nikog/projects/2buggAI/2_buggy_AI/includes/argumentParser.h"
-#include "/home/nikog/projects/2buggAI/2_buggy_AI/includes/OpenAiClient.h"
-#include "/home/nikog/projects/2buggAI/2_buggy_AI/includes/ReportJson.h"
-#include "/home/nikog/projects/2buggAI/2_buggy_AI/includes/GdbRunner.h"
-#include "/home/nikog/projects/2buggAI/2_buggy_AI/includes/ValgrindRunner.h"
-#include "/home/nikog/projects/2buggAI/2_buggy_AI/includes/ProcessRunner.h"
-#include "/home/nikog/projects/2buggAI/2_buggy_AI/includes/ShellQuote.h"
+#include "argumentParser.h"
+#include "OpenAiClient.h"
+#include "ReportJson.h"
+#include "GdbRunner.h"
+#include "ValgrindRunner.h"
+#include "ProcessRunner.h"
+#include "ShellQuote.h"
+
 #include <fstream>
 #include <iostream>
 #include <filesystem>
 #include <unistd.h>
 #include <array>
 #include <sstream>
+#include <algorithm>
+#include <vector>
+#include <string>
 
 // Liest den Quellcode einer Datei
 std::string readSourceCode(const std::string& path) {
@@ -29,6 +33,59 @@ bool isSourceFile(const std::filesystem::path& path) {
     return ext == ".c" || ext == ".cpp" || ext == ".cc" || ext == ".h" || ext == ".hpp" || ext == ".java" || ext == ".py";
 }
 
+// it selects only files that can actually be compiled, because h. and hpp. cannot be compiled
+bool isCompilableSourceFile(const std::filesystem::path& path) {
+    std::string ext = path.extension().string();
+    return ext == ".c" || ext == ".cpp" || ext == ".cc";
+}
+
+//collect all C/C++ source files
+std::vector<std::string> collectCompilableSources(const std::string& targetPath, bool recursive) {
+    namespace fs = std::filesystem;
+    std::vector<std::string> sources;
+
+    fs::path p(targetPath);
+
+    if (fs::is_regular_file(p)) {
+        if (isCompilableSourceFile(p)) {
+            fs::path parent = p.parent_path();
+            if (parent.empty()) parent = ".";
+
+            for (const auto& entry : fs::directory_iterator(parent)) {
+                if (entry.is_regular_file() && isCompilableSourceFile(entry.path())) {
+                    sources.push_back(entry.path().string());
+                }
+            }
+        }
+    } else if (fs::is_directory(p)) {
+        if (recursive) {
+            for (const auto& entry : fs::recursive_directory_iterator(p)) {
+                if (entry.is_regular_file() && isCompilableSourceFile(entry.path())) {
+                    sources.push_back(entry.path().string());
+                }
+            }
+        } else {
+            for (const auto& entry : fs::directory_iterator(p)) {
+                if (entry.is_regular_file() && isCompilableSourceFile(entry.path())) {
+                    sources.push_back(entry.path().string());
+                }
+            }
+        }
+    }
+
+    return sources;
+}
+
+// detect if C++ compiler is needed
+bool containsCppFile(const std::vector<std::string>& sources) {
+    for (const auto& file : sources) {
+        std::string ext = std::filesystem::path(file).extension().string();
+        if (ext == ".cpp" || ext == ".cc") {
+            return true;
+        }
+    }
+    return false;
+}
 // Auto-Compile Funktion
 std::string compileIfNeeded(const std::string& targetPath) {
     namespace fs = std::filesystem;
@@ -82,6 +139,40 @@ std::string compileIfNeeded(const std::string& targetPath) {
 
     // Ist bereits eine ausführbare Datei
     return targetPath;
+}
+
+//  multifile compilation
+std::string compileMultiple(const std::string& targetPath, bool recursive) {
+    auto sources = collectCompilableSources(targetPath, recursive);
+
+    if (sources.empty()) return "";
+
+    std::string outFile = "/tmp/buggy_multi_" + std::to_string(getpid());
+    bool useCpp = containsCppFile(sources);
+    std::string compiler = useCpp ? "g++" : "gcc";
+
+    std::string cmd = compiler + " -g -pthread -o " + ShellQuote::quote(outFile);
+
+    for (const auto& src : sources) {
+        cmd += " " + ShellQuote::quote(src);
+    }
+
+    cmd += " 2>&1";
+
+    std::cout << "\n=== MULTI FILE COMPILATION ===\n";
+    for (const auto& s : sources) {
+        std::cout << "  " << s << "\n";
+    }
+
+    RunResult res = run_capture(cmd);
+
+    std::cout << res.output << "\n";
+
+    if (res.exit_code != 0) {
+        throw std::runtime_error("Multi-file compilation failed");
+    }
+
+    return outFile;
 }
 
 int main(int argc, char** argv) {
@@ -149,10 +240,22 @@ int main(int argc, char** argv) {
 
         // Nur kompilieren/ausführen, wenn targetPath eine Datei ist
         std::string program;
-        bool canRunProgram = fs::is_regular_file(targetPath);
 
-        if (canRunProgram) {
-            program = compileIfNeeded(targetPath);
+        std::vector<std::string> sources = collectCompilableSources(targetPath, parser.isRecursive());
+
+        bool canRunProgram = false;
+
+        if (!sources.empty()) {
+            if (sources.size() > 1) {
+                // multi-file
+                program = compileMultiple(targetPath, parser.isRecursive());
+            } else {
+                // single file
+                std::cout << "\n=== SINGLE FILE COMPILATION ===\n";
+                std::cout << "  " << sources[0] << "\n";
+                program = compileIfNeeded(sources[0]);
+            }
+            canRunProgram = true;
         }
 
         // Runner optional
@@ -195,6 +298,7 @@ int main(int argc, char** argv) {
 
             runRes = run_capture(cmd);
             runPtr = &runRes;
+            std::cout << runRes.output << "\n";
             std::cout << "Programm Beendet mit Exit-Code: " << runRes.exit_code << "\n\n";
         }
 
