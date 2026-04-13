@@ -1,16 +1,17 @@
-#include "/home/nikog/projects/2buggAI/2_buggy_AI/includes/argumentParser.h"
-#include "/home/nikog/projects/2buggAI/2_buggy_AI/includes/OpenAiClient.h"
-#include "/home/nikog/projects/2buggAI/2_buggy_AI/includes/ReportJson.h"
-#include "/home/nikog/projects/2buggAI/2_buggy_AI/includes/GdbRunner.h"
-#include "/home/nikog/projects/2buggAI/2_buggy_AI/includes/ValgrindRunner.h"
-#include "/home/nikog/projects/2buggAI/2_buggy_AI/includes/ProcessRunner.h"
-#include "/home/nikog/projects/2buggAI/2_buggy_AI/includes/ShellQuote.h"
+#include "/home/krystian/projects/2buggAI/2_buggy_AI/includes/argumentParser.h"
+#include "/home/krystian/projects/2buggAI/2_buggy_AI/includes/OpenAiClient.h"
+#include "/home/krystian/projects/2buggAI/2_buggy_AI/includes/ReportJson.h"
+#include "/home/krystian/projects/2buggAI/2_buggy_AI/includes/GdbRunner.h"
+#include "/home/krystian/projects/2buggAI/2_buggy_AI/includes/ValgrindRunner.h"
+#include "/home/krystian/projects/2buggAI/2_buggy_AI/includes/ProcessRunner.h"
+#include "/home/krystian/projects/2buggAI/2_buggy_AI/includes/ShellQuote.h"
 #include <fstream>
 #include <iostream>
 #include <filesystem>
 #include <unistd.h>
 #include <array>
 #include <sstream>
+#include <algorithm>
 
 // Liest den Quellcode einer Datei
 std::string readSourceCode(const std::string& path) {
@@ -27,6 +28,14 @@ std::string readSourceCode(const std::string& path) {
 bool isSourceFile(const std::filesystem::path& path) {
     std::string ext = path.extension().string();
     return ext == ".c" || ext == ".cpp" || ext == ".cc" || ext == ".h" || ext == ".hpp" || ext == ".java" || ext == ".py";
+}
+
+// Zählt Zeilen in Datei
+int countLines(const std::string& filePath) {
+    std::ifstream file(filePath);
+    if (!file) return 0;
+    return std::count(std::istreambuf_iterator<char>(file),
+                     std::istreambuf_iterator<char>(), '\n');
 }
 
 // Auto-Compile Funktion
@@ -105,42 +114,113 @@ int main(int argc, char** argv) {
         std::stringstream collected;
 
         if (fs::is_regular_file(targetPath)) {
+            // Einzelne Datei
             if (isSourceFile(fs::path(targetPath))) {
                 collected << "===== FILE: " << targetPath << " =====\n";
                 collected << readSourceCode(targetPath) << "\n";
             }
         }
         else if (fs::is_directory(targetPath)) {
+            // Ordner
+            std::vector<std::string> files; 
+
+            // Alle passenden Dateien sammeln
             if (parser.isRecursive()) {
                 for (const auto& entry : fs::recursive_directory_iterator(targetPath)) {
                     if (entry.is_regular_file() && isSourceFile(entry.path())) {
-                        const std::string filePath = entry.path().string();
-                        collected << "===== FILE: " << filePath << " =====\n";
-                        collected << readSourceCode(filePath) << "\n\n";
+                        files.push_back(entry.path().string());
                     }
                 }
             } else {
                 for (const auto& entry : fs::directory_iterator(targetPath)) {
                     if (entry.is_regular_file() && isSourceFile(entry.path())) {
-                        const std::string filePath = entry.path().string();
-                        collected << "===== FILE: " << filePath << " =====\n";
-                        collected << readSourceCode(filePath) << "\n\n";
+                        files.push_back(entry.path().string());
                     }
                 }
             }
+            // Sortiere für konsistente Reihenfolge
+            std::sort(files.begin(), files.end());
+            
+            // Header
+            std::cout << "\n╔══════════════════════════════════════════════════════════╗\n";
+            std::cout << "║  ANALYZING FOLDER                                        ║\n";
+            std::cout << "╚══════════════════════════════════════════════════════════╝\n";
+            std::cout << "  Path:  " << targetPath << "\n";
+            std::cout << "  Files: " << files.size() << "\n";
+            std::cout << "  Mode:  " << (parser.isRecursive() ? "Recursive" : "Non-recursive") << "\n";
+            std::cout << "════════════════════════════════════════════════════════════\n\n";
+            
+            // Zeige Dateiliste im Verbose Mode
+            if (parser.isVerbose()) {
+                std::cout << "Files to analyze:\n";
+                for (size_t i = 0; i < files.size(); ++i) {
+                    std::cout << "  " << (i+1) << ". " << files[i] << "\n";
+                }
+                std::cout << "\n";
+            }
+            
+            // Lese jede Datei
+            for (size_t i = 0; i < files.size(); ++i) {
+                const std::string& filePath = files[i];
+                int lineCount = countLines(filePath);
+                std::string content = readSourceCode(filePath);
+                
+            if (parser.isVerbose()) {
+                // Verbose Zeige Datei-Header & kompletten Code
+                std::cout << "\n";
+                
+                std::string fileNum = "  FILE " + std::to_string(i+1) + "/" + std::to_string(files.size());
+                std::string pathLine = "  " + filePath;
+                
+                size_t boxWidth = std::max(fileNum.length(), pathLine.length()); 
+                if (boxWidth < 60) boxWidth = 60; 
+                
+                std::cout << "╔";
+                for (size_t j = 0; j < boxWidth; ++j) std::cout << "═";
+                std::cout << "╗\n";
+
+                std::cout << "║" << fileNum;
+                if (fileNum.length() < boxWidth) {
+                    for (size_t j = 0; j < boxWidth - fileNum.length(); ++j) std::cout << " ";
+                }
+                std::cout << "║\n";
+                
+                std::cout << "║" << pathLine;
+                if (pathLine.length() < boxWidth) {
+                    for (size_t j = 0; j < boxWidth - pathLine.length(); ++j) std::cout << " ";
+                }
+                std::cout << "║\n";
+               
+                std::cout << "╚";
+                for (size_t j = 0; j < boxWidth; ++j) std::cout << "═";
+                std::cout << "╝\n";
+                
+                std::cout << "Lines: " << lineCount << " | Size: " << content.size() << " bytes\n\n";
+            
+                // CODE ANZEIGEN
+                std::cout << content << "\n";
+                
+                for (size_t j = 0; j < boxWidth + 2; ++j) std::cout << "-";
+                std::cout << "\n";
+            } else {
+                // Nicht Verbose Nur kurze Info
+                std::cout << "  ✓ " << filePath << " (" << lineCount << " lines, " << content.size() << " bytes)\n";
+            }
+            // Für JSON sammeln
+            collected << "===== FILE: " << filePath << " =====\n";
+            collected << content << "\n\n";
+            }
+
+            std::cout << "\n════════════════════════════════════════════════════════════\n";
+            std::cout << "Collected " << files.size() << " file(s) for analysis\n";
+            std::cout << "════════════════════════════════════════════════════════════\n\n";
         }
         else {
             throw std::runtime_error("Unsupported path type: " + targetPath);
         }
 
         sourceCode = collected.str();
-        // Debug-Ausgabe des gesammelten Quellcodes
-        if (parser.isVerbose()) {
-           std::cout << "\n===== GELESENER QUELLCODE =====\n";
-            std::cout << sourceCode << "\n";
-            std::cout << "===============================\n\n";
-        }
-
+        
         if (parser.isVerbose()) {
             std::cout << "Gesammelter Quellcode: " << sourceCode.size() << " bytes\n\n";
         }

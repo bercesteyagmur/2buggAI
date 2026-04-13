@@ -152,10 +152,26 @@ void ArgumentParser::parse(int argc, char* argv[]){
         std::cout << "│ Typ:         " << (isDirectory() ? "Ordner" : "Datei") << "\n";
         std::cout << "│ Rekursiv:    " << (recursive ? "Ja" : "Nein") << "\n";
         std::cout << "│ Fix:         " << fixDescription << "\n";
+        std::cout << "│ GDB:         " << (useGdb ? "Ja" : "Nein") << "\n";
+        std::cout << "│ Valgrind:    " << (useValgrind ? "Ja" : "Nein") << "\n";
         std::cout << "│ Extensions:  ";
         for (size_t i = 0; i < fileExtensions.size(); ++i) {
             std::cout << fileExtensions[i];
             if (i < fileExtensions.size() - 1) std::cout << ", ";
         }
+        std::cout << "\n";
+        
+        if (!passthroughArgs.empty()) {                                            
+            std::cout << "│ Prog-Args:   ";
+            for (size_t i = 0; i < passthroughArgs.size(); ++i) {
+                std::cout << passthroughArgs[i];
+                if (i < passthroughArgs.size() - 1) std::cout << " ";
+            }
+            std::cout << "\n";
+        }
+    
+    if (!jsonOutFile.empty()) {                                                  
+        std::cout << "│ JSON Output: " << jsonOutFile << "\n";
+    }
         std::cout << "\n└───────────────────────────────────────────────┘\n\n";
     }
