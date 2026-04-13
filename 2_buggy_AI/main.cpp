@@ -86,6 +86,36 @@ bool containsCppFile(const std::vector<std::string>& sources) {
     }
     return false;
 }
+
+// detect common include directories like "include/", "src/", etc.
+// this is needed because many C/C++ projects store headers in separate folders
+// Without -I flags, compiler cannot find these header files
+std::vector<std::string> detectIncludeDirs(const std::string& targetPath) {
+    namespace fs = std::filesystem;
+    std::vector<std::string> includes;
+
+    fs::path base = std::filesystem::absolute(targetPath);
+
+    // if target is a file, use its parent directory
+    if (fs::is_regular_file(base)) {
+        base = base.parent_path();
+    }
+
+    // common folder names used in real world projects
+    std::vector<std::string> commonDirs = {
+        "include", "includes", "inc", "src"
+    };
+
+    for (const auto& dir : commonDirs) {
+        fs::path p = base / dir;
+        if (fs::exists(p) && fs::is_directory(p)) {
+            includes.push_back(p.string());
+        }
+    }
+
+    return includes;
+}
+
 // Auto-Compile Funktion
 std::string compileIfNeeded(const std::string& targetPath) {
     namespace fs = std::filesystem;
@@ -152,6 +182,20 @@ std::string compileMultiple(const std::string& targetPath, bool recursive) {
     std::string compiler = useCpp ? "g++" : "gcc";
 
     std::string cmd = compiler + " -g -pthread -o " + ShellQuote::quote(outFile);
+
+    // add include directories to the compile command
+    // this ensures that header files in folders like "include/" can be found
+    auto includeDirs = detectIncludeDirs(targetPath);
+
+    std::cout << "Include directories:\n";
+    for (const auto& inc : includeDirs) {
+        std::cout << "  - " << inc << "\n";
+    }
+
+    for (const auto& inc : includeDirs) {
+        std::string absPath = std::filesystem::absolute(inc).string();
+        cmd += " -I" + ShellQuote::quote(absPath);
+    }
 
     for (const auto& src : sources) {
         cmd += " " + ShellQuote::quote(src);
