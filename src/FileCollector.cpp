@@ -12,11 +12,26 @@ bool FileCollector::isSourceFile(const std::string& path) {
         || ext == ".h" || ext == ".hpp";
 }
 
+bool FileCollector::isBuildDirectory(const std::string& path) {
+
+    // Check if path contains common build directories
+    // These folders are generated and should be ignored during analysis
+    if (path.find("cmake-build") < path.size()) return true;
+    if (path.find("build") < path.size()) return true;
+
+    return false;
+}
+
 std::vector<std::string> FileCollector::collectSourceFiles(const std::string& path, bool recursive) {
     std::vector<std::string> files;
 
     if (recursive) {
         for (const auto& entry : fs::recursive_directory_iterator(path)) {
+            std::string pathStr = entry.path().string();
+            if (isBuildDirectory(pathStr)) {
+                continue;
+            }
+
             if (entry.is_regular_file() && isSourceFile(entry.path().string())) {
                 files.push_back(entry.path().string());
             }
@@ -64,7 +79,6 @@ std::string FileCollector::collectSourceCode(const std::vector<std::string>& fil
     return collected.str();
 }
 
-
 std::vector<std::string> FileCollector::collectIncludeDirs(const std::string& path, bool recursive) {
     std::vector<std::string> includeDirs;
 
@@ -82,6 +96,13 @@ std::vector<std::string> FileCollector::collectIncludeDirs(const std::string& pa
 
     if (recursive) {
         for (const auto& entry : fs::recursive_directory_iterator(path)) {
+            std::string pathStr = entry.path().string();
+
+            if (isBuildDirectory(pathStr)) {
+                continue;
+            }
+
+
             if (entry.is_regular_file()) {
                 process(entry.path());
             }

@@ -68,17 +68,16 @@ std::vector<ErrorCategory> ChecklistReader::load() {
         std::getline(ss, keywords_str);
 
         ErrorCategory error;
-        error.name = name;
-        error.detection_type = type;
+        error.name = trim(name);
+        error.detection_type = trim(type);
+        error.language = current_language;
 
         // split keywords
         std::stringstream ks(keywords_str);
         std::string keyword;
 
         while (std::getline(ks, keyword, ',')) {
-            if (!keyword.empty() && keyword[0] == ' ') {
-                keyword.erase(0, 1);
-            }
+            keyword = trim(keyword);
 
             error.keywords.push_back(keyword);
         }
@@ -87,4 +86,18 @@ std::vector<ErrorCategory> ChecklistReader::load() {
     }
 
     return error_list;
+}
+
+std::string ChecklistReader::trim(const std::string& s) {
+    size_t start = 0;
+    while (start < s.size() && std::isspace(static_cast<unsigned char>(s[start]))) {
+        start++;
+    }
+
+    size_t end = s.size();
+    while (end > start && std::isspace(static_cast<unsigned char>(s[end - 1]))) {
+        end--;
+    }
+
+    return s.substr(start, end - start);
 }

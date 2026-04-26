@@ -7,6 +7,7 @@
 
 #include <string>
 #include <vector>
+#include <cctype>
 
 struct ErrorCategory {
     std::string language; // "general", "cpp", "java", "python"
@@ -18,6 +19,7 @@ struct ErrorCategory {
 class ChecklistReader {
 public:
     std::vector<ErrorCategory> load();
+    std::string trim(const std::string& s);
 };
 
 #endif //INC_2_BUGGY_AI_CHECKLISTREADER_H

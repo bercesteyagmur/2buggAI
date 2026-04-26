@@ -12,6 +12,7 @@ class FileCollector {
 
 private:
     bool isSourceFile(const std::string& path);
+    bool isBuildDirectory(const std::string& path);
 
 public:
     std::vector<std::string> collectSourceFiles(const std::string& path, bool recursive);

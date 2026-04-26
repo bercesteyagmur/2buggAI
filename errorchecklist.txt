@@ -4,7 +4,7 @@
 # ---------------- GENERAL ----------------
 syntax_error | detect_from_output | syntax error, expected ';', unexpected token
 typo_variable | ai_presume | -
-undeclared_variable | detect_from_output | not declared, undefined
+undeclared_variable | detect_from_output | not declared
 wrong_data_type | detect_from_output | type mismatch, cannot convert
 assignment_vs_comparison | ai_presume | -
 off_by_one | ai_presume | -
@@ -40,6 +40,8 @@ static_misuse | ai_presume | -
 object_not_initialized | detect_from_output | not initialized
 
 # ---------------- C / C++ ----------------
+wrong_function_call | detect_from_output | no matching function
+missing_include_cpp | detect_from_output | not declared in this scope
 segmentation_fault | detect_from_output | segmentation fault
 invalid_memory_access | detect_from_output | invalid memory access
 uninitialized_pointer | ai_presume | -
@@ -58,6 +60,8 @@ undefined_behavior | ai_presume | -
 missing_return | detect_from_output | control reaches end of non-void function
 object_slicing | ai_presume | -
 missing_virtual_destructor | ai_presume | -
+linker_error | detect_from_output | undefined reference
+fatal_include_error | detect_from_output | no such file or directory
 
 # ---------------- PYTHON ----------------
 syntax_error_python | detect_from_output | SyntaxError

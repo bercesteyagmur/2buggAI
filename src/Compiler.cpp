@@ -11,7 +11,9 @@ std::string Compiler::compileIfNeeded(const std::string& targetPath) {
     namespace fs = std::filesystem;
 
     if (!fs::exists(targetPath)) {
-        throw std::runtime_error("File does not exist: " + targetPath);
+        //throw std::runtime_error("File does not exist: " + targetPath);
+        std::cout << "Compilation failed, continuing with error analysis...\n";
+        return "";
     }
 
     std::string ext = fs::path(targetPath).extension();
@@ -27,14 +29,20 @@ std::string Compiler::compileIfNeeded(const std::string& targetPath) {
         }
 
         std::array<char, 256> buffer;
+        std::string output;
         while (fgets(buffer.data(), buffer.size(), pipe)) {
+            output += buffer.data();
             std::cout << buffer.data();
         }
+
+        lastCompileOutput = output;
 
         int status = pclose(pipe);
 
         if (status != 0) {
-            throw std::runtime_error("Compilation failed");
+           // throw std::runtime_error("Compilation failed");
+            std::cout << "Compilation failed, continuing with error analysis...\n";
+            return "";
         }
 
         return outFile;
@@ -78,9 +86,17 @@ std::string Compiler::compileMultiple(
 
     RunResult res = run_capture(cmd);
 
+    lastCompileOutput = res.output;
+
     if (res.exit_code != 0) {
-        throw std::runtime_error("Multi-file compilation failed");
+       // throw std::runtime_error("Multi-file compilation failed");
+        std::cout << "Compilation failed, continuing with error analysis...\n";
+        return "";
     }
 
     return outFile;
+}
+
+const std::string& Compiler::getLastCompileOutput() const {
+    return lastCompileOutput;
 }

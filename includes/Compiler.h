@@ -10,13 +10,15 @@
 
 class Compiler {
 
+private:
+    std::string lastCompileOutput;
+
 public:
     std::string compileIfNeeded(const std::string& targetPath);
 
-    std::string compileMultiple(
-        const std::vector<std::string>& sources,
-        const std::vector<std::string>& includeDirs
-    );
+    std::string compileMultiple(const std::vector<std::string>& sources,const std::vector<std::string>& includeDirs);
+
+    const std::string& getLastCompileOutput() const;
 };
 
 #endif //INC_2_BUGGY_AI_COMPILER_H

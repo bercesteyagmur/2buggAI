@@ -15,7 +15,9 @@
 
 #include "Compiler.h"
 #include "FileCollector.h"
-
+#include "ChecklistReader.h"
+#include "ErrorMatcher.h"
+#include "LanguageDetector.h"
 
 int main(int argc, char** argv) {
     try {
@@ -139,13 +141,15 @@ int main(int argc, char** argv) {
         std::string program;
         bool canRunProgram = false;
 
+
+
         if (!files.empty()) {
             if (files.size() > 1) {
                 program = compiler.compileMultiple(files, includeDirs);
             } else {
                 program = compiler.compileIfNeeded(files[0]);
             }
-            canRunProgram = true;
+            canRunProgram = !program.empty();
         }
 
         // Runner optional
@@ -175,7 +179,7 @@ int main(int argc, char** argv) {
         }
 
         // Normaler Run nur für Dateien
-        if (canRunProgram && !parser.isGdbUsed() && !parser.isValgrindUsed()) {
+        if (canRunProgram && !program.empty() && !parser.isGdbUsed() && !parser.isValgrindUsed()) {
             std::cout << "╔════════════════════════════════════════╗\n";
             std::cout << "║   NORMALES PROGRAMM WIRD AUSGEFÜHRT    ║\n";
             std::cout << "╚════════════════════════════════════════╝\n\n";
@@ -194,6 +198,61 @@ int main(int argc, char** argv) {
         if (!canRunProgram && parser.isVerbose()) {
             std::cout << "Hinweis: Ziel ist ein Ordner. Es werden nur passende Quellcode-Dateien gelesen, nichts kompiliert oder ausgeführt.\n\n";
         }
+
+        // ================================
+        // ERROR DETECTION (CHECKLIST)
+        // ================================
+
+        // 1. detect language
+        LanguageDetector detector;
+        std::string language = detector.detect(files);
+
+        // 2. collect ALL error outputs
+        std::string error_output;
+
+        // compile errors
+        error_output += compiler.getLastCompileOutput();
+
+        // runtime errors
+        if (runPtr) {
+            error_output += "\n" + runPtr->output;
+        }
+
+        // gdb errors
+        if (gdbPtr) {
+            error_output += "\n" + gdbPtr->output;
+        }
+
+        // valgrind errors
+        if (vgPtr) {
+            error_output += "\n" + vgPtr->run.output;
+        }
+
+        // 3. load checklist
+        ChecklistReader reader;
+        auto checklist = reader.load();
+
+        std::cout << "\n[RAW ERROR OUTPUT]\n";
+        std::cout << error_output << "\n";
+
+        std::cout << "[LANGUAGE] " << language << "\n";
+
+        // 4. match errors
+        ErrorMatcher matcher(checklist);
+        auto detectedErrors = matcher.match(error_output, language);
+
+        // 5. print results
+        std::cout << "\n========== DETECTED ERRORS ==========\n";
+
+        if (detectedErrors.empty()) {
+            std::cout << "No known errors detected.\n";
+        } else {
+            for (const auto& e : detectedErrors) {
+                std::cout << "- " << e << "\n";
+            }
+        }
+
+        std::cout << "=====================================\n\n";
 
         // Report JSON bauen
         std::string report = make_report_json(

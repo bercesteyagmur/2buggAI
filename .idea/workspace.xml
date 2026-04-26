@@ -22,12 +22,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b86bd465-7d67-4035-bf5e-4e6fb5aa716c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/errorchecklist.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/includes/ChecklistReader.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/includes/ErrorMatcher.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ChecklistReader.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ErrorMatcher.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/includes/LanguageDetector.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LanguageDetector.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/buggy" beforeDir="false" afterPath="$PROJECT_DIR$/buggy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/main.d" beforeDir="false" afterPath="$PROJECT_DIR$/build/main.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/main.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/main.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/src/Compiler.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/src/Compiler.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/src/FileCollector.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/src/FileCollector.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/errorchecklist.txt" beforeDir="false" afterPath="$PROJECT_DIR$/errorchecklist.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/ChecklistReader.h" beforeDir="false" afterPath="$PROJECT_DIR$/includes/ChecklistReader.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/Compiler.h" beforeDir="false" afterPath="$PROJECT_DIR$/includes/Compiler.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/FileCollector.h" beforeDir="false" afterPath="$PROJECT_DIR$/includes/FileCollector.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ChecklistReader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChecklistReader.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FileCollector.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/FileCollector.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,7 +175,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1776036927952</updated>
-      <workItem from="1776036933466" duration="33825000" />
+      <workItem from="1776036933466" duration="41244000" />
     </task>
     <servers />
   </component>
@@ -177,8 +187,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/main.cpp</url>
-          <line>30</line>
+          <line>32</line>
           <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/Compiler.cpp</url>
+          <line>79</line>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
