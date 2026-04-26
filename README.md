@@ -60,16 +60,15 @@ Zu den adressierten Fehlertypen gehören:
 | Name |
 |------|
 | Nikola Cvetkovic |
-| Haakon Hu |
 | Krystian Piotr Kedzior |
-| Yasin Hammad |
+| Berceste Yagmur Aslan |
 
 ---
 
 ## 📊 Aufwandsschätzung
-- **Teamgröße:** 4 Personen  
+- **Teamgröße:** 3 Personen  
 - **Laufzeit:** 6 Sprints  
-- **Gesamtaufwand:** ca. **420 Personenstunden**
+- **Gesamtaufwand:** ca. **225 Personenstunden**
 
 ---
 
