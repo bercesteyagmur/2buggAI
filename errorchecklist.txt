@@ -1,0 +1,94 @@
+========================================
+PROGRAMMIER-FEHLER CHECKLISTE
+========================================
+
+------------------------------
+ALLGEMEINE FEHLER
+------------------------------
+[ ] Syntaxfehler (Klammern, Semikolons, Doppelpunkte)
+[ ] Tippfehler in Variablennamen
+[ ] Variable nicht deklariert oder initialisiert
+[ ] Falscher Datentyp
+[ ] Verwechslung von = und ==
+[ ] Off-by-one Fehler (Schleifen)
+[ ] Endlosschleifen
+[ ] Zugriff außerhalb von Arrays/Listen
+[ ] Null / None Referenzen
+[ ] Falsche Einrückung / Blockstruktur
+[ ] Logikfehler trotz funktionierendem Code
+[ ] Operator-Reihenfolge falsch
+[ ] Ungültige Benutzereingaben nicht geprüft
+[ ] Dateien nicht geschlossen
+[ ] Fehlende Fehlerbehandlung
+[ ] Variablen-Scope Probleme
+[ ] Namenskonflikte
+[ ] Integer-Division statt Float
+[ ] Rundungsfehler bei Floats
+
+------------------------------
+JAVA FEHLER
+------------------------------
+[ ] NullPointerException
+[ ] ArrayIndexOutOfBoundsException
+[ ] ClassCastException
+[ ] NumberFormatException
+[ ] StringIndexOutOfBoundsException
+[ ] main-Methode fehlt
+[ ] Klassenname ≠ Dateiname
+[ ] Semikolon vergessen
+[ ] == statt .equals() bei Strings
+[ ] Zugriff auf private Variablen
+[ ] break im switch vergessen
+[ ] Exceptions nicht behandelt
+[ ] Import fehlt
+[ ] static falsch verwendet
+[ ] Objekt nicht mit new erstellt
+
+------------------------------
+C / C++ FEHLER
+------------------------------
+[ ] Segmentation Fault
+[ ] Ungültiger Speicherzugriff
+[ ] Pointer nicht initialisiert
+[ ] Memory Leak
+[ ] Double Free
+[ ] Buffer Overflow
+[ ] Array-Grenzen überschritten
+[ ] #include vergessen
+[ ] Semikolon vergessen
+[ ] = statt ==
+[ ] Dangling Pointer
+[ ] Zugriff auf freigegebenen Speicher
+[ ] malloc/free vs new/delete falsch
+[ ] Header Guards fehlen
+[ ] Undefined Behavior
+[ ] return vergessen
+[ ] Objekt-Slicing (C++)
+[ ] Kein virtueller Destruktor (C++)
+
+------------------------------
+PYTHON FEHLER
+------------------------------
+[ ] SyntaxError
+[ ] IndentationError
+[ ] NameError
+[ ] TypeError
+[ ] ValueError
+[ ] IndexError
+[ ] KeyError
+[ ] AttributeError
+[ ] ImportError / ModuleNotFoundError
+[ ] ZeroDivisionError
+[ ] NoneType Fehler
+[ ] Falsche Einrückung
+[ ] Doppelpunkt vergessen
+[ ] Variable vor Zuweisung genutzt
+[ ] Mutable Default Arguments
+[ ] is statt == verwendet
+[ ] Liste während Iteration verändert
+[ ] Falsche Modulnamen
+[ ] Lokale vs globale Variablen verwechselt
+
+========================================
+ENDE DER CHECKLISTE
+========================================
