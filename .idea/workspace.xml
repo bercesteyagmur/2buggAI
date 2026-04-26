@@ -21,7 +21,14 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b86bd465-7d67-4035-bf5e-4e6fb5aa716c" name="Changes" comment="" />
+    <list default="true" id="b86bd465-7d67-4035-bf5e-4e6fb5aa716c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/errorchecklist.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/includes/ChecklistReader.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/includes/ErrorMatcher.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ChecklistReader.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ErrorMatcher.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -46,7 +53,7 @@
 }]]></component>
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
-    "url": "https://github.com/bercesteyagmur/2_buggy_AI.git",
+    "url": "https://github.com/bercesteyagmur/2buggAI.git",
     "accountId": "d0165956-809a-4e1a-9255-68f656c7b684"
   }
 }]]></component>
@@ -119,6 +126,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/test_include_project" />
     </key>
   </component>
@@ -157,7 +165,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1776036927952</updated>
-      <workItem from="1776036933466" duration="28898000" />
+      <workItem from="1776036933466" duration="33825000" />
     </task>
     <servers />
   </component>
