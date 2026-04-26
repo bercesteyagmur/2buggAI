@@ -38,6 +38,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "bercesteyagmur"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/bercesteyagmur/2_buggy_AI.git",
+    "accountId": "d0165956-809a-4e1a-9255-68f656c7b684"
+  }
+}]]></component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="9yc0d5GN" />
   </component>
@@ -145,7 +157,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1776036927952</updated>
-      <workItem from="1776036933466" duration="28585000" />
+      <workItem from="1776036933466" duration="28898000" />
     </task>
     <servers />
   </component>
