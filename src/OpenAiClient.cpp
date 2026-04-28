@@ -66,8 +66,29 @@ OpenAIResult OpenAIClient::debug_report(const std::string& report_json) const {
     json req;
     req["model"] = model_;
     req["instructions"] =
-        "Du bist ein Senior Debugger. Analysiere das JSON (GDB/Valgrind/Config). "
-        "Gib mir: (1) wahrscheinlichste Ursache, (2) Belege aus Output, (3) konkrete Fix-Schritte. "
+        "Du bist ein Senior Debugger. Analysiere das JSON (GDB/Valgrind/Detected Errors). "
+        "Strukturiere deine Antwort in Markdown mit folgenden Abschnitten:\n\n"
+        "## Zusammenfassung\n"
+        "Eine kurze Zusammenfassung des Hauptproblems (max 2 Sätze).\n\n"
+        "## Severity\n"
+        "critical, high, medium, oder low\n\n"
+        "## Bugs\n"
+        "Für jeden Bug:\n\n"
+        "### Bug N: [Titel]\n"
+        "- **Datei:** Pfad/zur/Datei.cpp:Zeile\n"
+        "- **Kategorie:** memory_leak / null_pointer / race_condition / buffer_overflow / resource_leak / other\n"
+        "- **Problem:** Was ist das Problem (kurze Beschreibung)\n\n"
+        "**Fehlerhafter Code:**\n"
+        "```cpp\n"
+        "// Original buggy code\n"
+        "```\n\n"
+        "**Gefixter Code:**\n"
+        "```cpp\n"
+        "// Corrected code\n"
+        "```\n\n"
+        "**Erklärung:** Kurze Erklärung warum der Fix funktioniert.\n\n"
+        "## Empfehlungen\n"
+        "Allgemeine Empfehlungen als nummerierte Liste.\n\n"
         "Antwort auf Deutsch.";
     req["input"] =
         "Hier ist der Report als JSON:\n\n" + report_json +

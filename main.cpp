@@ -12,6 +12,7 @@
 #include <array>
 #include <sstream>
 #include <algorithm>
+#include <nlohmann/json.hpp>
 
 #include "Compiler.h"
 #include "FileCollector.h"
@@ -268,11 +269,25 @@ int main(int argc, char** argv) {
             sourceCode
         );
 
-        // Optional: JSON in Datei schreiben
+        // Optional: JSON in Datei schreiben 
         if (!parser.getJsonOutFile().empty()) {
+            try {
+                nlohmann::json final_json = nlohmann::json::parse(report);
+        
+                // Erweitere mit Error Detection Info
+                final_json["detected_errors"] = detectedErrors;
+                final_json["language"] = language;
+                final_json["compile_output"] = compiler.getLastCompileOutput();
+        
             std::ofstream out(parser.getJsonOutFile());
-            out << report;
+            out << final_json.dump(2);
             std::cout << "JSON Report gespeichert: " << parser.getJsonOutFile() << "\n\n";
+            } catch (const std::exception& e) {
+                // Fallback: Wenn Parse fehlschlägt, speichere original
+                std::ofstream out(parser.getJsonOutFile());
+                out << report;
+                std::cout << "JSON Report gespeichert: " << parser.getJsonOutFile() << "\n\n";
+            }
         }
 
         std::cout << "╔════════════════════════════════════════╗\n";
@@ -287,6 +302,22 @@ int main(int argc, char** argv) {
             std::cout << "\n===== DEBUG REPORT (OpenAI) =====\n";
             std::cout << (r.text.empty() ? r.raw_json : r.text) << "\n";
             std::cout << "=================================\n";
+
+            if (!parser.getJsonOutFile().empty()) {
+                try {
+                    nlohmann::json final_json = nlohmann::json::parse(report);
+                    final_json["detected_errors"] = detectedErrors;
+                    final_json["language"] = language;
+                    final_json["compile_output"] = compiler.getLastCompileOutput();
+                    final_json["ai_analysis"] = r.text;  // Markdown-Text vom AI
+            
+                    std::ofstream out(parser.getJsonOutFile());
+                    out << final_json.dump(2);
+                    std::cout << "Final JSON Report aktualisiert: " << parser.getJsonOutFile() << "\n";
+                } catch (...) {
+                    // Ignore - JSON wurde schon vorher gespeichert
+                }
+            }
             return 0;
         }
 

@@ -75,7 +75,7 @@ std::string make_report_json(
     if (!sourceCode.empty()) {
         // Kürze sehr große Dateien
         std::string content = sourceCode;
-        size_t max_size = 50000;  // 50KB
+        size_t max_size = 500000;  // 500KB
         bool truncated = false;
         
         if (content.size() > max_size) {
