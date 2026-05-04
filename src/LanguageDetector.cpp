@@ -6,21 +6,34 @@ bool LanguageDetector::endsWith(const std::string& str, const std::string& suffi
 }
 
 std::string LanguageDetector::detect(const std::vector<std::string>& files) {
+    bool hasC = false;
+    bool hasCpp = false;
+    bool hasJava = false;
+    bool hasPython = false;
 
     for (const auto& f : files) {
 
-        if (endsWith(f, ".cpp") || endsWith(f, ".cc") || endsWith(f, ".c")) {
-            return "cpp";
+        if (endsWith(f, ".c")) {
+            hasC = true;
+        }
+
+        if (endsWith(f, ".cpp") || endsWith(f, ".cc")) {
+            hasCpp = true;
         }
 
         if (endsWith(f, ".java")) {
-            return "java";
+             hasJava = true;
         }
 
         if (endsWith(f, ".py")) {
-            return "python";
+            hasPython = true;
         }
     }
 
-    return "general";
+    if (hasJava && !hasCpp) return "java";
+    if (hasC) return "c";
+    if (hasCpp) return "cpp";
+    if (hasPython) return "python";
+
+    return "unknown";
 }

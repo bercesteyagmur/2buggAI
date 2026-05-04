@@ -43,6 +43,10 @@ int main(int argc, char** argv) {
         std::vector<std::string> files;
         std::vector<std::string> includeDirs;
 
+        //to detect sp
+        bool isMaven = fs::exists(targetPath + "/pom.xml");
+        bool isGradle = fs::exists(targetPath + "/build.gradle");
+
         //  FILE COLLECT
         if (fs::is_directory(targetPath)) {
             // Ordner
@@ -145,10 +149,17 @@ int main(int argc, char** argv) {
 
 
         if (!files.empty()) {
+            LanguageDetector detectorForCompile;
+            std::string detectedLanguage = detectorForCompile.detect(files);
+
+            if (detectedLanguage == "java") {
+                program = compiler.compileJava(files);
+            } else {
             if (files.size() > 1) {
                 program = compiler.compileMultiple(files, includeDirs);
             } else {
                 program = compiler.compileIfNeeded(files[0]);
+            }
             }
             canRunProgram = !program.empty();
         }

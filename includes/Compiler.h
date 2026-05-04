@@ -7,6 +7,8 @@
 
 #include <vector>
 #include <string>
+#include <fstream>
+#include <sstream>
 
 class Compiler {
 
@@ -19,6 +21,8 @@ public:
     std::string compileMultiple(const std::vector<std::string>& sources,const std::vector<std::string>& includeDirs);
 
     const std::string& getLastCompileOutput() const;
+
+    std::string compileJava(const std::vector<std::string>& sources);
 };
 
 #endif //INC_2_BUGGY_AI_COMPILER_H

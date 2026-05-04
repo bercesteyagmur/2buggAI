@@ -1,85 +1,69 @@
 # FORMAT:
-# name | detection_type | keywords
+#  language | name | detection_type | keywords
 
 # ---------------- GENERAL ----------------
-syntax_error | detect_from_output | syntax error, expected ';', unexpected token
-typo_variable | ai_presume | -
-undeclared_variable | detect_from_output | not declared
-wrong_data_type | detect_from_output | type mismatch, cannot convert
-assignment_vs_comparison | ai_presume | -
-off_by_one | ai_presume | -
-infinite_loop | ai_presume | -
-out_of_bounds_access | detect_from_output | out of bounds, index out of range
-null_reference | detect_from_output | null, NoneType
-wrong_indentation | detect_from_output | indentation error
-logic_error | ai_presume | -
-operator_precedence | ai_presume | -
-invalid_input | ai_presume | -
-file_not_closed | ai_presume | -
-missing_error_handling | ai_presume | -
-scope_issue | ai_presume | -
-naming_conflict | ai_presume | -
-integer_division | ai_presume | -
-float_precision | ai_presume | -
+general | syntax_error | detect_from_output | syntax error, expected ';', unexpected token
+general | typo_variable | ai_presume | -
+general | undeclared_variable | detect_from_output | not declared
+general | wrong_data_type | detect_from_output | type mismatch, cannot convert
+general | assignment_vs_comparison | ai_presume | -
+general | off_by_one | ai_presume | -
+general | infinite_loop | ai_presume | -
+general | out_of_bounds_access | detect_from_output | out of bounds, index out of range
+general | null_reference | detect_from_output | null, NoneType
+general | wrong_indentation | detect_from_output | indentation error
+general | logic_error | ai_presume | -
+general | operator_precedence | ai_presume | -
+general | invalid_input | ai_presume | -
+general | file_not_closed | ai_presume | -
+general | missing_error_handling | ai_presume | -
+general | scope_issue | ai_presume | -
+general | naming_conflict | ai_presume | -
+general | integer_division | ai_presume | -
+general | float_precision | ai_presume | -
 
 # ---------------- JAVA ----------------
-null_pointer_exception | detect_from_output | NullPointerException
-array_index_out_of_bounds | detect_from_output | ArrayIndexOutOfBoundsException
-class_cast_exception | detect_from_output | ClassCastException
-number_format_exception | detect_from_output | NumberFormatException
-string_index_out_of_bounds | detect_from_output | StringIndexOutOfBoundsException
-missing_main_method | detect_from_output | main method not found
-class_name_mismatch | detect_from_output | class name does not match file name
-missing_semicolon_java | detect_from_output | ';' expected
-string_equals_issue | ai_presume | -
-private_access | detect_from_output | has private access
-missing_break_switch | ai_presume | -
-unhandled_exception | detect_from_output | exception must be caught
-missing_import | detect_from_output | cannot find symbol
-static_misuse | ai_presume | -
-object_not_initialized | detect_from_output | not initialized
+java | null_pointer_exception | detect_from_output | NullPointerException
+java | array_index_out_of_bounds | detect_from_output | ArrayIndexOutOfBoundsException
+java | class_cast_exception | detect_from_output | ClassCastException
+java | number_format_exception | detect_from_output | NumberFormatException
+java | string_index_out_of_bounds | detect_from_output | StringIndexOutOfBoundsException
+java | missing_main_method | detect_from_output | main method not found
+java | class_name_mismatch | detect_from_output | class name does not match file name
+java | missing_semicolon_java | detect_from_output | ';' expected
+java | string_equals_issue | ai_presume | -
+java | private_access | detect_from_output | has private access
+java | missing_break_switch | ai_presume | -
+java | unhandled_exception | detect_from_output | exception must be caught
+java | missing_import | detect_from_output | cannot find symbol
+java | static_misuse | ai_presume | -
+java | object_not_initialized | detect_from_output | not initialized
 
-# ---------------- C / C++ ----------------
-wrong_function_call | detect_from_output | no matching function
-missing_include_cpp | detect_from_output | not declared in this scope
-segmentation_fault | detect_from_output | segmentation fault
-invalid_memory_access | detect_from_output | invalid memory access
-uninitialized_pointer | ai_presume | -
-memory_leak | ai_presume | -
-double_free | detect_from_output | double free
-buffer_overflow | detect_from_output | buffer overflow
-array_out_of_bounds_cpp | detect_from_output | out of bounds
-missing_include | detect_from_output | not declared, undefined reference
-missing_semicolon_cpp | detect_from_output | expected ';'
-assignment_vs_comparison_cpp | ai_presume | -
-dangling_pointer | ai_presume | -
-use_after_free | detect_from_output | use after free
-malloc_new_mismatch | ai_presume | -
-missing_header_guards | ai_presume | -
-undefined_behavior | ai_presume | -
-missing_return | detect_from_output | control reaches end of non-void function
-object_slicing | ai_presume | -
-missing_virtual_destructor | ai_presume | -
-linker_error | detect_from_output | undefined reference
-fatal_include_error | detect_from_output | no such file or directory
+# ---------------- C ----------------
+c | implicit_declaration | detect_from_output | implicit declaration
+c | missing_include_c | detect_from_output | undeclared
+c | segmentation_fault | detect_from_output | segmentation fault
+
+# ---------------- C++ ----------------
+cpp | wrong_function_call | detect_from_output | no matching function
+cpp | missing_include_cpp | detect_from_output | not declared in this scope
+cpp | segmentation_fault | detect_from_output | segmentation fault
+cpp | invalid_memory_access | detect_from_output | invalid memory access
+cpp | double_free | detect_from_output | double free
+cpp | buffer_overflow | detect_from_output | buffer overflow
+cpp | missing_include | detect_from_output | undefined reference
+cpp | missing_semicolon_cpp | detect_from_output | expected ';'
+cpp | linker_error | detect_from_output | undefined reference
+cpp | fatal_include_error | detect_from_output | no such file or directory
 
 # ---------------- PYTHON ----------------
-syntax_error_python | detect_from_output | SyntaxError
-indentation_error | detect_from_output | IndentationError
-name_error | detect_from_output | NameError
-type_error | detect_from_output | TypeError
-value_error | detect_from_output | ValueError
-index_error | detect_from_output | IndexError
-key_error | detect_from_output | KeyError
-attribute_error | detect_from_output | AttributeError
-import_error | detect_from_output | ImportError, ModuleNotFoundError
-zero_division | detect_from_output | ZeroDivisionError
-none_type_error | detect_from_output | NoneType
-wrong_indentation_python | detect_from_output | indentation error
-missing_colon | detect_from_output | expected ':'
-used_before_assignment | detect_from_output | referenced before assignment
-mutable_default_argument | ai_presume | -
-is_vs_equals | ai_presume | -
-list_modified_during_iteration | ai_presume | -
-wrong_module_name | detect_from_output | module not found
-local_global_confusion | ai_presume | -
+python | syntax_error_python | detect_from_output | SyntaxError
+python | indentation_error | detect_from_output | IndentationError
+python | name_error | detect_from_output | NameError
+python | type_error | detect_from_output | TypeError
+python | value_error | detect_from_output | ValueError
+python | index_error | detect_from_output | IndexError
+python | key_error | detect_from_output | KeyError
+python | attribute_error | detect_from_output | AttributeError
+python | import_error | detect_from_output | ImportError, ModuleNotFoundError
+python | zero_division | detect_from_output | ZeroDivisionError

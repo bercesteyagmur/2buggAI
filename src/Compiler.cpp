@@ -100,3 +100,95 @@ std::string Compiler::compileMultiple(
 const std::string& Compiler::getLastCompileOutput() const {
     return lastCompileOutput;
 }
+
+
+
+std::string Compiler::compileJava(const std::vector<std::string>& sources) {
+    namespace fs = std::filesystem;
+
+    if (sources.empty()) {
+        return "";
+    }
+
+    std::string outDir = "/tmp/buggy_java_classes_" + std::to_string(getpid());
+    fs::create_directories(outDir);
+
+    std::string cmd = "javac -g -d " + ShellQuote::quote(outDir);
+
+    for (const auto& src : sources) {
+        std::string ext = fs::path(src).extension().string();
+
+        if (ext == ".java") {
+            cmd += " " + ShellQuote::quote(src);
+        }
+    }
+
+    cmd += " 2>&1";
+
+    RunResult res = run_capture(cmd);
+    lastCompileOutput = res.output;
+
+    if (res.exit_code != 0) {
+        std::cout << "Java compilation failed, continuing with error analysis...\n";
+        return "";
+    }
+
+    // find the Java file that contains main()
+    std::string mainClass;
+
+    for (const auto& src : sources) {
+        std::string ext = fs::path(src).extension().string();
+
+        if (ext != ".java") {
+            continue;
+        }
+
+        std::ifstream file(src);
+        if (!file) {
+            continue;
+        }
+
+        std::stringstream buffer;
+        buffer << file.rdbuf();
+        std::string content = buffer.str();
+
+        if (content.find("public static void main") != std::string::npos) {
+            mainClass = fs::path(src).stem().string();
+
+            // package detection
+            std::string keyword = "package ";
+            size_t packagePos = content.find(keyword);
+
+            if (packagePos != std::string::npos) {
+                size_t start = packagePos + keyword.size();
+                size_t end = content.find(";", start);
+
+                if (end != std::string::npos) {
+                    std::string packageName = content.substr(start, end - start);
+                    mainClass = packageName + "." + mainClass;
+                }
+            }
+
+            break;
+        }
+    }
+
+    if (mainClass.empty()) {
+        std::cout << "Java compilation succeeded, but no main method was found.\n";
+        return "";
+    }
+
+    // Create small executable script:
+    // /tmp/buggy_java_run_PID
+    std::string runScript = "/tmp/buggy_java_run_" + std::to_string(getpid());
+
+    std::ofstream script(runScript);
+
+    script << "#!/bin/sh\n";
+    script << "java -cp " << ShellQuote::quote(outDir) << " " << mainClass << " \"$@\"\n";
+    script.close();
+
+    fs::permissions(runScript,fs::perms::owner_exec | fs::perms::owner_read | fs::perms::owner_write,fs::perm_options::add);
+
+    return runScript;
+}

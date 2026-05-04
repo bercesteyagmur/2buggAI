@@ -37,7 +37,7 @@ std::vector<std::string> ErrorMatcher::match(const std::string& error_output, co
 
     for (const auto& errorCategory  : checklist) {
 
-        if (errorCategory.language != "general" && errorCategory.language != language) {
+        if (!errorCategory.language.empty() && errorCategory.language != "general" && errorCategory.language != language) {
             continue;
         }
 
