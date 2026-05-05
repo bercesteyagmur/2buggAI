@@ -19,6 +19,7 @@
 #include "ChecklistReader.h"
 #include "ErrorMatcher.h"
 #include "LanguageDetector.h"
+#include "CodeChanger.h"
 
 int main(int argc, char** argv) {
     try {
@@ -265,6 +266,58 @@ int main(int argc, char** argv) {
         }
 
         std::cout << "=====================================\n\n";
+
+        // Fix Loop
+    if (!detectedErrors.empty()) {
+
+    OpenAIClient fixClient;
+    std::string checkListRaw = reader.loadRaw(); // einmal laden, nicht bei jedem Fehler
+
+    const int MAX_ITER = 5;
+
+    for (size_t i = 0; i < detectedErrors.size(); ++i) {
+
+        int iteration = 0;
+        bool fixed = false;
+
+        while (iteration < MAX_ITER) {
+
+            std::cout << "Versuch " << (iteration + 1) << "/" << MAX_ITER
+                      << " fuer Fehler: " << detectedErrors[i] << "\n";
+
+            FixRequest fix_req;
+            fix_req.error_name   = detectedErrors[i];
+            fix_req.error_output = error_output;
+            fix_req.language     = language;
+            fix_req.source_code  = sourceCode;
+            fix_req.checklist    = checkListRaw;
+
+            FixResult fix_res = fixClient.fix_code(fix_req);
+
+            if (fix_res.success) {
+                sourceCode = fix_res.fixed_code;
+
+                CodeChanger changer;
+                changer.apply_fix(fix_res);
+
+
+                for (const auto& newErr : fix_res.new_errors) {
+                    detectedErrors.push_back(newErr);
+                }
+
+                fixed = true;
+                break;
+            }
+
+            iteration++;
+        }
+
+        if (!fixed) {
+            std::cerr << "Fehler konnte nicht behoben werden: " << detectedErrors[i] << "\n";
+        }
+    }
+}
+
 
         // Report JSON bauen
         std::string report = make_report_json(

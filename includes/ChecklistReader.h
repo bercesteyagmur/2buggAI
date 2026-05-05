@@ -20,6 +20,7 @@ class ChecklistReader {
 public:
     std::vector<ErrorCategory> load();
     std::string trim(const std::string& s);
+    std::string loadRaw();
 };
 
 #endif //INC_2_BUGGY_AI_CHECKLISTREADER_H

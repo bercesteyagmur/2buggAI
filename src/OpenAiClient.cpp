@@ -138,3 +138,95 @@ OpenAIResult OpenAIClient::debug_report(const std::string& report_json) const {
     }
     return out;
 }
+
+FixResult OpenAIClient::fix_code(const FixRequest& req) const {
+    FixResult result;
+    
+    // 1. Prompt bauen
+    json fix_req;
+    fix_req["model"] = model_;
+    fix_req["instructions"] =
+        "Du bist ein Senior Debugger. Analysiere den Fehler und den Code. "
+        "Antworte NUR mit einem JSON Objekt, kein Text davor oder danach:\n"
+        "{\n"
+        "  \"file_path\": \"...Pfad zur gefixten Datei...\",\n"
+        "  \"fixed_code\": \"...nur der Inhalt dieser einen Datei...\",\n"
+        "  \"new_errors\": [\"fehler1\", \"fehler2\"],\n"
+        "  \"success\": true,\n"
+        "  \"is_confident\": true\n"
+        "}\n"
+        "new_errors soll nur Fehler enthalten die in der Checkliste stehen. "
+        "Antworte auf Deutsch.";
+
+    fix_req["input"] = {
+        {"error_name",   req.error_name},
+        {"error_output", req.error_output},
+        {"language",     req.language},
+        {"source_code",  req.source_code},
+        {"checklist",    req.checklist}
+    };
+    fix_req["max_output_tokens"] = 4000;
+    
+    // 2. HTTP Request schicken (gleiche curl Logik wie debug_report)
+
+    const std::string url = base_url_ + "/v1/responses";
+    const std::string payload = fix_req.dump();
+
+    CURL* curl = curl_easy_init();
+    if (!curl) throw std::runtime_error("curl_easy_init failed");
+
+    std::string resp_body;
+    struct curl_slist* headers = nullptr;
+
+    const std::string auth = "Authorization: Bearer " + api_key_;
+    headers = curl_slist_append(headers, auth.c_str());
+    headers = curl_slist_append(headers, "Content-Type: application/json");
+
+    curl_easy_setopt(curl, CURLOPT_URL,           url.c_str());
+    curl_easy_setopt(curl, CURLOPT_HTTPHEADER,    headers);
+    curl_easy_setopt(curl, CURLOPT_POST,          1L);
+    curl_easy_setopt(curl, CURLOPT_POSTFIELDS,    payload.c_str());
+    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_cb);
+    curl_easy_setopt(curl, CURLOPT_WRITEDATA,     &resp_body);
+    curl_easy_setopt(curl, CURLOPT_TIMEOUT,       60L);
+
+    CURLcode code = curl_easy_perform(curl);
+    long http_status = 0;
+    curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_status);
+    curl_slist_free_all(headers);
+    curl_easy_cleanup(curl);
+
+    if (code != CURLE_OK)
+        throw std::runtime_error(std::string("curl error: ") + curl_easy_strerror(code));
+
+    
+    // 3. Antwort parsen → FixResult befüllen
+
+    json parsed = json::parse(resp_body, nullptr, false);
+    if (parsed.is_discarded()) return result; // leeres FixResult bei ungültigem JSON
+    
+    // Text aus API Antwort extrahieren (gleich wie debug_report)
+    std::string text = extract_text_best_effort(parsed);
+
+    // Text nochmal als JSON parsen
+    json fix_result = json::parse(text, nullptr, false);
+    if (fix_result.is_discarded()) return result;
+
+    if (fix_result.contains("fixed_code"))
+        result.fixed_code = fix_result["fixed_code"].get<std::string>();
+
+    if (fix_result.contains("new_errors") && fix_result["new_errors"].is_array())
+        for (const auto& e : fix_result["new_errors"])
+            result.new_errors.push_back(e.get<std::string>());
+
+    if (fix_result.contains("success"))
+        result.success = fix_result["success"].get<bool>();
+
+    if (fix_result.contains("is_confident"))
+        result.is_confident = fix_result["is_confident"].get<bool>();
+
+    if (fix_result.contains("file_path"))
+        result.file_path = fix_result["file_path"].get<std::string>();
+
+    return result;
+}

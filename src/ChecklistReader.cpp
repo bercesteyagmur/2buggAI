@@ -101,3 +101,16 @@ std::string ChecklistReader::trim(const std::string& s) {
 
     return s.substr(start, end - start);
 }
+
+// Reads the entire checklist file as a raw string (including comments and formatting).
+std::string ChecklistReader::loadRaw() {
+    std::ifstream file("errorchecklist.txt");
+
+    if (!file.is_open()) {
+        throw std::runtime_error("Failed to open checklist file: errorchecklist.txt");
+    }
+
+    std::stringstream buffer;
+    buffer << file.rdbuf();
+    return buffer.str();
+}
