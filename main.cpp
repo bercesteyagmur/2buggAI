@@ -24,6 +24,9 @@
 #include "JavaProjectDetector.h"
 #include "JavaProjectType.h"
 
+#include "JdbRunner.h"
+#include "PdbRunner.h"
+
 int main(int argc, char** argv) {
     try {
         ArgumentParser parser;
@@ -145,16 +148,18 @@ int main(int argc, char** argv) {
         // Nur kompilieren/ausführen, wenn targetPath eine Datei ist
         std::string program;
         bool canRunProgram = false;
-        
+        std::string detectedLanguage = "unknown";
+
         if (!files.empty()) {
             LanguageDetector detectorForCompile;
-            std::string detectedLanguage = detectorForCompile.detect(files);
+            detectedLanguage = detectorForCompile.detect(files);
 
             if (detectedLanguage == "python") {
                 std::cout << "Detected Python project\n";
+                //In Python projects, there is no explicit compilation step.
 
                 std::string entryFile;
-
+                // If the project contains multiple Python files, we first look for common entry point names such as main.py, app.py, or run.py
                 // 1. Common file names
                 std::vector<std::string> preferredNames = {
                     "main.py",
@@ -176,6 +181,8 @@ int main(int argc, char** argv) {
                         break;
                     }
                 }
+
+                //If none of these files exists, we scan all Python files for the standard if __name__ == "__main__": block. This is the conventional way in Python to mark the executable entry point of a script
                 // 2. Search for __main__
                 if (entryFile.empty()) {
                     for (const auto& file : files) {
@@ -190,7 +197,9 @@ int main(int argc, char** argv) {
                             }
                     }
                 }
-
+                // If the project contains multiple Python files, only one entry file is executed.
+                // If this file imports other modules, Python automatically loads and uses them.
+                // As a fallback, when no clear entry point can be detected, we run the first Python file.
                 if (entryFile.empty()) {
                     entryFile = files[0];
                 }
@@ -252,13 +261,30 @@ int main(int argc, char** argv) {
         ValgrindResult* vgPtr = nullptr;
         RunResult* runPtr = nullptr;
 
+        // For C/C++ we use GDB.
+        // For Java we use JDB (Java Debugger).
+        // For Python we use PDB (Python Debugger).
+        // The command line option remains the same (-g), but internally we choose
+        // the appropriate debugger depending on the detected programming language.
         if (canRunProgram && parser.isGdbUsed()) {
             std::cout << "╔════════════════════════════════════════╗\n";
-            std::cout << "║           GDB WIRD AUSGEFÜHRT          ║\n";
+            std::cout << "║            DEBUGGER IS RUNNING         ║\n";
             std::cout << "╚════════════════════════════════════════╝\n\n";
-            gdbRes = run_gdb(program, passArgs);
+
+            if (detectedLanguage == "java") {
+                gdbRes = run_jdb(program);
+            }
+            else if (detectedLanguage == "python") {
+                gdbRes = run_pdb(program);
+            }
+            else {
+                // Default: use GDB for C and C++
+                gdbRes = run_gdb(program, passArgs);
+            }
+
             gdbPtr = &gdbRes;
-            std::cout << "GDB Beendet mit Exit-Code: " << gdbRes.exit_code << "\n\n";
+            std::cout << "Debugger finished with Exit-Code: " << gdbRes.exit_code << "\n\n";
+
         }
 
         if (canRunProgram && parser.isValgrindUsed()) {
