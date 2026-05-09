@@ -67,3 +67,8 @@ python | key_error | detect_from_output | KeyError
 python | attribute_error | detect_from_output | AttributeError
 python | import_error | detect_from_output | ImportError, ModuleNotFoundError
 python | zero_division | detect_from_output | ZeroDivisionError
+python | file_not_found | detect_from_output | FileNotFoundError
+python | recursion_error | detect_from_output | RecursionError
+python | assertion_error | detect_from_output | AssertionError
+python | permission_error | detect_from_output | PermissionError
+python | unicode_error | detect_from_output | UnicodeDecodeError, UnicodeEncodeError

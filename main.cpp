@@ -145,14 +145,60 @@ int main(int argc, char** argv) {
         // Nur kompilieren/ausführen, wenn targetPath eine Datei ist
         std::string program;
         bool canRunProgram = false;
-
-
-
+        
         if (!files.empty()) {
             LanguageDetector detectorForCompile;
             std::string detectedLanguage = detectorForCompile.detect(files);
 
-            if (detectedLanguage == "java") {
+            if (detectedLanguage == "python") {
+                std::cout << "Detected Python project\n";
+
+                std::string entryFile;
+
+                // 1. Common file names
+                std::vector<std::string> preferredNames = {
+                    "main.py",
+                    "app.py",
+                    "run.py",
+                    "manage.py",
+                    "server.py",
+                    "cli.py"
+                };
+
+                for (const auto& preferred : preferredNames) {
+                    for (const auto& file : files) {
+                        if (std::filesystem::path(file).filename() == preferred) {
+                            entryFile = file;
+                            break;
+                        }
+                    }
+                    if (!entryFile.empty()) {
+                        break;
+                    }
+                }
+                // 2. Search for __main__
+                if (entryFile.empty()) {
+                    for (const auto& file : files) {
+                        std::ifstream in(file);
+                        std::stringstream buffer;
+                        buffer << in.rdbuf();
+                        std::string content = buffer.str();
+
+                        if (content.find("__name__ == \"__main__\"") != std::string::npos || content.find("__name__ == '__main__'") != std::string::npos) {
+                            entryFile = file;
+                            break;
+                            }
+                    }
+                }
+
+                if (entryFile.empty()) {
+                    entryFile = files[0];
+                }
+
+                program = "python" + ShellQuote::quote(entryFile);
+            }
+
+            else if (detectedLanguage == "java") {
                 JavaProjectDetector javaProjectDetector;
                 JavaProjectType type = javaProjectDetector.detect(targetPath);
 
