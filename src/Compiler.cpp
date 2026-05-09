@@ -192,3 +192,72 @@ std::string Compiler::compileJava(const std::vector<std::string>& sources) {
 
     return runScript;
 }
+
+std::string Compiler::compileMaven(const std::string& projectPath) {
+    std::string cmd =
+        "cd " + ShellQuote::quote(projectPath) +
+        " && mvn clean package -q 2>&1";
+
+    RunResult res = run_capture(cmd);
+    lastCompileOutput = res.output;
+
+    if (res.exit_code != 0) {
+        std::cout << "Maven build failed, continuing with error analysis...\n";
+        return "";
+    }
+
+    std::string findJarCmd =
+        "ls " + ShellQuote::quote(projectPath + "/target") +
+        "/*.jar 2>/dev/null | head -n 1";
+
+    RunResult jarRes = run_capture(findJarCmd);
+
+    std::string jarPath = jarRes.output;
+
+    jarPath.erase(
+        std::remove(jarPath.begin(), jarPath.end(), '\n'),
+        jarPath.end()
+    );
+
+    if (jarPath.empty()) {
+        std::cout << "Maven build succeeded, but no JAR file was found.\n";
+        return "";
+    }
+
+    return jarPath;
+}
+
+std::string Compiler::compileGradle(const std::string& projectPath) {
+    std::string cmd =
+        "cd " + ShellQuote::quote(projectPath) +
+        " && ./gradlew build -q 2>&1";
+
+    RunResult res = run_capture(cmd);
+    lastCompileOutput = res.output;
+
+    if (res.exit_code != 0) {
+        std::cout << "Gradle build failed, continuing with error analysis...\n";
+        return "";
+    }
+
+    std::string findJarCmd =
+        "ls " + ShellQuote::quote(projectPath + "/build/libs") +
+        "/*.jar 2>/dev/null | head -n 1";
+
+    RunResult jarRes = run_capture(findJarCmd);
+
+    std::string jarPath = jarRes.output;
+
+    jarPath.erase(
+        std::remove(jarPath.begin(), jarPath.end(), '\n'),
+        jarPath.end()
+    );
+
+    if (jarPath.empty()) {
+        std::cout << "Gradle build succeeded, but no JAR file was found.\n";
+        return "";
+    }
+
+    return jarPath;
+}
+

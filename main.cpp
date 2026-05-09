@@ -21,6 +21,9 @@
 #include "LanguageDetector.h"
 #include "CodeChanger.h"
 
+#include "JavaProjectDetector.h"
+#include "JavaProjectType.h"
+
 int main(int argc, char** argv) {
     try {
         ArgumentParser parser;
@@ -43,10 +46,6 @@ int main(int argc, char** argv) {
 
         std::vector<std::string> files;
         std::vector<std::string> includeDirs;
-
-        //to detect sp
-        bool isMaven = fs::exists(targetPath + "/pom.xml");
-        bool isGradle = fs::exists(targetPath + "/build.gradle");
 
         //  FILE COLLECT
         if (fs::is_directory(targetPath)) {
@@ -154,7 +153,41 @@ int main(int argc, char** argv) {
             std::string detectedLanguage = detectorForCompile.detect(files);
 
             if (detectedLanguage == "java") {
-                program = compiler.compileJava(files);
+                JavaProjectDetector javaProjectDetector;
+                JavaProjectType type = javaProjectDetector.detect(targetPath);
+
+                switch (type) {
+                    case JavaProjectType::PlainJava:
+                        std::cout << "Detected Plain Java project\n";
+                        program = compiler.compileJava(files);
+                        break;
+
+                    case JavaProjectType::Maven:
+                        std::cout << "Detected Maven Java project\n";
+                        program = compiler.compileMaven(targetPath);
+                        break;
+
+                    case JavaProjectType::SpringBootMaven:
+                        std::cout << "Detected Spring Boot Maven project\n";
+                        program = compiler.compileMaven(targetPath);
+                        break;
+
+                    case JavaProjectType::Gradle:
+                        std::cout << "Detected Gradle Java project\n";
+                        program = compiler.compileGradle(targetPath);
+                        break;
+
+                    case JavaProjectType::SpringBootGradle:
+                        std::cout << "Detected Spring Boot Gradle project\n";
+                        program = compiler.compileGradle(targetPath);
+                        break;
+
+                    default:
+                        std::cout << "Unknown Java project type, using plain javac\n";
+                        program = compiler.compileJava(files);
+                        break;
+                }
+
             } else {
             if (files.size() > 1) {
                 program = compiler.compileMultiple(files, includeDirs);
@@ -333,16 +366,16 @@ int main(int argc, char** argv) {
             sourceCode
         );
 
-        // Optional: JSON in Datei schreiben 
+        // Optional: JSON in Datei schreiben
         if (!parser.getJsonOutFile().empty()) {
             try {
                 nlohmann::json final_json = nlohmann::json::parse(report);
-        
+
                 // Erweitere mit Error Detection Info
                 final_json["detected_errors"] = detectedErrors;
                 final_json["language"] = language;
                 final_json["compile_output"] = compiler.getLastCompileOutput();
-        
+
             std::ofstream out(parser.getJsonOutFile());
             out << final_json.dump(2);
             std::cout << "JSON Report gespeichert: " << parser.getJsonOutFile() << "\n\n";
@@ -374,7 +407,7 @@ int main(int argc, char** argv) {
                     final_json["language"] = language;
                     final_json["compile_output"] = compiler.getLastCompileOutput();
                     final_json["ai_analysis"] = r.text;  // Markdown-Text vom AI
-            
+
                     std::ofstream out(parser.getJsonOutFile());
                     out << final_json.dump(2);
                     std::cout << "Final JSON Report aktualisiert: " << parser.getJsonOutFile() << "\n";

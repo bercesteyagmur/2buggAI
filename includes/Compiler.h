@@ -9,6 +9,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <algorithm>
 
 class Compiler {
 
@@ -23,6 +24,10 @@ public:
     const std::string& getLastCompileOutput() const;
 
     std::string compileJava(const std::vector<std::string>& sources);
+
+    std::string compileMaven(const std::string& projectPath);
+    std::string compileGradle(const std::string& projectPath);
+
 };
 
 #endif //INC_2_BUGGY_AI_COMPILER_H
