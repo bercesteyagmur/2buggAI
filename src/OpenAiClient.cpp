@@ -66,33 +66,42 @@ OpenAIResult OpenAIClient::debug_report(const std::string& report_json) const {
     json req;
     req["model"] = model_;
     req["instructions"] =
-        "Du bist ein Senior Debugger. Analysiere das JSON (GDB/Valgrind/Detected Errors). "
-        "Strukturiere deine Antwort in Markdown mit folgenden Abschnitten:\n\n"
-        "## Zusammenfassung\n"
-        "Eine kurze Zusammenfassung des Hauptproblems (max 2 Sätze).\n\n"
+        "You are a Senior Debugger. Analyze the JSON (debugger output, runtime errors, "
+        "Valgrind output if available, detected errors). "
+        "Structure your response in Markdown with the following sections:\n\n"
+        "## Summary\n"
+        "A brief summary of the main issue (max 2 sentences).\n\n"
         "## Severity\n"
-        "critical, high, medium, oder low\n\n"
+        "critical, high, medium, or low\n\n"
         "## Bugs\n"
-        "Für jeden Bug:\n\n"
-        "### Bug N: [Titel]\n"
-        "- **Datei:** Pfad/zur/Datei.cpp:Zeile\n"
-        "- **Kategorie:** memory_leak / null_pointer / race_condition / buffer_overflow / resource_leak / other\n"
-        "- **Problem:** Was ist das Problem (kurze Beschreibung)\n\n"
-        "**Fehlerhafter Code:**\n"
-        "```cpp\n"
-        "// Original buggy code\n"
+        "For each bug:\n\n"
+        "### Bug N: [Title]\n"
+        "- **File:** path/to/file.ext:line\n"
+        "- **Category:** Choose the most specific category name "
+        "(e.g., memory_leak, null_pointer, uninitialized_variable, "
+        "off_by_one, integer_overflow, etc.). Use snake_case.\n"
+        "- **Problem:** What is the problem (brief description)\n\n"
+        "**Buggy code:**\n"
+        "```\n"
+        "// Original buggy code — use the language of the analyzed file "
+        "(c, cpp, java, python)\n"
         "```\n\n"
-        "**Gefixter Code:**\n"
-        "```cpp\n"
-        "// Corrected code\n"
+        "**Fixed code:**\n"
+        "```\n"
+        "// Corrected code in the same language\n"
         "```\n\n"
-        "**Erklärung:** Kurze Erklärung warum der Fix funktioniert.\n\n"
-        "## Empfehlungen\n"
-        "Allgemeine Empfehlungen als nummerierte Liste.\n\n"
-        "Antwort auf Deutsch.";
+        "**Explanation:** Brief explanation of why the fix works.\n\n"
+        "## Recommendations (only if needed)\n"
+        "OMIT THIS SECTION ENTIRELY unless there is at least one concrete, "
+        "non-trivial systemic recommendation (tooling, build flags, testing "
+        "strategy, language-specific best practices). "
+        "Do NOT include generic advice like 'write tests' or 'use a linter'.\n\n"
+        "Respond in English.";
+
     req["input"] =
-        "Hier ist der Report als JSON:\n\n" + report_json +
-        "\n\nBitte analysieren und den Fehler erklären + Fix vorschlagen.";
+        "Here is the report as JSON:\n\n" + report_json +
+        "\n\nPlease analyze and explain the error, then propose a fix.";
+        
     req["max_output_tokens"] = 4000;
 
     const std::string url = base_url_ + "/v1/responses";
@@ -146,25 +155,36 @@ FixResult OpenAIClient::fix_code(const FixRequest& req) const {
     json fix_req;
     fix_req["model"] = model_;
     fix_req["instructions"] =
-        "Du bist ein Senior Debugger. Analysiere den Fehler und den Code. "
-        "Antworte NUR mit einem JSON Objekt, kein Text davor oder danach:\n"
+        "You are a Senior Debugger. Analyze the error and the code. "
+        "The source code may be in C, C++, Java, or Python — use the "
+        "appropriate syntax and idioms for the language indicated by the "
+        "'language' field and the source code itself.\n\n"
+        "Respond ONLY with a JSON object, no text before or after:\n"
         "{\n"
-        "  \"file_path\": \"...Pfad zur gefixten Datei...\",\n"
-        "  \"fixed_code\": \"...nur der Inhalt dieser einen Datei...\",\n"
-        "  \"new_errors\": [\"fehler1\", \"fehler2\"],\n"
+        "  \"file_path\": \"...path to the fixed file...\",\n"
+        "  \"fixed_code\": \"...only the content of this one file, in the original language...\",\n"
+        "  \"new_errors\": [\"error1\", \"error2\"],\n"
         "  \"success\": true,\n"
         "  \"is_confident\": true\n"
         "}\n"
-        "new_errors soll nur Fehler enthalten die in der Checkliste stehen. "
-        "Antworte auf Deutsch.";
+        "new_errors should only contain errors that are listed in the checklist. "
+        "Respond in English.";
 
-    fix_req["input"] = {
-        {"error_name",   req.error_name},
-        {"error_output", req.error_output},
-        {"language",     req.language},
-        {"source_code",  req.source_code},
-        {"checklist",    req.checklist}
-    };
+    std::string input_text =
+        "Error name: " + req.error_name + "\n\n"
+        "Language: " + req.language + "\n\n"
+        "Error output:\n" + req.error_output + "\n\n"
+        "Source code:\n" + req.source_code + "\n\n"
+        "Checklist:\n" + req.checklist + "\n\n"
+        "Please analyze and return ONLY the JSON object as specified.";
+
+    fix_req["input"] = json::array({
+        {
+            {"type", "message"},
+            {"role", "user"},
+            {"content", input_text}
+        }
+    });
     fix_req["max_output_tokens"] = 4000;
     
     // 2. HTTP Request schicken (gleiche curl Logik wie debug_report)

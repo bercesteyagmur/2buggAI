@@ -10,7 +10,8 @@ bool FileCollector::isSourceFile(const std::string& path) {
     std::string ext = std::filesystem::path(path).extension().string();
     return ext == ".c" || ext == ".cpp" || ext == ".cc"
         || ext == ".h" || ext == ".hpp"
-        || ext == ".java";
+        || ext == ".java"
+        || ext == ".py";
 }
 
 bool FileCollector::isBuildDirectory(const std::string& path) {

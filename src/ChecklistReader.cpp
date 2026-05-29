@@ -30,7 +30,7 @@ std::vector<ErrorCategory> ChecklistReader::load() {
         // line = where the read data is stored
 
         // Skip empty lines and comment lines
-        if (line.empty()) {
+        /* if (line.empty()) {
             continue;
         }
 
@@ -57,12 +57,22 @@ std::vector<ErrorCategory> ChecklistReader::load() {
         if (line.rfind("#", 0) == 0) {
             continue;
         }
+        */
+
+        if (line.empty()) {
+            continue;
+        }
+
+        if (line.rfind("#", 0) == 0) {
+            continue;
+        }
 
         // parse
         std::stringstream ss(line);
 
-        std::string name, type, keywords_str;
+        std::string language, name, type, keywords_str;
 
+        std::getline(ss, language, '|');
         std::getline(ss, name, '|');
         std::getline(ss, type, '|');
         std::getline(ss, keywords_str);
@@ -70,7 +80,7 @@ std::vector<ErrorCategory> ChecklistReader::load() {
         ErrorCategory error;
         error.name = trim(name);
         error.detection_type = trim(type);
-        error.language = current_language;
+        error.language = trim(language);
 
         // split keywords
         std::stringstream ks(keywords_str);
@@ -78,6 +88,8 @@ std::vector<ErrorCategory> ChecklistReader::load() {
 
         while (std::getline(ks, keyword, ',')) {
             keyword = trim(keyword);
+
+            if (keyword == "-" || keyword.empty()) continue;
 
             error.keywords.push_back(keyword);
         }
@@ -113,4 +125,22 @@ std::string ChecklistReader::loadRaw() {
     std::stringstream buffer;
     buffer << file.rdbuf();
     return buffer.str();
+}
+
+bool ChecklistReader::appendIfNew(const std::string& errorName, const std::vector<ErrorCategory>& existing) {         
+    //Check if name already exists
+    for (const auto& cat : existing) {
+        if (cat.name == errorName) {
+            return false;  // already there
+        }
+    }
+    // Append in 4 column format
+    std::ofstream file("errorchecklist.txt", std::ios::app);
+    if (!file.is_open()) {
+        return false;
+    }
+    
+    file << "\ngeneral | " << errorName << " | detect_from_output | " << errorName << "\n";
+    file.close();
+    return true;
 }

@@ -204,7 +204,7 @@ int main(int argc, char** argv) {
                     entryFile = files[0];
                 }
 
-                program = "python" + ShellQuote::quote(entryFile);
+                program = "python " + ShellQuote::quote(entryFile);
             }
 
             else if (detectedLanguage == "java") {
@@ -471,6 +471,32 @@ int main(int argc, char** argv) {
             std::cout << "\n===== DEBUG REPORT (OpenAI) =====\n";
             std::cout << (r.text.empty() ? r.raw_json : r.text) << "\n";
             std::cout << "=================================\n";
+
+            // Extract categories from AI response and add to checklist
+            std::istringstream iss(r.text);
+            std::string textLine;
+            const std::string marker = "**Category:**";
+
+            while (std::getline(iss, textLine)) {
+                size_t pos = textLine.find(marker);
+                if (pos == std::string::npos) continue;
+
+                // Take everything after Category
+                std::string category = textLine.substr(pos + marker.size());
+
+                // The line might contain multiple categories separated by "/"
+                //take only the first one
+                size_t slash = category.find('/');
+                if (slash != std::string::npos) category = category.substr(0, slash);
+
+                    category = reader.trim(category);
+
+                if (category.empty() || category == "other") continue;
+
+                if (reader.appendIfNew(category, checklist)) {
+                std::cout << "New Checklist Entry: " << category << "\n";
+                }
+            }
 
             if (!parser.getJsonOutFile().empty()) {
                 try {
