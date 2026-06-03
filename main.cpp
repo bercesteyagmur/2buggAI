@@ -379,6 +379,7 @@ int main(int argc, char** argv) {
     std::string checkListRaw = reader.loadRaw(); // einmal laden, nicht bei jedem Fehler
 
     const int MAX_ITER = 5;
+    const int MAX_TOTAL_ERRORS = 20; // um endlose Fehler-Explosion zu verhindern
 
     for (size_t i = 0; i < detectedErrors.size(); ++i) {
 
@@ -405,9 +406,13 @@ int main(int argc, char** argv) {
                 CodeChanger changer;
                 changer.apply_fix(fix_res);
 
-
+                size_t insertPos = i + 1;
                 for (const auto& newErr : fix_res.new_errors) {
-                    detectedErrors.push_back(newErr);
+                    if(detectedErrors.size() < MAX_TOTAL_ERRORS) {
+                        detectedErrors.insert(detectedErrors.begin() + insertPos, newErr);
+                        error_output += "\n" + newErr; 
+                        insertPos++;
+                    }
                 }
 
                 fixed = true;
