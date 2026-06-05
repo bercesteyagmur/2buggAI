@@ -26,6 +26,8 @@
 
 #include "JdbRunner.h"
 #include "PdbRunner.h"
+#include "DependencyManager.h"
+#include "EnvironmentManager.h"
 
 int main(int argc, char** argv) {
     try {
@@ -143,20 +145,55 @@ int main(int argc, char** argv) {
             std::cout << "Gesammelter Quellcode: " << sourceCode.size() << " bytes\n\n";
         }
 
-        const auto& passArgs = parser.getPassthroughArgs();
+        std::vector<std::string> passArgs = parser.getPassthroughArgs();
 
         // Nur kompilieren/ausführen, wenn targetPath eine Datei ist
         std::string program;
         bool canRunProgram = false;
         std::string detectedLanguage = "unknown";
+        std::string cmd;
 
         if (!files.empty()) {
             LanguageDetector detectorForCompile;
             detectedLanguage = detectorForCompile.detect(files);
 
             if (detectedLanguage == "python") {
+
+                EnvironmentManager::ensurePipInstalled();
+
+                if (!EnvironmentManager::createVirtualEnv(targetPath)) {
+
+                    std::cerr << "Failed to create virtual environment\n";
+
+                    return 1;
+                }
+
                 std::cout << "Detected Python project\n";
-                //In Python projects, there is no explicit compilation step.
+
+                // install requirements immediately
+                RunResult installRes = EnvironmentManager::installRequirements(targetPath);
+
+                if (installRes.exit_code != 0) {
+
+                    std::cerr << "Failed to install requirements\n";
+                    std::cerr << installRes.output<< "\n";
+
+                    bool repaired =DependencyManager::removeBrokenRequirement(targetPath,installRes.output);
+
+                    if (repaired) {
+                        std::cout << "Broken dependency removed\n";
+                        std::cout << "Retrying dependency installation...\n";
+                        installRes =EnvironmentManager::installRequirements(targetPath);
+                        std::cout << installRes.output<< "\n";
+                    }
+
+                    if (installRes.exit_code != 0) {
+                        std::cerr << "Dependency installation still failed\n";
+                        std::cout << "Trying import-based dependency detection...\n";
+                    }
+                }
+
+
 
                 std::string entryFile;
                 // If the project contains multiple Python files, we first look for common entry point names such as main.py, app.py, or run.py
@@ -204,14 +241,31 @@ int main(int argc, char** argv) {
                     entryFile = files[0];
                 }
 
-                program = "python " + ShellQuote::quote(entryFile);
+                // Previously the debugger used the global system Python interpreter.
+                // This caused dependency and environment conflicts between projects.
+                //
+                // Now each Python project uses its own isolated virtual environment:
+                // .venv/bin/python
+                //
+                // This makes dependency handling more stable and closer to real-world
+                // development environments.
+                program =EnvironmentManager::getPythonExecutable(targetPath);
+
+                if (std::filesystem::path(entryFile).filename()== "manage.py") {
+                    passArgs.push_back("runserver");
+                }
+
+                passArgs.insert(passArgs.begin(),entryFile);
             }
 
             else if (detectedLanguage == "java") {
                 JavaProjectDetector javaProjectDetector;
                 JavaProjectType type = javaProjectDetector.detect(targetPath);
 
+                std::string javaBuildPath = javaProjectDetector.getBuildPath();
+
                 switch (type) {
+
                     case JavaProjectType::PlainJava:
                         std::cout << "Detected Plain Java project\n";
                         program = compiler.compileJava(files);
@@ -219,27 +273,69 @@ int main(int argc, char** argv) {
 
                     case JavaProjectType::Maven:
                         std::cout << "Detected Maven Java project\n";
-                        program = compiler.compileMaven(targetPath);
+                        program = compiler.compileMaven(javaBuildPath);
                         break;
 
                     case JavaProjectType::SpringBootMaven:
                         std::cout << "Detected Spring Boot Maven project\n";
-                        program = compiler.compileMaven(targetPath);
+                        program = compiler.compileMaven(javaBuildPath);
                         break;
 
                     case JavaProjectType::Gradle:
                         std::cout << "Detected Gradle Java project\n";
-                        program = compiler.compileGradle(targetPath);
+                        program = compiler.compileGradle(javaBuildPath);
                         break;
 
                     case JavaProjectType::SpringBootGradle:
                         std::cout << "Detected Spring Boot Gradle project\n";
-                        program = compiler.compileGradle(targetPath);
+                        program = compiler.compileGradle(javaBuildPath);
                         break;
 
-                    default:
-                        std::cout << "Unknown Java project type, using plain javac\n";
-                        program = compiler.compileJava(files);
+                        default:
+
+        // NEW: nested module scan fallback
+
+        bool nestedGradle = false;
+        bool nestedMaven = false;
+
+        for (const auto& entry :
+             std::filesystem::recursive_directory_iterator(targetPath)) {
+
+            if (!entry.is_regular_file()) {
+                continue;
+            }
+
+            if (entry.path().filename() == "build.gradle") {
+                nestedGradle = true;
+
+                std::cout << "Detected nested Gradle module: "
+                          << entry.path().parent_path()
+                          << "\n";
+                break;
+            }
+
+            if (entry.path().filename() == "pom.xml") {
+                nestedMaven = true;
+
+                std::cout << "Detected nested Maven module: "
+                          << entry.path().parent_path()
+                          << "\n";
+                break;
+            }
+        }
+
+        if (nestedGradle) {
+            std::cout << "Using nested Gradle build\n";
+            program = compiler.compileGradle(targetPath);
+
+        } else if (nestedMaven) {
+            std::cout << "Using nested Maven build\n";
+            program = compiler.compileMaven(targetPath);
+
+        } else {
+            std::cout << "Unknown Java project type, using plain javac\n";
+            program = compiler.compileJava(files);
+        }
                         break;
                 }
 
@@ -302,11 +398,14 @@ int main(int argc, char** argv) {
             std::cout << "║   NORMALES PROGRAMM WIRD AUSGEFÜHRT    ║\n";
             std::cout << "╚════════════════════════════════════════╝\n\n";
 
-            std::string cmd = "timeout 5s " + ShellQuote::quote(program);
-            for (const auto& a : passArgs) {
-                cmd += " ";
-                cmd += ShellQuote::quote(a);
-            }
+
+            cmd = "export MPLBACKEND=Agg && cd '" + targetPath + "' && ";
+
+            cmd += "yes n | ";
+
+            cmd += "timeout 120s ";
+
+            cmd += ShellQuote::quote(program);
 
             runRes = run_capture(cmd);
             runPtr = &runRes;
@@ -334,6 +433,39 @@ int main(int argc, char** argv) {
         // runtime errors
         if (runPtr) {
             error_output += "\n" + runPtr->output;
+        }
+
+        if (detectedLanguage == "python") {
+
+            if (error_output.find("No module named")
+                != std::string::npos) {
+
+                std::cout << "\nMissing Python dependency detected\n";
+
+
+                std::cout << "\n[IMPORT DETECTION STARTED]\n";
+
+                auto packages =DependencyManager::detectPythonImports(targetPath);
+
+                std::cout << "Detected package count: "<< packages.size()<< "\n";
+
+                for (const auto& pkg : packages) {
+                    std::cout << "Detected package: " << pkg<< "\n";
+                }
+
+                bool installOk = DependencyManager::installPythonPackages(targetPath,packages);
+
+                std::cout << "Package install result: "
+                          << installOk
+                          << "\n";
+
+
+                std::cout << "Retrying Python project...\n";
+
+                runRes = run_capture(cmd);
+
+                error_output += "\n" + runRes.output;
+                }
         }
 
         // gdb errors

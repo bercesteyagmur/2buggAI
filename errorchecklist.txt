@@ -38,6 +38,11 @@ java | unhandled_exception | detect_from_output | exception must be caught
 java | missing_import | detect_from_output | cannot find symbol
 java | static_misuse | ai_presume | -
 java | object_not_initialized | detect_from_output | not initialized
+java | missing_lombok_dependency | detect_from_output | package lombok does not exist
+java | missing_aws_sdk | detect_from_output | package com.amazonaws does not exist
+java | missing_gson_dependency | detect_from_output | package com.google.gson does not exist
+java | missing_okhttp_dependency | detect_from_output | package com.squareup.okhttp does not exist
+java | gradle_java_version_mismatch | detect_from_output | Could not determine java version
 
 # ---------------- C ----------------
 c | implicit_declaration | detect_from_output | implicit declaration
@@ -72,3 +77,44 @@ python | recursion_error | detect_from_output | RecursionError
 python | assertion_error | detect_from_output | AssertionError
 python | permission_error | detect_from_output | PermissionError
 python | unicode_error | detect_from_output | UnicodeDecodeError, UnicodeEncodeError
+general | null_pointer | detect_from_output | null_pointer
+
+general | invalid_type_cast | detect_from_output | invalid_type_cast
+
+general | `null_pointer` | detect_from_output | `null_pointer`
+
+general | `type_confusion` | detect_from_output | `type_confusion`
+
+general | `resource_leak` | detect_from_output | `resource_leak`
+
+general | type_confusion | detect_from_output | type_confusion
+
+general | resource_leak | detect_from_output | resource_leak
+
+general | improper_input_validation | detect_from_output | improper_input_validation
+
+general | invalid_configuration | detect_from_output | invalid_configuration
+
+general | invalid_type_assumption | detect_from_output | invalid_type_assumption
+
+general | incorrect_cache_key | detect_from_output | incorrect_cache_key
+
+general | invalid_path | detect_from_output | invalid_path
+
+general | division_by_zero | detect_from_output | division_by_zero
+
+general | validation_logic_error | detect_from_output | validation_logic_error
+
+general | missing_dependency | detect_from_output | missing_dependency
+
+general | incorrect_exit_code | detect_from_output | incorrect_exit_code
+
+general | missing_configuration | detect_from_output | missing_configuration
+
+general | missing_dependency_manifest | detect_from_output | missing_dependency_manifest
+
+general | timeout | detect_from_output | timeout
+
+general | misconfiguration | detect_from_output | misconfiguration
+
+general | missing_dependency_spec | detect_from_output | missing_dependency_spec

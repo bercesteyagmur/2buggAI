@@ -20,6 +20,9 @@ bool FileCollector::isBuildDirectory(const std::string& path) {
     // These folders are generated and should be ignored during analysis
     if (path.find("cmake-build") < path.size()) return true;
     if (path.find("build") < path.size()) return true;
+    if (path.find(".venv") < path.size()) return true;
+    if (path.find("venv") < path.size()) return true;
+    if (path.find("site-packages") < path.size()) return true;
 
     return false;
 }

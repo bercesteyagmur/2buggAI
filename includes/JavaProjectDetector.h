@@ -12,6 +12,11 @@
 class JavaProjectDetector {
 public:
     JavaProjectType detect(const std::string& projectPath);
+
+    std::string getBuildPath() const;
+
+private:
+    std::string buildPath;
 };
 
 
