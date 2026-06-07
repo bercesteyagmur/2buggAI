@@ -75,6 +75,7 @@ bool EnvironmentManager::createVirtualEnv(
     // Now every Python project uses:
     // .venv/bin/python
     //
+    //
     // This is closer to real-world Python development workflows.
     std::string cmd = "cd '" + projectPath + "' && python3 -m venv .venv";
 
@@ -105,6 +106,12 @@ RunResult EnvironmentManager::installRequirements(
     if (!fs::exists(requirements)) {
 
         std::cout << "requirements.txt not found, skipping dependency installation\n";
+        std::cout << "Starting import-based dependency detection...\n";
+
+        auto packages =DependencyManager::detectPythonImports(projectPath);
+
+        DependencyManager::installPythonPackages(projectPath,packages);
+
         RunResult result;
         result.exit_code = 0;
         return result;

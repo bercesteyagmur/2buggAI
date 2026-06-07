@@ -118,3 +118,11 @@ general | timeout | detect_from_output | timeout
 general | misconfiguration | detect_from_output | misconfiguration
 
 general | missing_dependency_spec | detect_from_output | missing_dependency_spec
+
+general | api_misuse | detect_from_output | api_misuse
+
+general | test_harness_error | detect_from_output | test_harness_error
+
+general | infinite_wait | detect_from_output | infinite_wait
+
+general | out_of_bounds | detect_from_output | out_of_bounds

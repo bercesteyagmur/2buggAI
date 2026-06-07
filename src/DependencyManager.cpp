@@ -61,101 +61,109 @@ std::vector<std::string>DependencyManager::detectPythonImports(const std::string
         "typing"
     };
 
-    std::regex importRegex(R"(import\s+([a-zA-Z0-9_]+))");
-
-    std::regex fromRegex(R"(from\s+([a-zA-Z0-9_]+))");
 
     std::error_code ec;
 
     for (const auto& entry : fs::recursive_directory_iterator( projectPath, fs::directory_options::skip_permission_denied, ec )) {
 
-        std::string path = entry.path().string();
-
-        if (path.find(".venv") != std::string::npos ||path.find("__pycache__") != std::string::npos || path.find(".git") != std::string::npos) {
-            continue;
+            if (ec) {
+                std::cerr << "Directory iteration error: "<< ec.message() << "\n";
+                continue;
             }
 
-        std::cout << "Scanning: " << entry.path() << "\n";
+            // only real python files
+            if (!entry.is_regular_file()) {
+                continue;
+            }
 
-        if (ec) {
-            std::cerr << "Directory iteration error: "<< ec.message()<< "\n";
-            continue;
-        }
+            if (entry.path().extension() != ".py") {
+                continue;
+            }
 
-        if (!entry.is_regular_file()) {
-            continue;
-        }
+            std::string path = entry.path().string();
 
-        if (entry.path().extension() != ".py") {
-            continue;
-        }
-
+            // skip irrelevant folders
+            if (path.find(".venv") != std::string::npos ||
+                path.find("__pycache__") != std::string::npos ||
+                path.find(".git") != std::string::npos ||
+                path.find("dataset") != std::string::npos ||
+                path.find("images") != std::string::npos ||
+                path.find("outputs") != std::string::npos) {
+                continue;
+                }
         std::ifstream file(entry.path());
 
         if (!file) {
             continue;
         }
 
-        std::stringstream buffer;
+        std::string line;
 
-        buffer << file.rdbuf();
+        while (std::getline(file, line)) {
 
-        std::string content = buffer.str();
+            // import x
+            if (line.starts_with("import ")) {
 
-        std::smatch match;
+                std::string imports = line.substr(7);
 
-        std::string::const_iterator searchStart(content.cbegin());
+                std::stringstream ss(imports);
 
-        while (std::regex_search(searchStart,content.cend(),match,importRegex)) {
-            std::string pkg = match[1];
+                std::string pkg;
 
-            // Ignore private/internal Python symbols
-            // such as:
-            // _BaseGenericAlias
-            // _abc
-            // _typeshed
-            if (pkg.starts_with("_")) {
-                continue;
+                while (std::getline(ss, pkg, ',')) {
+
+                    // trim spaces
+                    pkg.erase(0, pkg.find_first_not_of(" \t"));
+                    pkg.erase(pkg.find_last_not_of(" \t") + 1);
+
+                    // remove aliases
+                    size_t asPos = pkg.find(" as ");
+
+                    if (asPos != std::string::npos) {
+                        pkg = pkg.substr(0, asPos);
+                    }
+
+                    if (fs::exists(projectPath + "/" + pkg + ".py")) {
+                        continue;
+                    }
+
+                    if (fs::exists(projectPath + "/" + pkg)) {
+                        continue;
+                    }
+
+                    if (!pkg.starts_with("_") &&
+                        std::find(stdlib.begin(),stdlib.end(),pkg) == stdlib.end()) {
+
+                        packages.insert(pkg);
+                                  }
+                }
             }
 
-            if (fs::exists(projectPath + "/" + pkg + ".py")) {
-                continue;
+            // from x import y
+            else if (line.starts_with("from ")) {
+
+                std::string pkg = line.substr(5);
+
+                size_t space = pkg.find(" ");
+
+                if (space != std::string::npos) {
+                    pkg = pkg.substr(0, space);
+                }
+
+                if (fs::exists(projectPath + "/" + pkg + ".py")) {
+                    continue;
+                }
+
+                if (fs::exists(projectPath + "/" + pkg)) {
+                    continue;
+                }
+
+                if (!pkg.starts_with("_") &&
+                    std::find(stdlib.begin(),stdlib.end(),pkg) == stdlib.end()) {
+
+                    packages.insert(pkg);
+                              }
             }
-
-            if (fs::exists(projectPath + "/" + pkg)) {
-                continue;
-            }
-
-            if (std::find(stdlib.begin(),stdlib.end(),pkg) == stdlib.end()) {
-                packages.insert(pkg);
-            }
-
-            searchStart = match.suffix().first;
-        }
-
-        searchStart = content.cbegin();
-
-        while (std::regex_search(searchStart,content.cend(),match,fromRegex)) {
-            std::string pkg = match[1];
-
-            if (fs::exists(projectPath + "/" + pkg + ".py")) {
-                continue;
-            }
-
-            if (fs::exists(projectPath + "/" + pkg)) {
-                continue;
-            }
-
-
-            if (pkg.starts_with("_")) {
-                continue;
-            }
-
-            if (std::find(stdlib.begin(),stdlib.end(),pkg) == stdlib.end()) {
-                packages.insert(pkg);
-            }
-
-            searchStart = match.suffix().first;
         }
     }
 
@@ -173,7 +181,19 @@ bool DependencyManager::installPythonPackages(const std::string& projectPath,con
 
     std::string cmd =projectPath + "/.venv/bin/pip install";
 
-    for (const auto& pkg : packages) {
+    for (auto pkg : packages) {
+        // import name -> pip package mapping
+        if (pkg == "cv2") {
+            pkg = "opencv-python";
+        }
+
+        else if (pkg == "PIL") {
+            pkg = "pillow";
+        }
+
+        else if (pkg == "sklearn") {
+            pkg = "scikit-learn";
+        }
         cmd += " " + pkg;
     }
 

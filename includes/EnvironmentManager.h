@@ -4,6 +4,7 @@
 
 #include <string>
 #include "ProcessRunner.h"
+#include "DependencyManager.h"
 
 class EnvironmentManager {
 

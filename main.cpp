@@ -403,7 +403,7 @@ int main(int argc, char** argv) {
 
             cmd += "yes n | ";
 
-            cmd += "timeout 120s ";
+            cmd += "timeout 900s ";
 
             cmd += ShellQuote::quote(program);
 
