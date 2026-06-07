@@ -401,15 +401,68 @@ int main(int argc, char** argv) {
 
             cmd = "export MPLBACKEND=Agg && cd '" + targetPath + "' && ";
 
-            cmd += "yes n | ";
+            // cmd += "yes n | ";
 
-            cmd += "timeout 900s ";
+           // cmd += "timeout 1200s ";
 
             cmd += ShellQuote::quote(program);
 
+            for (const auto& arg : passArgs) {
+
+                cmd += " ";
+
+                cmd += ShellQuote::quote(arg);
+            }
+
+
+
             runRes = run_capture(cmd);
             runPtr = &runRes;
-            std::cout << "Programm Beendet mit Exit-Code: " << runRes.exit_code << "\n\n";
+
+            switch (runRes.status) {
+
+                case ExecutionStatus::SUCCESS:
+
+                    std::cout
+                        << "Program finished successfully\n";
+
+                    break;
+
+                case ExecutionStatus::TEST_FAILURE:
+
+                    std::cout
+                        << "Program executed but unit tests failed\n";
+
+                    break;
+
+                case ExecutionStatus::TIMEOUT:
+
+                    std::cout
+                        << "Program timeout\n";
+
+                    break;
+
+                case ExecutionStatus::SIGNAL_TERMINATED:
+
+                    std::cout
+                        << "Program terminated by signal\n";
+
+                    break;
+
+                case ExecutionStatus::RUNTIME_ERROR:
+
+                    std::cout
+                        << "Program exited with runtime errors\n";
+
+                    break;
+            }
+
+            std::cout
+                << "Exit-Code: "
+                << runRes.exit_code
+                << "\n\n";
+
+
         }
 
         if (!canRunProgram && parser.isVerbose()) {

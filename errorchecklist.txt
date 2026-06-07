@@ -126,3 +126,33 @@ general | test_harness_error | detect_from_output | test_harness_error
 general | infinite_wait | detect_from_output | infinite_wait
 
 general | out_of_bounds | detect_from_output | out_of_bounds
+
+general | undefined_variable | detect_from_output | undefined_variable
+
+general | undefined_variable | detect_from_output | undefined_variable
+
+general | undefined_variable | detect_from_output | undefined_variable
+
+general | undefined_variable | detect_from_output | undefined_variable
+
+general | undefined_variable | detect_from_output | undefined_variable
+
+general | undefined_variable | detect_from_output | undefined_variable
+
+general | undefined_variable | detect_from_output | undefined_variable
+
+general | undefined_variable | detect_from_output | undefined_variable
+
+general | undefined_variable | detect_from_output | undefined_variable
+
+general | undefined_variable | detect_from_output | undefined_variable
+
+general | undefined_variable | detect_from_output | undefined_variable
+
+general | undefined_variable | detect_from_output | undefined_variable
+
+general | undefined_variable | detect_from_output | undefined_variable
+
+general | undefined_variable | detect_from_output | undefined_variable
+
+general | undefined_variable | detect_from_output | undefined_variable

@@ -59,6 +59,19 @@ std::vector<std::string>DependencyManager::detectPythonImports(const std::string
         "datetime",
         "random",
         "typing"
+
+
+        // additional built-in modules
+    "string",
+    "unittest",
+    "argparse",
+    "hashlib",
+    "urllib",
+    "base64",
+    "itertools",
+    "functools",
+    "asyncio",
+    "socket"
     };
 
 
