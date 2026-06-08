@@ -156,3 +156,17 @@ general | undefined_variable | detect_from_output | undefined_variable
 general | undefined_variable | detect_from_output | undefined_variable
 
 general | undefined_variable | detect_from_output | undefined_variable
+
+general | `optional_no_such_element` | detect_from_output | `optional_no_such_element`
+
+general | `optional_no_such_element` | detect_from_output | `optional_no_such_element`
+
+general | `optional_no_such_element` | detect_from_output | `optional_no_such_element`
+
+general | `incorrect_logic` | detect_from_output | `incorrect_logic`
+
+general | `dependency_injection_misuse` | detect_from_output | `dependency_injection_misuse`
+
+general | build_configuration | detect_from_output | build_configuration
+
+general | permissions | detect_from_output | permissions

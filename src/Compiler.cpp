@@ -116,6 +116,28 @@ static std::string detectGradleVersion(const std::string& projectPath) {
     return "4.4.1";
 }
 
+static std::string getCompatibleJavaVersion(
+    const std::string& gradleVersion) {
+
+    if (gradleVersion.starts_with("4.")) {
+        return "8";
+    }
+
+    if (gradleVersion.starts_with("5.")) {
+        return "11";
+    }
+
+    if (gradleVersion.starts_with("6.")) {
+        return "11";
+    }
+
+    if (gradleVersion.starts_with("7.")) {
+        return "17";
+    }
+
+    return "21";
+}
+
 static std::string ensureGradleInstalled(
     const std::string& version) {
 
@@ -528,11 +550,30 @@ std::string Compiler::compileGradle(const std::string& projectPath) {
 
     std::string javaHome = detectRequiredJavaHome(projectPath);
 
-    std::string gradleVersion =
-    detectGradleVersion(projectPath);
+    std::string gradleVersion = detectGradleVersion(projectPath);
 
-    std::string gradleExecutable =
-        ensureGradleInstalled(gradleVersion);
+    std::string compatibleJava =
+    getCompatibleJavaVersion(
+        gradleVersion);
+
+    javaHome =
+        "/usr/lib/jvm/java-" +
+        compatibleJava +
+        "-openjdk-amd64";
+
+    ensureJavaInstalled(
+        javaHome,
+        compatibleJava
+    );
+
+    std::cout
+        << "Using compatible Java "
+        << compatibleJava
+        << " for Gradle "
+        << gradleVersion
+        << "\n";
+
+    std::string gradleExecutable =ensureGradleInstalled(gradleVersion);
 
     std::cout << "Using Gradle version: "
               << gradleVersion
