@@ -18,6 +18,7 @@
 #include "FileCollector.h"
 #include "ChecklistReader.h"
 #include "ErrorMatcher.h"
+#include "ErrorCollector.h"
 #include "LanguageDetector.h"
 #include "CodeChanger.h"
 
@@ -544,6 +545,11 @@ int main(int argc, char** argv) {
         ErrorMatcher matcher(checklist);
         auto detectedErrors = matcher.match(error_output, language);
 
+        // 4b. nach Schwierigkeit sortieren (leicht -> mittel -> schwer),
+        // damit der Fix Loop mit den einfachsten Fehlern beginnt
+        ErrorCollector errorCollector;
+        detectedErrors = errorCollector.sortedErrors(detectedErrors);
+
         // 5. print results
         std::cout << "\n========== DETECTED ERRORS ==========\n";
 
@@ -574,7 +580,8 @@ int main(int argc, char** argv) {
         while (iteration < MAX_ITER) {
 
             std::cout << "Versuch " << (iteration + 1) << "/" << MAX_ITER
-                      << " fuer Fehler: " << detectedErrors[i] << "\n";
+                      << " fuer Fehler: " << detectedErrors[i]
+                      << " (Schwierigkeit: " << ErrorCollector::difficultyOf(detectedErrors[i]) << ")\n";
 
             FixRequest fix_req;
             fix_req.error_name   = detectedErrors[i];
@@ -591,11 +598,16 @@ int main(int argc, char** argv) {
                 CodeChanger changer;
                 changer.apply_fix(fix_res);
 
+                // Neu entdeckte/erzeugte Fehler ebenfalls collecten und nach
+                // Schwierigkeit sortieren (leicht -> mittel -> schwer), bevor
+                // sie in die Warteschlange eingefuegt werden
+                auto newErrors = errorCollector.sortedErrors(fix_res.new_errors);
+
                 size_t insertPos = i + 1;
-                for (const auto& newErr : fix_res.new_errors) {
+                for (const auto& newErr : newErrors) {
                     if(detectedErrors.size() < MAX_TOTAL_ERRORS) {
                         detectedErrors.insert(detectedErrors.begin() + insertPos, newErr);
-                        error_output += "\n" + newErr; 
+                        error_output += "\n" + newErr;
                         insertPos++;
                     }
                 }
