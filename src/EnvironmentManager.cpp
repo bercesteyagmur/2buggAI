@@ -117,6 +117,19 @@ RunResult EnvironmentManager::installRequirements(
 
     int result = system(cmd.c_str());
 
+    // If requirements.txt install failed, retry with psycopg2-binary substitution
+    if (result != 0) {
+        std::cout << "Retrying with psycopg2-binary substitution...\n";
+        std::string retryCmd = pip + " install -r '" + requirements +
+                               "' --progress-bar on"
+                               " || " + pip + " install psycopg2-binary";
+        // Install psycopg2-binary as override and retry the full requirements
+        std::string binaryFix = pip + " install psycopg2-binary 2>/dev/null";
+        system(binaryFix.c_str());
+        std::string retryFull = pip + " install -r '" + requirements + "' --progress-bar on";
+        result = system(retryFull.c_str());
+    }
+
     RunResult res;
     res.exit_code = result;
 

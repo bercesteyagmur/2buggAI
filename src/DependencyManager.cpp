@@ -305,8 +305,17 @@ bool DependencyManager::installPythonPackages(const std::string& projectPath,con
         std::cout << "PIP COMMAND: " << cmd << "\n";
         int result = system(cmd.c_str());
         if (result != 0) {
-            std::cout << "Warning: could not install '" << mapped << "', continuing...\n";
-            allOk = false;
+            // psycopg2 needs system PostgreSQL libs to compile — retry with binary wheel
+            if (mapped == "psycopg2") {
+                std::cout << "psycopg2 build failed, retrying with psycopg2-binary...\n";
+                std::string retryCmd = pip + " install psycopg2-binary";
+                std::cout << "PIP COMMAND: " << retryCmd << "\n";
+                result = system(retryCmd.c_str());
+            }
+            if (result != 0) {
+                std::cout << "Warning: could not install '" << mapped << "', continuing...\n";
+                allOk = false;
+            }
         }
     }
 

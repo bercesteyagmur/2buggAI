@@ -191,10 +191,12 @@ int main(int argc, char** argv) {
                     if (installRes.exit_code != 0) {
                         std::cerr << "Dependency installation still failed\n";
                         std::cout << "Trying import-based dependency detection...\n";
+
+                        // Run import-based detection NOW, before executing the program
+                        auto detectedPkgs = DependencyManager::detectPythonImports(targetPath);
+                        DependencyManager::installPythonPackages(targetPath, detectedPkgs);
                     }
                 }
-
-
 
                 std::string entryFile;
                 // If the project contains multiple Python files, we first look for common entry point names such as main.py, app.py, or run.py
