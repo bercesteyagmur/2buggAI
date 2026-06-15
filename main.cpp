@@ -18,6 +18,7 @@
 #include "FileCollector.h"
 #include "ChecklistReader.h"
 #include "ErrorMatcher.h"
+#include "ErrorCollector.h"
 #include "LanguageDetector.h"
 #include "CodeChanger.h"
 
@@ -398,8 +399,12 @@ int main(int argc, char** argv) {
             std::cout << "║   NORMALES PROGRAMM WIRD AUSGEFÜHRT    ║\n";
             std::cout << "╚════════════════════════════════════════╝\n\n";
 
+            std::string cdPath = targetPath;
+            if(std::filesystem::is_regular_file(targetPath)) {
+                cdPath = std::filesystem::path(targetPath).parent_path().string();
+            }
 
-            cmd = "export MPLBACKEND=Agg && cd '" + targetPath + "' && ";
+            cmd = "export MPLBACKEND=Agg && cd '" + cdPath + "' && ";
 
             // cmd += "yes n | ";
 
@@ -544,6 +549,11 @@ int main(int argc, char** argv) {
         ErrorMatcher matcher(checklist);
         auto detectedErrors = matcher.match(error_output, language);
 
+        // 4b. nach Schwierigkeit sortieren (leicht -> mittel -> schwer),
+        // damit der Fix Loop mit den einfachsten Fehlern beginnt
+        ErrorCollector errorCollector;
+        detectedErrors = errorCollector.sortedErrors(detectedErrors);
+
         // 5. print results
         std::cout << "\n========== DETECTED ERRORS ==========\n";
 
@@ -607,7 +617,8 @@ int main(int argc, char** argv) {
         while (iteration < MAX_ITER) {
 
             std::cout << "Versuch " << (iteration + 1) << "/" << MAX_ITER
-                      << " fuer Fehler: " << detectedErrors[i] << "\n";
+                      << " fuer Fehler: " << detectedErrors[i]
+                      << " (Schwierigkeit: " << ErrorCollector::difficultyOf(detectedErrors[i]) << ")\n";
 
             FixRequest fix_req;
             fix_req.error_name   = detectedErrors[i];
@@ -624,8 +635,13 @@ int main(int argc, char** argv) {
                 CodeChanger changer;
                 changer.apply_fix(fix_res, targetPath);
 
+                // Neu entdeckte/erzeugte Fehler ebenfalls collecten und nach
+                // Schwierigkeit sortieren (leicht -> mittel -> schwer), bevor
+                // sie in die Warteschlange eingefuegt werden
+                auto newErrors = errorCollector.sortedErrors(fix_res.new_errors);
+
                 size_t insertPos = i + 1;
-                for (const auto& newErr : fix_res.new_errors) {
+                for (const auto& newErr : newErrors) {
                     if(detectedErrors.size() < MAX_TOTAL_ERRORS) {
                         detectedErrors.insert(detectedErrors.begin() + insertPos, newErr);
                         error_output += "\n" + newErr;
@@ -698,29 +714,47 @@ int main(int argc, char** argv) {
             // Extract categories from AI response and add to checklist
             std::istringstream iss(r.text);
             std::string textLine;
-            const std::string marker = "**Category:**";
+            const std::string categoryMarker = "**Category:**";
+            const std::string languageMarker = "**Language:**";
+
+            std::string pendingCategory;
+            std::string pendingLanguage;
 
             while (std::getline(iss, textLine)) {
-                size_t pos = textLine.find(marker);
-                if (pos == std::string::npos) continue;
+                size_t catPos = textLine.find(categoryMarker);
+                if (catPos != std::string::npos) {
 
-                // Take everything after Category
-                std::string category = textLine.substr(pos + marker.size());
+                std::string category = textLine.substr(catPos + categoryMarker.size());
 
-                // The line might contain multiple categories separated by "/"
-                //take only the first one
                 size_t slash = category.find('/');
                 if (slash != std::string::npos) category = category.substr(0, slash);
 
-                    category = reader.trim(category);
+                    pendingCategory = reader.trim(category);
+                    continue;
+                }
 
-                if (category.empty() || category == "other") continue;
+                // Look for Language line
+                size_t langPos = textLine.find(languageMarker);
+                if (langPos != std::string::npos) {
+                    std::string lang = textLine.substr(langPos + languageMarker.size());
 
-                if (reader.appendIfNew(category, checklist)) {
-                std::cout << "New Checklist Entry: " << category << "\n";
+                    size_t slash = lang.find('/');
+
+                if (slash != std::string::npos) lang = lang.substr(0, slash);
+
+                pendingLanguage = reader.trim(lang);
+
+                // We have both, try to append
+                if (!pendingCategory.empty() && pendingCategory != "other") {
+                    if (reader.appendIfNew(pendingCategory, pendingLanguage, checklist)) {
+                        std::cout << "New Checklist Entry: " << pendingCategory << " (" << pendingLanguage << ")\n";
+                        }
+                    }
+                    pendingCategory.clear();
+                    pendingLanguage.clear();
                 }
             }
-
+            
             if (!parser.getJsonOutFile().empty()) {
                 try {
                     nlohmann::json final_json = nlohmann::json::parse(report);

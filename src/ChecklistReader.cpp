@@ -127,20 +127,28 @@ std::string ChecklistReader::loadRaw() {
     return buffer.str();
 }
 
-bool ChecklistReader::appendIfNew(const std::string& errorName, const std::vector<ErrorCategory>& existing) {         
+bool ChecklistReader::appendIfNew(const std::string& errorName, const std::string& language, const std::vector<ErrorCategory>& existing) {         
     //Check if name already exists
     for (const auto& cat : existing) {
         if (cat.name == errorName) {
             return false;  // already there
         }
     }
+
+    // Validate language (fallback to "general" if invalid)
+    std::string lang = language;
+    if (lang != "general" && lang != "c" && lang != "cpp"
+        && lang != "java" && lang != "python") {
+        lang = "general";
+    }
+
     // Append in 4 column format
     std::ofstream file("errorchecklist.txt", std::ios::app);
     if (!file.is_open()) {
         return false;
     }
     
-    file << "\ngeneral | " << errorName << " | detect_from_output | " << errorName << "\n";
+    file << "\n" << lang << " | " << errorName << " | detect_from_output | " << errorName << "\n";
     file.close();
     return true;
 }
