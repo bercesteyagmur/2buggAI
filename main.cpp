@@ -244,15 +244,7 @@ int main(int argc, char** argv) {
                     entryFile = files[0];
                 }
 
-                // Previously the debugger used the global system Python interpreter.
-                // This caused dependency and environment conflicts between projects.
-                //
-                // Now each Python project uses its own isolated virtual environment:
-                // .venv/bin/python
-                //
-                // This makes dependency handling more stable and closer to real-world
-                // development environments.
-                program =EnvironmentManager::getPythonExecutable(targetPath);
+                program = EnvironmentManager::getPythonExecutable(targetPath);
 
                 if (std::filesystem::path(entryFile).filename()== "manage.py") {
                     passArgs.push_back("runserver");
@@ -350,6 +342,24 @@ int main(int argc, char** argv) {
             }
             }
             canRunProgram = !program.empty();
+
+            // Override: never run interactive Python programs
+            if (detectedLanguage == "python" && canRunProgram) {
+                for (const auto& f : files) {
+                    std::ifstream checkFile(f);
+                    std::string checkLine;
+                    while (std::getline(checkFile, checkLine)) {
+                        if (checkLine.find("input(") != std::string::npos ||
+                            checkLine.find("sys.stdin") != std::string::npos ||
+                            checkLine.find("getpass(") != std::string::npos) {
+                            std::cout << "Interactive program detected (uses input()) — skipping execution, running static analysis only.\n";
+                            canRunProgram = false;
+                            break;
+                        }
+                    }
+                    if (!canRunProgram) break;
+                }
+            }
         }
 
         // Runner optional
