@@ -24,6 +24,8 @@ public:
 
     static bool removeBrokenRequirement(const std::string& projectPath,const std::string& pipOutput);
 
+    static std::string findRequirementsTxt(const std::string& projectPath);
+
 };
 
 #endif //INC_2BUGGAI_INNOLAB_DEPENDENCYMANAGER_H

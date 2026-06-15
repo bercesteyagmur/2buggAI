@@ -561,12 +561,45 @@ int main(int argc, char** argv) {
     if (!detectedErrors.empty()) {
 
     OpenAIClient fixClient;
-    std::string checkListRaw = reader.loadRaw(); // einmal laden, nicht bei jedem Fehler
+    std::string checkListRaw = reader.loadRaw();
+    std::string venvPath = EnvironmentManager::getPipExecutable(targetPath);
+    // derive venv root from pip path (strip /bin/pip)
+    std::string venvRoot = venvPath.substr(0, venvPath.size() - std::string("/bin/pip").size());
 
     const int MAX_ITER = 5;
-    const int MAX_TOTAL_ERRORS = 20; // um endlose Fehler-Explosion zu verhindern
+    const int MAX_TOTAL_ERRORS = 20;
 
     for (size_t i = 0; i < detectedErrors.size(); ++i) {
+
+        // If the error comes from inside the venv (broken installed package),
+        // retrying will never help — detect and handle it directly instead.
+        if (detectedErrors[i] == "syntax_error_python" &&
+            error_output.find(venvRoot) != std::string::npos) {
+
+            std::cout << "Syntax error detected inside installed package (venv), skipping retries.\n";
+            std::cout << "Attempting to reinstall correct package...\n";
+
+            // Extract package filename from the venv path in the error output
+            // e.g. /tmp/buggy-venv-.../lib/python3.12/site-packages/environ.py -> environ
+            std::string marker = "site-packages/";
+            size_t sitePos = error_output.find(marker);
+            if (sitePos != std::string::npos) {
+                size_t start = sitePos + marker.size();
+                size_t end = error_output.find_first_of("/.\n", start);
+                if (end != std::string::npos) {
+                    std::string badPkg = error_output.substr(start, end - start);
+                    std::string pip = EnvironmentManager::getPipExecutable(targetPath);
+                    std::cout << "Uninstalling bad package: " << badPkg << "\n";
+                    std::string uninstall = pip + " uninstall -y " + badPkg;
+                    system(uninstall.c_str());
+                    // Re-run install with the corrected mapping
+                    std::vector<std::string> pkgs = {badPkg};
+                    DependencyManager::installPythonPackages(targetPath, pkgs);
+                }
+            }
+            std::cerr << "Fehler konnte nicht behoben werden: " << detectedErrors[i] << "\n";
+            continue;
+        }
 
         int iteration = 0;
         bool fixed = false;
@@ -589,13 +622,13 @@ int main(int argc, char** argv) {
                 sourceCode = fix_res.fixed_code;
 
                 CodeChanger changer;
-                changer.apply_fix(fix_res);
+                changer.apply_fix(fix_res, targetPath);
 
                 size_t insertPos = i + 1;
                 for (const auto& newErr : fix_res.new_errors) {
                     if(detectedErrors.size() < MAX_TOTAL_ERRORS) {
                         detectedErrors.insert(detectedErrors.begin() + insertPos, newErr);
-                        error_output += "\n" + newErr; 
+                        error_output += "\n" + newErr;
                         insertPos++;
                     }
                 }

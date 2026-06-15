@@ -4,5 +4,5 @@
 
 class CodeChanger{
     public:
-        bool apply_fix(FixResult fix_result);
+        bool apply_fix(FixResult fix_result, const std::string& projectPath = "");
 };

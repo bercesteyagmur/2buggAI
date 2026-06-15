@@ -170,3 +170,5 @@ general | `dependency_injection_misuse` | detect_from_output | `dependency_injec
 general | build_configuration | detect_from_output | build_configuration
 
 general | permissions | detect_from_output | permissions
+
+general | input_validation | detect_from_output | input_validation

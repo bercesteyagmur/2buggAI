@@ -16,23 +16,53 @@ namespace fs = std::filesystem;
 bool DependencyManager::hasRequirementsTxt(
     const std::string& projectPath) {
 
-    return fs::exists(projectPath + "/requirements.txt");
+    if (fs::exists(projectPath + "/requirements.txt")) {
+        return true;
+    }
+
+    // Also search one level deep inside subfolders (e.g. requirements/)
+    std::error_code ec;
+    for (const auto& entry : fs::directory_iterator(projectPath, ec)) {
+        if (ec) break;
+        if (!entry.is_directory()) continue;
+        if (fs::exists(entry.path().string() + "/requirements.txt")) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+// Returns the path to the first requirements.txt found (root or subfolder)
+std::string DependencyManager::findRequirementsTxt(const std::string& projectPath) {
+    if (fs::exists(projectPath + "/requirements.txt")) {
+        return projectPath + "/requirements.txt";
+    }
+    std::error_code ec;
+    for (const auto& entry : fs::directory_iterator(projectPath, ec)) {
+        if (ec) break;
+        if (!entry.is_directory()) continue;
+        std::string candidate = entry.path().string() + "/requirements.txt";
+        if (fs::exists(candidate)) {
+            return candidate;
+        }
+    }
+    return "";
 }
 
 bool DependencyManager::installPythonDependencies(
 
 const std::string& projectPath) {
 
-    if (hasRequirementsTxt(projectPath)) {
+    std::string requirements = findRequirementsTxt(projectPath);
+
+    if (!requirements.empty()) {
 
         std::cout << "Installing Python dependencies...\n";
 
         std::string pip = EnvironmentManager::getPipExecutable(projectPath);
 
-        std::string requirements = projectPath + "/requirements.txt";
-
-        std::string cmd =pip + " install -r '" + requirements + "'";
-
+        std::string cmd = pip + " install -r '" + requirements + "'";
 
         return system(cmd.c_str()) == 0;
     }
@@ -45,33 +75,25 @@ std::vector<std::string>DependencyManager::detectPythonImports(const std::string
     std::set<std::string> packages;
 
     std::vector<std::string> stdlib = {
-        "os",
-        "sys",
-        "json",
-        "math",
-        "time",
-        "re",
-        "pathlib",
-        "subprocess",
-        "threading",
-        "logging",
-        "collections",
-        "datetime",
-        "random",
-        "typing"
-
-
-        // additional built-in modules
-    "string",
-    "unittest",
-    "argparse",
-    "hashlib",
-    "urllib",
-    "base64",
-    "itertools",
-    "functools",
-    "asyncio",
-    "socket"
+        "os", "sys", "json", "math", "time", "re", "pathlib", "subprocess",
+        "threading", "logging", "collections", "datetime", "random", "typing",
+        "string", "unittest", "argparse", "hashlib", "urllib", "base64",
+        "itertools", "functools", "asyncio", "socket", "ast", "csv", "io",
+        "gc", "gzip", "zlib", "shutil", "signal", "struct", "tempfile",
+        "traceback", "types", "uuid", "warnings", "contextlib", "dataclasses",
+        "secrets", "runpy", "locale", "platform", "importlib", "multiprocessing",
+        "concurrent", "ipaddress", "unicodedata", "webbrowser", "copy",
+        "weakref", "enum", "abc", "inspect", "textwrap", "pprint", "queue",
+        "heapq", "bisect", "array", "decimal", "fractions", "statistics",
+        "cmath", "pickle", "shelve", "sqlite3", "configparser", "tomllib",
+        "codecs", "encodings", "html", "xml", "http", "ftplib", "smtplib",
+        "email", "mailbox", "mimetypes", "uu", "binascii", "quopri",
+        "getopt", "getpass", "glob", "fnmatch", "linecache", "fileinput",
+        "stat", "filecmp", "pwd", "grp", "pty", "fcntl", "termios",
+        "resource", "syslog", "select", "selectors", "ssl", "hmac",
+        "difflib", "pdb", "profile", "cProfile", "timeit", "trace",
+        "tokenize", "keyword", "token", "dis", "compileall", "py_compile",
+        "zipfile", "tarfile", "lzma", "bz2", "zipimport", "pkgutil"
     };
 
 
@@ -97,6 +119,8 @@ std::vector<std::string>DependencyManager::detectPythonImports(const std::string
 
             // skip irrelevant folders
             if (path.find(".venv") != std::string::npos ||
+                path.find("virtual_env") != std::string::npos ||
+                path.find("venv") != std::string::npos ||
                 path.find("__pycache__") != std::string::npos ||
                 path.find(".git") != std::string::npos ||
                 path.find("dataset") != std::string::npos ||
@@ -110,9 +134,46 @@ std::vector<std::string>DependencyManager::detectPythonImports(const std::string
             continue;
         }
 
+        // For Django settings files, also scan INSTALLED_APPS entries
+        bool isSettings = (entry.path().filename() == "settings.py");
+        bool inInstalledApps = false;
+
         std::string line;
 
         while (std::getline(file, line)) {
+
+            // Strip inline comments before processing
+            size_t commentPos = line.find(" #");
+            if (commentPos != std::string::npos) {
+                line = line.substr(0, commentPos);
+            }
+
+            // Track whether we are inside the INSTALLED_APPS block
+            if (isSettings) {
+                if (line.find("INSTALLED_APPS") != std::string::npos &&
+                    line.find("=") != std::string::npos) {
+                    inInstalledApps = true;
+                }
+                if (inInstalledApps) {
+                    // Closing bracket ends the block
+                    if (line.find("]") != std::string::npos) {
+                        inInstalledApps = false;
+                    }
+                    // Extract quoted app names: 'app_name' or "app_name"
+                    std::regex appRegex(R"(['"]([a-zA-Z][a-zA-Z0-9_]*)['"])");
+                    std::sregex_iterator it(line.begin(), line.end(), appRegex);
+                    std::sregex_iterator end;
+                    for (; it != end; ++it) {
+                        std::string app = (*it)[1].str();
+                        // Skip Django built-in apps
+                        if (app.starts_with("django.") || app == "django") continue;
+                        if (fs::exists(projectPath + "/" + app)) continue;
+                        if (fs::exists(projectPath + "/" + app + ".py")) continue;
+                        if (std::find(stdlib.begin(), stdlib.end(), app) != stdlib.end()) continue;
+                        packages.insert(app);
+                    }
+                }
+            }
 
             // import x
             if (line.starts_with("import ")) {
@@ -131,24 +192,23 @@ std::vector<std::string>DependencyManager::detectPythonImports(const std::string
 
                     // remove aliases
                     size_t asPos = pkg.find(" as ");
-
                     if (asPos != std::string::npos) {
                         pkg = pkg.substr(0, asPos);
                     }
 
-                    if (fs::exists(projectPath + "/" + pkg + ".py")) {
-                        continue;
+                    // only keep the top-level package name
+                    size_t dotPos = pkg.find(".");
+                    if (dotPos != std::string::npos) {
+                        pkg = pkg.substr(0, dotPos);
                     }
 
-                    if (fs::exists(projectPath + "/" + pkg)) {
-                        continue;
-                    }
+                    // skip empty, private, relative, or local file/folder modules
+                    if (pkg.empty() || pkg.starts_with("_") || pkg.starts_with(".")) continue;
+                    if (fs::exists(projectPath + "/" + pkg + ".py")) continue;
+                    if (fs::exists(projectPath + "/" + pkg)) continue;
+                    if (std::find(stdlib.begin(), stdlib.end(), pkg) != stdlib.end()) continue;
 
-                    if (!pkg.starts_with("_") &&
-                        std::find(stdlib.begin(),stdlib.end(),pkg) == stdlib.end()) {
-
-                        packages.insert(pkg);
-                                  }
+                    packages.insert(pkg);
                 }
             }
 
@@ -158,24 +218,26 @@ std::vector<std::string>DependencyManager::detectPythonImports(const std::string
                 std::string pkg = line.substr(5);
 
                 size_t space = pkg.find(" ");
-
                 if (space != std::string::npos) {
                     pkg = pkg.substr(0, space);
                 }
 
-                if (fs::exists(projectPath + "/" + pkg + ".py")) {
-                    continue;
+                // skip relative imports (from . import x  or  from .module import x)
+                if (pkg.starts_with(".")) continue;
+
+                // only keep the top-level package name
+                size_t dotPos = pkg.find(".");
+                if (dotPos != std::string::npos) {
+                    pkg = pkg.substr(0, dotPos);
                 }
 
-                if (fs::exists(projectPath + "/" + pkg)) {
-                    continue;
-                }
+                // skip empty, private, or local file/folder modules
+                if (pkg.empty() || pkg.starts_with("_")) continue;
+                if (fs::exists(projectPath + "/" + pkg + ".py")) continue;
+                if (fs::exists(projectPath + "/" + pkg)) continue;
+                if (std::find(stdlib.begin(), stdlib.end(), pkg) != stdlib.end()) continue;
 
-                if (!pkg.starts_with("_") &&
-                    std::find(stdlib.begin(),stdlib.end(),pkg) == stdlib.end()) {
-
-                    packages.insert(pkg);
-                              }
+                packages.insert(pkg);
             }
         }
     }
@@ -192,29 +254,63 @@ bool DependencyManager::installPythonPackages(const std::string& projectPath,con
         return true;
     }
 
-    std::string cmd =projectPath + "/.venv/bin/pip install";
+    std::string pip = EnvironmentManager::getPipExecutable(projectPath);
 
-    for (auto pkg : packages) {
-        // import name -> pip package mapping
-        if (pkg == "cv2") {
-            pkg = "opencv-python";
-        }
-
-        else if (pkg == "PIL") {
-            pkg = "pillow";
-        }
-
-        else if (pkg == "sklearn") {
-            pkg = "scikit-learn";
-        }
-        cmd += " " + pkg;
-    }
+    // import name -> pip package name mapping
+    auto mapPackage = [](std::string pkg) -> std::string {
+        if (pkg == "cv2")                          return "opencv-python";
+        if (pkg == "PIL")                          return "pillow";
+        if (pkg == "sklearn")                      return "scikit-learn";
+        if (pkg == "faiss")                        return "faiss-cpu";
+        if (pkg == "skimage")                      return "scikit-image";
+        if (pkg == "bs4")                          return "beautifulsoup4";
+        if (pkg == "yaml")                         return "pyyaml";
+        if (pkg == "dotenv")                       return "python-dotenv";
+        if (pkg == "environ")                      return "django-environ";
+        if (pkg == "Crypto")                       return "pycryptodome";
+        if (pkg == "gi")                           return "PyGObject";
+        if (pkg == "wx")                           return "wxPython";
+        if (pkg == "factory")                      return "factory-boy";
+        if (pkg == "rest_framework")               return "djangorestframework";
+        if (pkg == "django_filters")               return "django-filter";
+        if (pkg == "simple_history")               return "django-simple-history";
+        if (pkg == "webpack_loader")               return "django-webpack-loader";
+        if (pkg == "smart_selects")                return "django-smart-selects";
+        if (pkg == "mapbox_location_field")        return "django-mapbox-location-field";
+        if (pkg == "admin_auto_filters")           return "django-admin-autocomplete-filter";
+        if (pkg == "admin_numeric_filter")         return "django-admin-numeric-filter";
+        if (pkg == "django_admin_listfilter_dropdown") return "django-admin-listfilter-dropdown";
+        if (pkg == "computed_property")            return "django-computed-property";
+        if (pkg == "easy_select2")                 return "django-easy-select2";
+        if (pkg == "admin_interface")              return "django-admin-interface";
+        if (pkg == "colorfield")                   return "django-colorfield";
+        if (pkg == "corsheaders")                  return "django-cors-headers";
+        if (pkg == "storages")                     return "django-storages";
+        if (pkg == "crispy_forms")                 return "django-crispy-forms";
+        if (pkg == "allauth")                      return "django-allauth";
+        if (pkg == "guardian")                     return "django-guardian";
+        if (pkg == "taggit")                       return "django-taggit";
+        if (pkg == "mptt")                         return "django-mptt";
+        if (pkg == "celery")                       return "celery";
+        return pkg;
+    };
 
     std::cout << "Installing detected Python packages...\n";
 
-    std::cout << "PIP COMMAND: "<< cmd<< "\n";
+    // Install each package separately so one failure does not block the rest
+    bool allOk = true;
+    for (auto pkg : packages) {
+        std::string mapped = mapPackage(pkg);
+        std::string cmd = pip + " install " + mapped;
+        std::cout << "PIP COMMAND: " << cmd << "\n";
+        int result = system(cmd.c_str());
+        if (result != 0) {
+            std::cout << "Warning: could not install '" << mapped << "', continuing...\n";
+            allOk = false;
+        }
+    }
 
-    return system(cmd.c_str()) == 0;
+    return allOk;
 }
 
 bool DependencyManager::removeBrokenRequirement(const std::string& projectPath,const std::string& pipOutput) {

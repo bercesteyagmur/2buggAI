@@ -9,7 +9,7 @@ class ArgumentParser {
     private: 
         std::string targetPath;
         std::string fixDescription;
-        bool recursive{false};
+        bool recursive{true};
         bool verbose{false};
         std::vector<std::string> fileExtensions;
         bool useGdb{false};

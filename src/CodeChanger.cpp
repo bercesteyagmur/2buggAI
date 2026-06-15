@@ -2,12 +2,24 @@
 #include <fstream>
 #include <filesystem>
 
-bool CodeChanger::apply_fix(FixResult fix_result){
+namespace fs = std::filesystem;
+
+bool CodeChanger::apply_fix(FixResult fix_result, const std::string& projectPath){
 
     std::string filePath = fix_result.file_path;
 
     if (filePath.empty()) {
         throw std::runtime_error("No file path provided in FixResult.");
+    }
+
+    // If the path is relative, resolve it against the project root
+    if (!filePath.empty() && filePath[0] != '/') {
+        filePath = projectPath + "/" + filePath;
+    }
+
+    // Verify the file actually exists before trying to back it up
+    if (!fs::exists(filePath)) {
+        throw std::runtime_error("Source file not found: " + filePath);
     }
 
     //create backup before overwriting
