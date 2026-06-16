@@ -644,8 +644,8 @@ int main(int argc, char** argv) {
             if (fix_res.success) {
                 sourceCode = fix_res.fixed_code;
 
-                CodeChanger changer;
-                changer.apply_fix(fix_res, targetPath);
+                CodeChanger changer (targetPath);
+                changer.apply_fix(fix_res);
 
                 // Neu entdeckte/erzeugte Fehler ebenfalls collecten und nach
                 // Schwierigkeit sortieren (leicht -> mittel -> schwer), bevor

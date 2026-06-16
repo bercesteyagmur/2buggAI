@@ -171,22 +171,10 @@ general | build_configuration | detect_from_output | build_configuration
 
 general | permissions | detect_from_output | permissions
 
-general | input_validation | detect_from_output | input_validation
+java | wrong_resource_index | detect_from_output | wrong_resource_index
 
-python | dependency_handling | detect_from_output | dependency_handling
+java | null_pointer_risk | detect_from_output | null_pointer_risk
 
-python | sql_parameter_binding | detect_from_output | sql_parameter_binding
+java | runtime_exception (java.lang.NoSuchMethodError) | detect_from_output | runtime_exception (java.lang.NoSuchMethodError)
 
-python | parameter_type_mismatch | detect_from_output | parameter_type_mismatch
-
-python | transaction_handling | detect_from_output | transaction_handling
-
-python | sql_parameter_binding | detect_from_output | sql_parameter_binding
-
-python | port_conflict | detect_from_output | port_conflict
-
-python | authentication_bypass | detect_from_output | authentication_bypass
-
-python | uninitialized_variable | detect_from_output | uninitialized_variable
-
-python | uninitialized_variable | detect_from_output | uninitialized_variable
+java | error_handling | detect_from_output | error_handling

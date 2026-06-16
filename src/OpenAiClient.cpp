@@ -173,6 +173,7 @@ FixResult OpenAIClient::fix_code(const FixRequest& req) const {
         "  \"success\": true,\n"
         "  \"is_confident\": true\n"
         "}\n"
+        "go through the errors by order of difficulty (easy -> medium -> hard). Only include errors that are actually present in the code and can be fixed by changing the source code. Do NOT include errors that would require changes to the build system, project structure, or adding new files. "
         "new_errors should only contain errors that are listed in the checklist. "
         "Respond in English.";
 

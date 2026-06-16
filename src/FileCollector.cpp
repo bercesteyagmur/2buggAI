@@ -14,15 +14,29 @@ bool FileCollector::isSourceFile(const std::string& path) {
         || ext == ".py";
 }
 
-bool FileCollector::isBuildDirectory(const std::string& path) {
+bool FileCollector::isJavaProjectType(const std::string& path) {
+    std::string filename = std::filesystem::path(path).filename().string();
+    return filename == "pom.xml"
+        || filename == "build.gradle"
+        || filename == "build.gradle.kts"
+        || filename == "settings.gradle"
+        || filename == "settings.gradle.kts";
+}
 
-    // Check if path contains common build directories
-    // These folders are generated and should be ignored during analysis
-    if (path.find("cmake-build") < path.size()) return true;
-    if (path.find("build") < path.size()) return true;
-    if (path.find(".venv") < path.size()) return true;
-    if (path.find("venv") < path.size()) return true;
-    if (path.find("site-packages") < path.size()) return true;
+bool FileCollector::isBuildDirectory(const std::string& path) {
+    fs::path p(path);
+
+    for (const auto& part : p) {
+        std::string s = part.string();
+
+        if (s == "build" || s == ".venv" || s == "venv" || s == "site-packages") {
+            return true;
+        }
+
+        if (s.rfind("cmake-build", 0) == 0) {
+            return true;
+        }
+    }
 
     return false;
 }
@@ -37,13 +51,15 @@ std::vector<std::string> FileCollector::collectSourceFiles(const std::string& pa
                 continue;
             }
 
-            if (entry.is_regular_file() && isSourceFile(entry.path().string())) {
+            if (entry.is_regular_file()
+                && (isSourceFile(entry.path().string()) || isJavaProjectType(entry.path().string()))) {
                 files.push_back(entry.path().string());
             }
         }
     } else {
         for (const auto& entry : fs::directory_iterator(path)) {
-            if (entry.is_regular_file() && isSourceFile(entry.path().string())) {
+            if (entry.is_regular_file()
+                && (isSourceFile(entry.path().string()) || isJavaProjectType(entry.path().string()))) {
                 files.push_back(entry.path().string());
             }
         }
@@ -107,7 +123,6 @@ std::vector<std::string> FileCollector::collectIncludeDirs(const std::string& pa
                 continue;
             }
 
-
             if (entry.is_regular_file()) {
                 process(entry.path());
             }
@@ -122,7 +137,3 @@ std::vector<std::string> FileCollector::collectIncludeDirs(const std::string& pa
 
     return includeDirs;
 }
-
-
-
-
