@@ -309,7 +309,7 @@ std::string Compiler::compileIfNeeded(const std::string& targetPath) {
     if (ext == ".c" || ext == ".cpp" || ext == ".cc") {
         std::string outFile = "/tmp/buggy_compiled_" + std::to_string(getpid());
         std::string compiler = (ext == ".c") ? "gcc" : "g++";
-        std::string compileCmd = compiler + " -g -pthread -o " + outFile + " " + targetPath + " 2>&1";
+        std::string compileCmd = compiler + " -g -pthread -o " + ShellQuote::quote(outFile) + " " + ShellQuote::quote(targetPath) + " 2>&1";
 
         FILE* pipe = popen(compileCmd.c_str(), "r");
         if (!pipe) {

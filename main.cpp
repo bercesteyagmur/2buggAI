@@ -360,6 +360,29 @@ int main(int argc, char** argv) {
                     if (!canRunProgram) break;
                 }
             }
+            // Override: never run interactive C/C++ programs
+            if ((detectedLanguage == "c" || detectedLanguage == "cpp") && canRunProgram) {
+                for (const auto& f : files) {
+                    std::ifstream checkFile(f);
+                    std::string checkLine;
+                    while (std::getline(checkFile, checkLine)) {
+                        if(checkLine.find("std::cin") != std::string::npos ||
+                            checkLine.find("cin >>") != std::string::npos ||
+                            checkLine.find("getline(") != std::string::npos ||
+                            checkLine.find("scanf(") != std::string::npos ||
+                            checkLine.find("getchar(") != std::string::npos ||
+                            checkLine.find("fgets(") != std::string::npos ||
+                            checkLine.find("getch(") != std::string::npos ||
+                            checkLine.find("read(STDIN") != std::string::npos) {
+                            std::cout << "Interactive program detected (uses stdin). Skipping execution, running static analysis only.\n";
+                            canRunProgram = false;
+                            break;
+                        }
+                    }
+                    if (!canRunProgram) 
+                    break;
+                }
+            }
         }
 
         // Runner optional
@@ -579,6 +602,23 @@ int main(int argc, char** argv) {
 
         std::cout << "=====================================\n\n";
 
+        // Detect platform-specific headers(environment issue not code bug)
+        {
+            static const std::vector<std::string> platformHeaders = {
+                "windows.h", "conio.h", "process.h", "jni.h",
+                "ldap.h", "dos.h", "graphics.h", "bios.h"
+            };
+            for (const auto& hdr : platformHeaders) {
+                if (error_output.find(hdr + ": No such file") != std::string::npos) {
+                    std::cout << "[PLATFORM ISSUE] The project requires '" << hdr
+                              << "', which is not available on this OS.\n"
+                              << "This is an environment/portability issue, not a code bug.\n"
+                              << "Skipping fix attempts; running static analysis only.\n\n";
+                    detectedErrors.clear();
+                    break;
+                }
+            }
+        }
         // Fix Loop
     if (!detectedErrors.empty()) {
 
