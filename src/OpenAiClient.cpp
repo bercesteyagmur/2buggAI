@@ -175,6 +175,7 @@ FixResult OpenAIClient::fix_code(const FixRequest& req) const {
         "}\n"
         "go through the errors by order of difficulty (easy -> medium -> hard). Only include errors that are actually present in the code and can be fixed by changing the source code. Do NOT include errors that would require changes to the build system, project structure, or adding new files. "
         "new_errors should only contain errors that are listed in the checklist. "
+        "also inlcude at which error u are and the difficulty of the error u are trying to fix. "
         "Respond in English.";
 
     std::string input_text =

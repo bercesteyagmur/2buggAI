@@ -18,18 +18,28 @@ bool CodeChanger::apply_fix(FixResult fix_result){
         throw std::runtime_error("Target file does not exist: " + fullPath.string());
     }
 
-    // create backup before overwriting
-    std::filesystem::path backupFile = fullPath;
-    backupFile += ".bak";
+    // Backup-Ordner bestimmen: basePath_/backups/<relative Unterordner>/
+    // Dadurch landet z.B. src/Foo.java als backups/src/Foo.java.bak
+    // und Namenskollisionen bei gleichen Dateinamen werden vermieden.
+    std::filesystem::path backupDir;
+    if (!basePath_.empty()) {
+        std::error_code relEc;
+        auto relPath = std::filesystem::relative(fullPath, basePath_, relEc);
+        backupDir = relEc
+            ? fullPath.parent_path() / "backups"
+            : std::filesystem::path(basePath_) / "backups" / relPath.parent_path();
+    } else {
+        backupDir = fullPath.parent_path() / "backups";
+    }
+
+    std::filesystem::create_directories(backupDir);
+
+    std::filesystem::path backupFile = backupDir / (fullPath.filename().string() + ".bak");
 
     try {
         std::filesystem::copy_file(fullPath, backupFile, std::filesystem::copy_options::overwrite_existing);
     } catch (const std::filesystem::filesystem_error& e) {
         throw std::runtime_error("Failed to create backup for " + fullPath.string() + ": " + e.what());
-    }
-
-    if (!std::filesystem::exists(backupFile)) {
-        throw std::runtime_error("Failed to create backup file: " + backupFile.string());
     }
 
 

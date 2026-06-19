@@ -103,6 +103,7 @@ std::vector<std::string>DependencyManager::detectPythonImports(const std::string
 
             if (ec) {
                 std::cerr << "Directory iteration error: "<< ec.message() << "\n";
+                ec.clear();
                 continue;
             }
 

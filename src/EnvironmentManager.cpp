@@ -1,5 +1,6 @@
 #include "EnvironmentManager.h"
 #include "ProcessRunner.h"
+#include "ShellQuote.h"
 #include <filesystem>
 #include <cstdlib>
 #include <iostream>
@@ -67,7 +68,7 @@ bool EnvironmentManager::createVirtualEnv(
         system("sudo apt install -y python3.12-venv");
     }
 
-    std::string cmd = "python3 -m venv '" + venvPath + "'";
+    std::string cmd = "python3 -m venv " + ShellQuote::quote(venvPath);
 
     return system(cmd.c_str()) == 0;
 }
@@ -107,7 +108,7 @@ RunResult EnvironmentManager::installRequirements(
 
     std::string pip = getPipExecutable(projectPath);
 
-    std::string cmd = pip + " install -r '" + requirements + "'";
+    std::string cmd = ShellQuote::quote(pip) + " install -r " + ShellQuote::quote(requirements);
 
     cmd += " --progress-bar on";
 

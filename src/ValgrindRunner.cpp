@@ -1,7 +1,8 @@
 #include "ValgrindRunner.h"
 #include "ShellQuote.h"
 #include <fstream>
-#include <unistd.h>     
+#include <filesystem>
+#include <unistd.h>
 #include <string>
 
 static std::string read_all(const std::string& path) {
@@ -26,5 +27,6 @@ ValgrindResult run_valgrind(const std::string& program, const std::vector<std::s
     ValgrindResult vr;
     vr.run = run_capture(cmd);
     vr.xml = read_all(xmlFile);
+    std::filesystem::remove(xmlFile);
     return vr;
 }

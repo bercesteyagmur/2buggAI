@@ -622,97 +622,152 @@ int main(int argc, char** argv) {
         // Fix Loop
     if (!detectedErrors.empty()) {
 
-    OpenAIClient fixClient;
-    std::string checkListRaw = reader.loadRaw();
-    std::string venvPath = EnvironmentManager::getPipExecutable(targetPath);
-    // derive venv root from pip path (strip /bin/pip)
-    std::string venvRoot = venvPath.substr(0, venvPath.size() - std::string("/bin/pip").size());
+        OpenAIClient fixClient;
+        std::string checkListRaw = reader.loadRaw();
 
-    const int MAX_ITER = 5;
-    const int MAX_TOTAL_ERRORS = 20;
+        const int MAX_ROUNDS = 20;  // global budget against endless loops
+        const int MAX_ITER   = 5;   // attempts per single error
 
-    for (size_t i = 0; i < detectedErrors.size(); ++i) {
+        // Re-build / re-run the project and re-detect errors from the fresh
+        // output. The REAL project state is the source of truth after every
+        // applied fix, instead of trusting AI-reported new_errors.
+        auto redetect = [&]() -> std::vector<std::string> {
+            std::string freshOutput;
 
-        // If the error comes from inside the venv (broken installed package),
-        // retrying will never help — detect and handle it directly instead.
-        if (detectedErrors[i] == "syntax_error_python" &&
-            error_output.find(venvRoot) != std::string::npos) {
+            if (detectedLanguage == "java") {
+                JavaProjectDetector jpd;
+                JavaProjectType t = jpd.detect(targetPath);
+                std::string bp = jpd.getBuildPath();
+                std::string prog;
+                switch (t) {
+                    case JavaProjectType::Maven:
+                    case JavaProjectType::SpringBootMaven:  prog = compiler.compileMaven(bp);  break;
+                    case JavaProjectType::Gradle:
+                    case JavaProjectType::SpringBootGradle: prog = compiler.compileGradle(bp); break;
+                    default:                                prog = compiler.compileJava(files); break;
+                }
+                freshOutput += compiler.getLastCompileOutput();
+                if (!prog.empty()) program = prog;
+            } else if (detectedLanguage != "python") {
+                // C / C++
+                std::string prog = (files.size() > 1)
+                    ? compiler.compileMultiple(files, includeDirs)
+                    : compiler.compileIfNeeded(files[0]);
+                freshOutput += compiler.getLastCompileOutput();
+                if (!prog.empty()) program = prog;
+            }
 
-            std::cout << "Syntax error detected inside installed package (venv), skipping retries.\n";
-            std::cout << "Attempting to reinstall correct package...\n";
+            // Re-run the program if we have a run command.
+            if (canRunProgram && !cmd.empty()) {
+                RunResult rr = run_capture(cmd);
+                freshOutput += "\n" + rr.output;
+            }
 
-            // Extract package filename from the venv path in the error output
-            // e.g. /tmp/buggy-venv-.../lib/python3.12/site-packages/environ.py -> environ
-            std::string marker = "site-packages/";
-            size_t sitePos = error_output.find(marker);
-            if (sitePos != std::string::npos) {
-                size_t start = sitePos + marker.size();
-                size_t end = error_output.find_first_of("/.\n", start);
-                if (end != std::string::npos) {
-                    std::string badPkg = error_output.substr(start, end - start);
-                    std::string pip = EnvironmentManager::getPipExecutable(targetPath);
-                    std::cout << "Uninstalling bad package: " << badPkg << "\n";
-                    std::string uninstall = pip + " uninstall -y " + badPkg;
-                    system(uninstall.c_str());
-                    // Re-run install with the corrected mapping
-                    std::vector<std::string> pkgs = {badPkg};
-                    DependencyManager::installPythonPackages(targetPath, pkgs);
+            error_output = freshOutput;  // refresh shared output for next request
+            std::vector<std::string> errs = matcher.match(error_output, language);
+            return errorCollector.sortedErrors(errs);
+        };
+
+        std::vector<std::string> giveUp;  // errors abandoned after MAX_ITER
+        auto isGivenUp = [&](const std::string& e) {
+            return std::find(giveUp.begin(), giveUp.end(), e) != giveUp.end();
+        };
+
+        int round = 0;
+        while (round < MAX_ROUNDS) {
+            // pick the easiest error we have not given up on
+            std::string current;
+            for (const auto& e : detectedErrors)
+                if (!isGivenUp(e)) { current = e; break; }
+            if (current.empty()) break;  // nothing left to do
+
+            // venv special case: a syntax error inside an installed package
+            // can never be fixed by retrying — reinstall and skip.
+            if (current == "syntax_error_python") {
+                const std::string pipExe = EnvironmentManager::getPipExecutable(targetPath);
+                const std::string pipSuffix = "/bin/pip";
+                const std::string venvRoot = (pipExe.size() > pipSuffix.size())
+                    ? pipExe.substr(0, pipExe.size() - pipSuffix.size())
+                    : "";
+
+                if (!venvRoot.empty() && error_output.find(venvRoot) != std::string::npos) {
+                    std::cout << "Syntax error detected inside installed package (venv), skipping retries.\n";
+                    std::cout << "Attempting to reinstall correct package...\n";
+
+                    std::string marker = "site-packages/";
+                    size_t sitePos = error_output.find(marker);
+                    if (sitePos != std::string::npos) {
+                        size_t start = sitePos + marker.size();
+                        size_t end = error_output.find_first_of("/.\n", start);
+                        if (end != std::string::npos) {
+                            std::string badPkg = error_output.substr(start, end - start);
+                            std::string pip = EnvironmentManager::getPipExecutable(targetPath);
+                            std::cout << "Uninstalling bad package: " << badPkg << "\n";
+                            std::string uninstall = pip + " uninstall -y " + badPkg;
+                            system(uninstall.c_str());
+                            std::vector<std::string> pkgs = {badPkg};
+                            DependencyManager::installPythonPackages(targetPath, pkgs);
+                        }
+                    }
+                    detectedErrors = redetect();  // re-detect after reinstall
+                    giveUp.push_back(current);    // don't retry this one via AI
+                    continue;
                 }
             }
-            std::cerr << "Fehler konnte nicht behoben werden: " << detectedErrors[i] << "\n";
-            continue;
-        }
 
-        int iteration = 0;
-        bool fixed = false;
+            round++;
+            bool fixed = false;
 
-        while (iteration < MAX_ITER) {
+            for (int attempt = 1; attempt <= MAX_ITER; ++attempt) {
+                std::cout << "Attempt " << attempt << "/" << MAX_ITER
+                          << " for error: " << current
+                          << " (difficulty: " << ErrorCollector::difficultyOf(current) << ")\n";
 
-            std::cout << "Versuch " << (iteration + 1) << "/" << MAX_ITER
-                      << " fuer Fehler: " << detectedErrors[i]
-                      << " (Schwierigkeit: " << ErrorCollector::difficultyOf(detectedErrors[i]) << ")\n";
+                // Always read the current source from disk so the AI sees the
+                // latest state, including previously applied fixes.
+                std::stringstream freshCollected;
+                for (const auto& f : files) {
+                    freshCollected << "===== FILE: " << f << " =====\n";
+                    freshCollected << collector.readSourceCode(f) << "\n\n";
+                }
+                std::string sourceCode = freshCollected.str();
 
-            FixRequest fix_req;
-            fix_req.error_name   = detectedErrors[i];
-            fix_req.error_output = error_output;
-            fix_req.language     = language;
-            fix_req.source_code  = sourceCode;
-            fix_req.checklist    = checkListRaw;
+                FixRequest fix_req;
+                fix_req.error_name   = current;
+                fix_req.error_output = error_output;
+                fix_req.language     = language;
+                fix_req.source_code  = sourceCode;
+                fix_req.checklist    = checkListRaw;
 
-            FixResult fix_res = fixClient.fix_code(fix_req);
+                FixResult fix_res = fixClient.fix_code(fix_req);
+                if (!fix_res.success) continue;
 
-            if (fix_res.success) {
-                sourceCode = fix_res.fixed_code;
-
-                CodeChanger changer (targetPath);
+                CodeChanger changer(targetPath);
                 changer.apply_fix(fix_res);
 
-                // Neu entdeckte/erzeugte Fehler ebenfalls collecten und nach
-                // Schwierigkeit sortieren (leicht -> mittel -> schwer), bevor
-                // sie in die Warteschlange eingefuegt werden
-                auto newErrors = errorCollector.sortedErrors(fix_res.new_errors);
-
-                size_t insertPos = i + 1;
-                for (const auto& newErr : newErrors) {
-                    if(detectedErrors.size() < MAX_TOTAL_ERRORS) {
-                        detectedErrors.insert(detectedErrors.begin() + insertPos, newErr);
-                        error_output += "\n" + newErr;
-                        insertPos++;
-                    }
+                // Re-build / re-run and check whether the error is gone.
+                detectedErrors = redetect();
+                bool gone = std::find(detectedErrors.begin(), detectedErrors.end(), current)
+                            == detectedErrors.end();
+                if (gone) {
+                    std::cout << "  -> fixed. Remaining errors: " << detectedErrors.size() << "\n";
+                    fixed = true;
+                    break;
                 }
-
-                fixed = true;
-                break;
+                std::cout << "  -> error still present, retrying\n";
             }
 
-            iteration++;
+            if (!fixed) {
+                std::cerr << "Could not fix error: " << current << "\n";
+                giveUp.push_back(current);  // prevent infinite retries on same error
+            }
         }
 
-        if (!fixed) {
-            std::cerr << "Fehler konnte nicht behoben werden: " << detectedErrors[i] << "\n";
-        }
+        if (detectedErrors.empty())
+            std::cout << "\nAll errors fixed - project builds cleanly.\n";
+        else
+            std::cout << "\nFinished. " << giveUp.size() << " error(s) could not be fixed.\n";
     }
-}
 
 
         // Report JSON bauen

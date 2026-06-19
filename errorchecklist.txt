@@ -178,3 +178,53 @@ java | null_pointer_risk | detect_from_output | null_pointer_risk
 java | runtime_exception (java.lang.NoSuchMethodError) | detect_from_output | runtime_exception (java.lang.NoSuchMethodError)
 
 java | error_handling | detect_from_output | error_handling
+
+general | build_configuration_error | detect_from_output | build_configuration_error
+
+general | build_permission_error | detect_from_output | build_permission_error
+
+general | dependency_management_error | detect_from_output | dependency_management_error
+
+java | naming_convention_violation | detect_from_output | naming_convention_violation
+
+java | security_configuration_error | detect_from_output | security_configuration_error
+
+java | thread_safety | detect_from_output | thread_safety
+
+java | incorrect_file_path_usage | detect_from_output | incorrect_file_path_usage
+
+java | uninitialized_variable | detect_from_output | uninitialized_variable
+
+java | logic_error, infinite_loop_risk | detect_from_output | logic_error, infinite_loop_risk
+
+java | logic_error, infinite_loop_risk | detect_from_output | logic_error, infinite_loop_risk
+
+java | logic_error, infinite_loop_risk | detect_from_output | logic_error, infinite_loop_risk
+
+general | permission_denied | detect_from_output | permission_denied
+
+java | syntax_error (missing_semicolon) | detect_from_output | syntax_error (missing_semicolon)
+
+java | sql_syntax_error | detect_from_output | sql_syntax_error
+
+python | type_mismatch, logic_error | detect_from_output | type_mismatch, logic_error
+
+python | off_by_one, logic_error | detect_from_output | off_by_one, logic_error
+
+java | race_condition | detect_from_output | race_condition
+
+java | race_condition | detect_from_output | race_condition
+
+java | incorrect_constructor | detect_from_output | incorrect_constructor
+
+java | incorrect_constructor | detect_from_output | incorrect_constructor
+
+java | incorrect_constructor | detect_from_output | incorrect_constructor
+
+java | incorrect_constructor | detect_from_output | incorrect_constructor
+
+java | incorrect_constructor | detect_from_output | incorrect_constructor
+
+java | infinite_recursion | detect_from_output | infinite_recursion
+
+java | concurrency_issue | detect_from_output | concurrency_issue

@@ -17,6 +17,7 @@ bool FileCollector::isSourceFile(const std::string& path) {
 bool FileCollector::isJavaProjectType(const std::string& path) {
     std::string filename = std::filesystem::path(path).filename().string();
     return filename == "pom.xml"
+        || filename == "build.xml"
         || filename == "build.gradle"
         || filename == "build.gradle.kts"
         || filename == "settings.gradle"

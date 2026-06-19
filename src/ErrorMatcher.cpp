@@ -15,6 +15,7 @@ static std::string toLower(const std::string& s) {
 
 static bool contains(const std::string& text, const std::string& sub) {
 
+    if (sub.empty()) return true;
     if (sub.size() > text.size()) return false;
 
     for (size_t i = 0; i <= text.size() - sub.size(); i++) {
