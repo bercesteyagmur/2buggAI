@@ -78,24 +78,22 @@ Basic Syntax
 
 ./buggy <path> <fix-description> [options]
 
+---
+Options:
 
-┌───────────────────┬─────────────────────────────────────────────────────────────┐
-│      Option       │                         Description                         │
-├───────────────────┼─────────────────────────────────────────────────────────────┤
-│ --gdb             │ Run GDB to collect stack trace and runtime errors (C/C++)   │
-├───────────────────┼─────────────────────────────────────────────────────────────┤
-│ --valgrind        │ Run Valgrind to detect memory leaks (C/C++)                 │
-├───────────────────┼─────────────────────────────────────────────────────────────┤
-│ -r                │ Recursively collect all source files from a directory       │
-├───────────────────┼─────────────────────────────────────────────────────────────┤
-│ -v / --verbose    │ Show detailed output including full source code             │
-├───────────────────┼─────────────────────────────────────────────────────────────┤
-│ -s                │ Show AI fix suggestions without automatically applying them │
-├───────────────────┼─────────────────────────────────────────────────────────────┤
-│ --json-out <file> │ Save the full debugging report as a JSON file               │
-├───────────────────┼─────────────────────────────────────────────────────────────┤
-│ --help            │ Show usage help                                             │
-└───────────────────┴─────────────────────────────────────────────────────────────┘
+--gdb — Run GDB to collect stack trace and runtime errors (C/C++)
+
+--valgrind — Run Valgrind to detect memory leaks (C/C++)
+
+-r — Recursively collect all source files from a directory
+
+-v / --verbose — Show detailed output including full source code
+
+-s — Show AI fix suggestions without automatically applying them
+
+--json-out <file> — Save the full debugging report as a JSON file
+
+--help — Show usage help
 
 ---
 How the Tool Works
