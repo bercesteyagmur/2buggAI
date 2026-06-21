@@ -23,6 +23,7 @@ ValgrindResult run_valgrind(const std::string& program, const std::vector<std::s
         ShellQuote::quote(program);
 
     for (const auto& a : args) cmd += " " + ShellQuote::quote(a);
+    cmd = "yes \"\" | " + cmd;
 
     ValgrindResult vr;
     vr.run = run_capture(cmd);

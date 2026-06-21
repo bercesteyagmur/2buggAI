@@ -228,3 +228,29 @@ java | incorrect_constructor | detect_from_output | incorrect_constructor
 java | infinite_recursion | detect_from_output | infinite_recursion
 
 java | concurrency_issue | detect_from_output | concurrency_issue
+
+python | dangerous_operation | detect_from_output | dangerous_operation
+
+python | import_side_effect | detect_from_output | import_side_effect
+
+python | import_side_effects | detect_from_output | import_side_effects
+
+python | empty_container | detect_from_output | empty_container
+
+python | improper_validation | detect_from_output | improper_validation
+
+python | unsafe_file_operation | detect_from_output | unsafe_file_operation
+
+python | incorrect_path_check | detect_from_output | incorrect_path_check
+
+python | path_traversal | detect_from_output | path_traversal
+
+python | inconsistent_validation | detect_from_output | inconsistent_validation
+
+python | portability_bug | detect_from_output | portability_bug
+
+python | missing_function_call | detect_from_output | missing_function_call
+
+python | configuration_error | detect_from_output | configuration_error
+
+java | input_validation | detect_from_output | input_validation

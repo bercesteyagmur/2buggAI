@@ -26,5 +26,5 @@ RunResult run_gdb(const std::string& program, const std::vector<std::string>& ar
         "--args " + ShellQuote::quote(program);
 
     for (const auto& a : args) cmd += " " + ShellQuote::quote(a);
-    return run_capture(cmd);
+    return run_capture("yes \"\" | " + cmd);
 }

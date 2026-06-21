@@ -343,46 +343,36 @@ int main(int argc, char** argv) {
             }
             canRunProgram = !program.empty();
 
-            // Override: never run interactive Python programs
-            if (detectedLanguage == "python" && canRunProgram) {
+            // Detect interactive usage and inform the user (but still run)
+            if (canRunProgram) {
+                bool isInteractive = false;
                 for (const auto& f : files) {
                     std::ifstream checkFile(f);
                     std::string checkLine;
                     while (std::getline(checkFile, checkLine)) {
-                        if (checkLine.find("input(") != std::string::npos ||
-                            checkLine.find("sys.stdin") != std::string::npos ||
-                            checkLine.find("getpass(") != std::string::npos) {
-                            std::cout << "Interactive program detected (uses input()) — skipping execution, running static analysis only.\n";
-                            canRunProgram = false;
+                        bool pythonInteractive = detectedLanguage == "python" &&
+                            (checkLine.find("input(") != std::string::npos ||
+                             checkLine.find("sys.stdin") != std::string::npos ||
+                             checkLine.find("getpass(") != std::string::npos);
+                        bool cInteractive = (detectedLanguage == "c" || detectedLanguage == "cpp") &&
+                            (checkLine.find("std::cin") != std::string::npos ||
+                             checkLine.find("cin >>") != std::string::npos ||
+                             checkLine.find("getline(") != std::string::npos ||
+                             checkLine.find("scanf(") != std::string::npos ||
+                             checkLine.find("getchar(") != std::string::npos ||
+                             checkLine.find("fgets(") != std::string::npos);
+                        if (pythonInteractive || cInteractive) {
+                            isInteractive = true;
                             break;
                         }
                     }
-                    if (!canRunProgram) break;
+                    if (isInteractive) break;
+                }
+                if (isInteractive) {
+                    std::cout << "Interactive program detected — running with empty input (yes \"\").\n";
                 }
             }
-            // Override: never run interactive C/C++ programs
-            if ((detectedLanguage == "c" || detectedLanguage == "cpp") && canRunProgram) {
-                for (const auto& f : files) {
-                    std::ifstream checkFile(f);
-                    std::string checkLine;
-                    while (std::getline(checkFile, checkLine)) {
-                        if(checkLine.find("std::cin") != std::string::npos ||
-                            checkLine.find("cin >>") != std::string::npos ||
-                            checkLine.find("getline(") != std::string::npos ||
-                            checkLine.find("scanf(") != std::string::npos ||
-                            checkLine.find("getchar(") != std::string::npos ||
-                            checkLine.find("fgets(") != std::string::npos ||
-                            checkLine.find("getch(") != std::string::npos ||
-                            checkLine.find("read(STDIN") != std::string::npos) {
-                            std::cout << "Interactive program detected (uses stdin). Skipping execution, running static analysis only.\n";
-                            canRunProgram = false;
-                            break;
-                        }
-                    }
-                    if (!canRunProgram) 
-                    break;
-                }
-            }
+
         }
 
         // Runner optional
@@ -439,13 +429,17 @@ int main(int argc, char** argv) {
                 cdPath = std::filesystem::path(targetPath).parent_path().string();
             }
 
-            cmd = "export MPLBACKEND=Agg && cd '" + cdPath + "' && ";
-
-            // cmd += "yes n | ";
+            cmd = "export MPLBACKEND=Agg && cd '" + cdPath + "' && yes \"\" | ";
 
            // cmd += "timeout 1200s ";
 
-            cmd += ShellQuote::quote(program);
+            bool isJar = program.size() > 4 &&
+                         program.substr(program.size() - 4) == ".jar";
+            if (isJar) {
+                cmd += "java -jar " + ShellQuote::quote(program);
+            } else {
+                cmd += ShellQuote::quote(program);
+            }
 
             for (const auto& arg : passArgs) {
 
@@ -453,8 +447,6 @@ int main(int argc, char** argv) {
 
                 cmd += ShellQuote::quote(arg);
             }
-
-
 
             runRes = run_capture(cmd);
             runPtr = &runRes;
