@@ -1,235 +1,235 @@
-# Sprint 3: LLM-Prototyp Konzept
+# LLM Integration: 2buggAI
 
-**Projekt:** 2buggAI - KI-gestütztes Debugging-Tool  
-**Sprint:** 3  
+**Project:** 2buggAI — AI-powered Debugging Tool  
 **Team:** Nikola Cvetkovic, Krystian Piotr Kedzior  
 
 ---
 
-## 1. Scope-Anpassung
+## 1. Overview
 
-Parallel zur Pipeline-Definition wurde die LLM-Integration auf konzeptioneller Ebene vorbereitet. Die tatsächliche Implementation wurde auf Sprint 4 verschoben, um eine solide technische Grundlage zu schaffen.
+2buggAI uses the **OpenAI API** for two distinct AI tasks:
 
----
+1. **`debug_report()`** — Final analysis: explains the bug, its root cause, and recommends fixes
+2. **`fix_code()`** — Auto-fix: given a specific error, returns corrected source code to be written to disk
 
-## 2. API-Client-Design
-
-### 2.1 Anforderungen
-
-**Funktionalität:**
-- HTTP POST-Requests an LLM-API-Endpunkt
-- JSON-Request-Building
-- JSON-Response-Parsing
-- Authentifizierung (Bearer Token)
-- Timeout-Handling
-
-**Konfiguration:**
-- API-Key aus Environment-Variable
-- Base-URL konfigurierbar (ANTHROPIC_BASE_URL)
-- Modell-Selection (Environment oder Default)
-
-### 2.2 Klassenstruktur (konzeptionell)
-
-```
-ClaudeClient:
-  - Konstruktor: Lädt Config aus Environment
-  - debug_report(json_report): Hauptfunktion
-  - Private: HTTP-Request-Logik
-  
-Datenstrukturen:
-  ClaudeResult:
-    - http_status: int
-    - raw_json: string
-    - text: string (extrahiert)
-```
+Both calls go to the same endpoint and model, but use different prompts and response formats.
 
 ---
 
-## 3. JSON-Payload-Format
+## 2. Configuration
 
-### 3.1 Request
+All settings are loaded from environment variables at startup:
 
-**Struktur:**
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `OPENAI_API_KEY` | *(required)* | API key — throws if not set |
+| `OPENAI_BASE_URL` | `https://api.openai.com` | API base URL (overridable for proxies) |
+| `OPENAI_MODEL` | `gpt-5.2` | Model to use for all calls |
+
+The API key can also be passed via `--api-token` and the base URL via `--api-url` on the CLI.
+
+---
+
+## 3. HTTP Client
+
+**Library:** libcurl  
+**Endpoint:** `POST {OPENAI_BASE_URL}/v1/responses`  
+**Authentication:** `Authorization: Bearer <OPENAI_API_KEY>`  
+**Content-Type:** `application/json`  
+**Timeout:** 60 seconds  
+
+---
+
+## 4. `debug_report()` — Final Analysis Call
+
+Called once after the auto-fix loop completes. Sends the full JSON report and returns a structured Markdown analysis.
+
+### Request
+
 ```json
 {
-  "model": "claude-3-opus",
-  "instructions": "System-Prompt",
-  "input": "User-Prompt mit JSON-Report",
-  "max_output_tokens": 500
+  "model": "gpt-5.2",
+  "instructions": "<system prompt>",
+  "input": "Here is the report as JSON:\n\n{...report_json...}\n\nPlease analyze and explain the error, then propose a fix.",
+  "max_output_tokens": 4000
 }
 ```
 
-**Alternativen für verschiedene APIs:**
-- Anthropic: direktes Format wie oben
+### System Prompt
 
-### 3.2 Response
+```
+You are a Senior Debugger. Analyze the JSON (debugger output, runtime errors,
+Valgrind output if available, detected errors).
+Structure your response in Markdown with the following sections:
 
-**Erwartete Strukturen:**
+## Summary
+A brief summary of the main issue (max 2 sentences).
 
-**Anthropic Claude:**
+## Severity
+critical, high, medium, or low
+
+## Bugs
+For each bug:
+
+### Bug N: [Title]
+- **File:** path/to/file.ext:line
+- **Category:** Choose the most specific category name
+  (e.g., memory_leak, null_pointer, uninitialized_variable,
+  off_by_one, integer_overflow, etc.). Use snake_case.
+- **Language:** general / c / cpp / java / python.
+  Use 'general' if the bug can occur in multiple languages.
+  Use a specific language only if the bug is unique to that
+  language's syntax or runtime.
+- **Problem:** What is the problem (brief description)
+
+**Buggy code:**
+```
+// Original buggy code
+```
+
+**Fixed code:**
+```
+// Corrected code
+```
+
+**Explanation:** Brief explanation of why the fix works.
+
+## Recommendations (only if needed)
+OMIT THIS SECTION ENTIRELY unless there is at least one concrete,
+non-trivial systemic recommendation. Do NOT include generic advice
+like 'write tests' or 'use a linter'.
+
+Respond in English.
+```
+
+### Response Parsing
+
+`extract_text_best_effort()` tries two paths in order:
+
+1. `response["output_text"]` (string)
+2. `response["output"][*]["content"][*]["text"]` (array traversal)
+
+Returns the extracted Markdown text as `OpenAIResult::text`.
+
+### Checklist Update
+
+After a successful call, the tool scans the response text line by line for:
+- `**Category:** <value>`
+- `**Language:** <value>`
+
+If a new category/language pair is not already in `errorchecklist.txt`, it is appended automatically.
+
+---
+
+## 5. `fix_code()` — Auto-Fix Call
+
+Called inside the fix loop for each error attempt. Returns corrected source code as a JSON object.
+
+### Request
+
 ```json
 {
-  "content": [
-    {"type": "text", "text": "..."}
-  ]
+  "model": "gpt-5.2",
+  "instructions": "<system prompt>",
+  "input": [
+    {
+      "type": "message",
+      "role": "user",
+      "content": "Error name: ...\n\nLanguage: ...\n\nError output:\n...\n\nSource code:\n...\n\nChecklist:\n...\n\nPlease analyze and return ONLY the JSON object as specified."
+    }
+  ],
+  "max_output_tokens": 4000
 }
 ```
 
-**Parsing-Strategie:** Best-Effort, unterstützt beide Formate
-
----
-
-## 4. Prompt-Template
-
-### 4.1 System-Prompt (Instructions)
+### System Prompt
 
 ```
-Du bist ein Senior Debugger. 
-Analysiere Debug-Reports (GDB/Valgrind) und erkläre 
-Fehler präzise und verständlich.
+You are a Senior Debugger. Analyze the error and the code.
+The source code may be in C, C++, Java, or Python — use the
+appropriate syntax and idioms for the language indicated by
+the 'language' field and the source code itself.
 
-Gib:
-(1) Wahrscheinlichste Ursache
-(2) Belege aus Debug-Output
-(3) Konkrete Fix-Schritte
+Respond ONLY with a JSON object, no text before or after:
+{
+  "file_path": "...path to the fixed file...",
+  "fixed_code": "...only the content of this one file, in the original language...",
+  "new_errors": ["error1", "error2"],
+  "success": true,
+  "is_confident": true
+}
 
-Antwort auf Deutsch.
+Go through errors by order of difficulty (easy → medium → hard).
+Only include errors that are actually present in the code and can
+be fixed by changing the source code. Do NOT include errors that
+would require changes to the build system, project structure, or
+adding new files.
+new_errors should only contain errors listed in the checklist.
+
+Respond in English.
 ```
 
-### 4.2 User-Prompt
+### Response Parsing
 
+The response text is parsed as JSON and mapped to `FixResult`:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `file_path` | string | Path of the file to overwrite |
+| `fixed_code` | string | Complete corrected file content |
+| `new_errors` | `vector<string>` | Other errors the AI noticed (checklist names) |
+| `success` | bool | Whether the AI believes the fix is correct |
+| `is_confident` | bool | Whether the AI is confident the error is fully resolved |
+
+If JSON parsing fails at any step, an empty `FixResult` is returned (`success = false`) and the fix loop retries.
+
+---
+
+## 6. Data Structures
+
+```cpp
+struct OpenAIResult {
+    long http_status;
+    std::string raw_json;  // full API response body
+    std::string text;      // extracted text content
+};
+
+struct FixRequest {
+    std::string error_name;    // e.g. "null_pointer"
+    std::string error_output;  // raw compiler/debugger/runtime output
+    std::string language;      // "c", "cpp", "java", "python"
+    std::string source_code;   // current source (re-read from disk each attempt)
+    std::string checklist;     // raw errorchecklist.txt content
+};
+
+struct FixResult {
+    std::string fixed_code;
+    std::string file_path;
+    std::vector<std::string> new_errors;
+    bool success = false;
+    bool is_confident = false;
+};
 ```
-Hier ist der Report als JSON:
-
-{...vollständiger JSON-Report...}
-
-Bitte analysieren und den Fehler erklären + Fix vorschlagen.
-```
-
-### 4.3 Output-Erwartung
-
-```
-FEHLERANALYSE:
-
-1. FEHLERBESCHREIBUNG:
-   [Kurze Zusammenfassung]
-
-2. URSACHE:
-   [Detaillierte Analyse]
-
-3. BELEGE:
-   - [Debug-Output-Referenz]
-   - [Code-Stelle]
-
-4. FIX-SCHRITTE:
-   a) [Konkreter Schritt]
-   b) [Konkreter Schritt]
-```
 
 ---
 
-## 5. Fehlerbehandlung
+## 7. Error Handling
 
-### 5.1 HTTP-Fehler
-
-**Status-Codes:**
-- 200-299: Success
-- 401: Invalid API Key
-- 429: Rate Limit Exceeded
-- 500: API Server Error
-- Timeout: Nach 60 Sekunden
-
-**Handling:**
-- Status-Check vor Parsing
-- Error-Message-Extraktion aus Response
-- User-freundliche Fehlermeldung
-
-### 5.2 Parsing-Fehler
-
-**Szenarien:**
-- Ungültiges JSON
-- Unerwartete Struktur
-- Fehlende Felder
-
-**Handling:**
-- JSON-Parse mit Error-Check
-- Fallback auf raw_json bei Fehler
-- Warnung an User
+| Scenario | Behavior |
+|----------|----------|
+| `OPENAI_API_KEY` not set | Throws `runtime_error` at startup |
+| `curl_easy_init()` fails | Throws `runtime_error` |
+| curl network error | Throws `runtime_error` with curl error message |
+| HTTP 4xx / 5xx | `http_status` set; caller prints error and exits with code 5 |
+| Invalid JSON in response | `parsed.is_discarded()` → empty result returned |
+| Missing fields in fix JSON | Fields skipped; `success` stays `false` |
 
 ---
 
-## 6. LLM-Evaluierung
+## 8. API Parameters
 
-### 6.1 Anthropic Claude
-
-**Status:** Favorit basierend auf Sprint-2-Recherche  
-**Nächster Schritt:** Praktische Tests in Sprint 4 (Credits kaufen, API-Calls)
-
-**Erwartete Vorteile:**
-- Großes Context-Window (100K+ tokens)
-- Gute Code-Analyse
-
----
-
-## 7. Offene Implementierungsdetails
-
-**HTTP-Library:**
-- libcurl (C, weit verbreitet)
-- cpp-httplib (C++ Header-only)
-- Andere Optionen
-
-**JSON-Library:**
-- nlohmann/json (C++ Header-only, beliebt)
-- RapidJSON
-- Andere Optionen
-
-**Text-Extraction:**
-- Robustes Parsing verschiedener Response-Formate
-- Fallback-Mechanismen
-
-Diese Entscheidungen werden in Sprint 4 getroffen.
-
----
-
-## 8. API-Parameter
-
-**Empfohlene Werte:**
-- `max_output_tokens`: 500 (ausreichend für detaillierte Analysen)
-- `temperature`: 0.3 (deterministisch, fokussiert)
-- `model`: Claude-3-Opus(beste Qualität)
-
-**Begründung:**
-- Niedrige Temperature für konsistente technische Antworten
-- 500 Tokens ermöglichen ausführliche Erklärungen
-
----
-
-## 9. Testplan
-
-**Unit-Tests:**
-- Environment-Variable-Loading
-- JSON-Serialization/Deserialization
-- Text-Extraction aus verschiedenen Response-Formaten
-
-**Integration-Tests:**
-- Echte API-Calls mit Test-Reports
-- Error-Handling bei 401/429/500
-- Timeout-Handling
-
-**Validierung:**
-- Qualität der LLM-Antworten subjektiv bewerten
-- Verschiedene Fehlertypen testen
-
----
-
-## 10. Ergebnis
-
-Der grundlegende Aufbau des LLM-Prototyps wurde vorbereitet. Die Ausarbeitung umfasst API-Client-Design, JSON-Payload-Format-Definition, Klassen-Strukturierung und den Ablauf für die spätere Fehleranalyse. Es wurde festgelegt, wie Code und Fehlermeldungen verarbeitet und an das LLM übergeben werden sollen.
-
-✓ API-Client-Design spezifiziert  
-✓ JSON-Payload-Formate definiert  
-✓ Prompt-Templates entwickelt  
-✓ Error-Handling konzipiert  
-✓ Environment-Konfiguration geplant  
-
-Die technische Grundlage für die Implementation ist gelegt.
+| Parameter | Value | Reason |
+|-----------|-------|--------|
+| `max_output_tokens` | 4000 | Enough for full file rewrites and detailed analysis |
+| `timeout` | 60s | Prevents hanging on slow responses |
+| `model` | `gpt-5.2` (default) | Configurable via `OPENAI_MODEL` |
