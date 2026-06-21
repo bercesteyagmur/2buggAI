@@ -9,7 +9,7 @@
 1. Collects source files from a given path (single file or directory)
 2. Detects the programming language automatically
 3. Compiles the code or sets up a Python virtual environment
-4. Runs the program — optionally with GDB, JDB, PDB, or Valgrind
+4. Runs the program - optionally with GDB, JDB, PDB, or Valgrind
 5. Collects all error output (compile + runtime + debugger)
 6. Matches errors against a persistent checklist
 7. Sends errors to the OpenAI API and applies fixes automatically
