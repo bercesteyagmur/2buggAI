@@ -1,227 +1,231 @@
-# Sprint 2: Architekturentwurf
+# Architecture: 2buggAI Debugging Tool
 
-**Projekt:** 2buggAI - KI-gestütztes Debugging-Tool  
-**Sprint:** 2  
+**Project:** 2buggAI — AI-powered Debugging Tool  
 **Team:** Nikola Cvetkovic, Krystian Piotr Kedzior  
 
 ---
 
-## 1. Zielsetzung
+## 1. Objective
 
-Ausarbeitung eines groben Architekturentwurfs für das Debugging-Tool. Die Systemarchitektur sollte folgende Komponenten umfassen:
-- Frontend/CLI zur Analyse von Code und Debug-Logs
-- Backend-Service zur Verarbeitung
-- LLM-Schicht für automatische Fehleranalyse
-- Integration von Debugging-Tools (GDB, Valgrind)
+An automated CLI debugging tool that analyzes source code across multiple languages, runs appropriate debuggers, detects errors using a checklist, and uses an AI (OpenAI) to generate fix suggestions and apply them automatically.
 
 ---
 
-## 2. Team-Situation
+## 2. System Architecture
 
-Aufgrund von Team-Ausfällen wurde die Gruppengröße von 4 auf 2 Personen reduziert. Dies führte zu einer Anpassung des Projektumfangs, wobei alle notwendigen Komponenten dennoch definiert werden konnten.
-
----
-
-## 3. Systemarchitektur
-
-### 3.1 Vereinfachter Architekturentwurf
-
-Das System folgt einem dreischichtigen Aufbau:
+### 2.1 Three-Layer Architecture
 
 ```
-┌────────────────────────────────┐
-│     Frontend (CLI-Tool)         │
-│  - Entgegennahme von Parametern │
-│  - Ausgabe von Ergebnissen      │
-└───────────┬────────────────────┘
-            │
-            ↓
-┌────────────────────────────────┐
-│     Backend-Service             │
-│  - Code-Kompilierung            │
-│  - Tool-Ausführung (GDB/Valg.)  │
-│  - Datensammlung                │
-│  - JSON-Report-Erstellung       │
-└───────────┬────────────────────┘
-            │
-            ↓
-┌────────────────────────────────┐
-│       LLM-Integration           │
-│  - Prompt-Generierung           │
-│  - API-Kommunikation            │
-│  - Antwort-Verarbeitung         │
-└────────────────────────────────┘
+┌────────────────────────────────────────┐
+│         Frontend (CLI Tool)             │
+│  - Argument parsing                     │
+│  - File collection & display            │
+│  - Language detection                   │
+└───────────────┬────────────────────────┘
+                │
+                ▼
+┌────────────────────────────────────────┐
+│           Backend / Core                │
+│  - Compilation (C/C++, Java, Python)   │
+│  - Debugger execution (GDB/JDB/PDB)    │
+│  - Valgrind memory analysis            │
+│  - Error matching & auto-fix loop      │
+│  - JSON report assembly                │
+└───────────────┬────────────────────────┘
+                │
+                ▼
+┌────────────────────────────────────────┐
+│          LLM Integration                │
+│  - Prompt & report construction        │
+│  - OpenAI API communication (libcurl)  │
+│  - Response parsing & checklist update │
+└────────────────────────────────────────┘
 ```
 
-### 3.2 Komponenten-Beschreibung
-
-**Frontend (CLI):**
-- Kommandozeilen-Interface für Benutzerinteraktion
-- Entgegennahme von Pfaden, Flags und Beschreibungen
-- Ausgabe der Analyseergebnisse
-
-**Backend:**
-- Automatische Kompilierung von Quellcode mit Debug-Symbolen
-- Ausführung von GDB und/oder Valgrind
-- Sammlung und Strukturierung der Debug-Outputs
-- Erstellung strukturierter JSON-Reports
-
-**LLM-Schicht:**
-- Aufbereitung der Debug-Daten für LLM-Input
-- API-Kommunikation mit gewähltem LLM-Anbieter
-- Extraktion und Formatierung der Analyseergebnisse
-
 ---
 
-## 4. LLM-Evaluierung
+## 3. Components
 
-### 4.1 Recherche-Kriterien
+### 3.1 ArgumentParser
+Parses CLI flags and options:
+- `targetPath` — file or directory to analyze
+- `--recursive` / `-r` — enable recursive directory scan
+- `--verbose` / `-v` — show full source code and extended output
+- `-g` — run debugger (GDB / JDB / PDB depending on language)
+- `--valgrind` — run Valgrind memory checker
+- `--json-out <file>` — write full JSON report to file
+- `--api-url`, `--api-token` — OpenAI endpoint configuration
+- Passthrough args forwarded to the target program
 
-Folgende Kriterien wurden bei der Evaluierung verschiedener LLM-Anbieter berücksichtigt:
-- Code-Verständnis und Debugging-Fähigkeiten
-- Context-Window-Größe (für umfangreiche Debug-Logs)
-- API-Verfügbarkeit und Dokumentationsqualität
-- Pricing-Modell und Kosteneffizienz
+### 3.2 FileCollector
+Collects source files from a given path. Supports single-file and recursive/non-recursive directory modes. Returns list of file paths and include directories.
 
-### 4.2 Verglichene Anbieter
+### 3.3 LanguageDetector
+Detects the programming language from file extensions:
+- `.c` → C
+- `.cpp`, `.cc`, `.cxx` → C++
+- `.py` → Python
+- `.java` → Java
 
-**Anthropic Claude:**
-- Context-Window: 100K+ tokens
-- Stärken: Hervorragendes Code-Verständnis, strukturierte Outputs
-- Schwächen: Höhere Kosten, Credits-basiertes System
-- Bewertung: Favorit für Code-Analyse
+### 3.4 Compiler
+Handles compilation per language:
 
-**OpenAI GPT:**
-- Context-Window: 32K-128K tokens (modellabhängig)
-- Stärken: Gut dokumentierte API, etabliertes Pricing
-- Schwächen: Kleineres Context-Window als Claude
-- Bewertung: Solide Backup-Option
+| Language | Strategy |
+|----------|----------|
+| C / C++  | `g++ -g` single or multi-file with include dirs |
+| Java (Plain) | `javac` |
+| Java (Maven) | `mvn package` |
+| Java (Gradle) | `gradle build` |
+| Java (Spring Boot Maven/Gradle) | same as above |
+| Python | no compilation; virtual environment setup via `EnvironmentManager` |
 
-**Mistral AI:**
-- Context-Window: 32K tokens
-- Stärken: Günstigeres Pricing, Open-Source-Optionen
-- Schwächen: Weniger etabliert für Debugging-Anwendungen
-- Bewertung: Interessant für zukünftige Erweiterungen
+### 3.5 JavaProjectDetector
+Detects Java project type by scanning for `pom.xml`, `build.gradle`, Spring Boot markers, or nested module structures. Falls back to plain `javac` if no build file is found.
 
-### 4.3 Entscheidung
+**Supported types:** `PlainJava`, `Maven`, `SpringBootMaven`, `Gradle`, `SpringBootGradle`
 
-Basierend auf der Recherche wurde Anthropic Claude als primäre Option identifiziert, hauptsächlich aufgrund der überlegenen Code-Analyse-Fähigkeiten und des großen Context-Windows. OpenAI GPT wurde als Backup-Lösung eingeplant.
+### 3.6 EnvironmentManager & DependencyManager
+Manages Python project environments:
+- Creates a virtual environment in the project directory
+- Installs `requirements.txt` via pip
+- On failure: scans imports in source files and installs missing packages
+- Detects and reinstalls broken packages inside `site-packages`
 
----
+### 3.7 Debugger Runners
 
-## 5. Debugging-Tools Integration
+| Debugger | Used for | CLI flag |
+|----------|----------|----------|
+| GdbRunner | C / C++ | `-g` |
+| JdbRunner | Java | `-g` |
+| PdbRunner | Python | `-g` |
 
-### 5.1 GDB (GNU Debugger)
-
-**Funktionalität:**
-- Crash-Analyse (SIGSEGV, SIGABRT, etc.)
-- Backtrace-Generierung
-- Variable-Inspektion
-- Thread-Informationen
-
-**Integration:**
-Verwendung im Batch-Mode zur automatisierten Ausführung:
+GDB runs in batch mode:
 ```bash
 gdb --batch -ex "run" -ex "bt" -ex "info locals" <program>
 ```
 
-**Herausforderungen:**
-- Output-Parsing (textbasiert, nicht vollständig standardisiert)
-- Versionsunterschiede zwischen GDB-Installationen
-
-### 5.2 Valgrind
-
-**Funktionalität:**
-- Memory-Leak-Detection
-- Invalid Memory Access
-- Use-After-Free Erkennung
-- Uninitialized Memory Detection
-
-**Integration:**
-Verwendung mit XML-Output für strukturierte Verarbeitung:
+### 3.8 ValgrindRunner
+Runs Valgrind for memory leak and invalid access detection. Used only for C/C++ programs via `--valgrind` flag:
 ```bash
 valgrind --leak-check=full --xml=yes --xml-file=output.xml <program>
 ```
 
-**Herausforderungen:**
-- Performance-Overhead bei Programmausführung
-- Plattform-Abhängigkeit (primär Linux)
+### 3.9 ProcessRunner
+Executes compiled programs and captures stdout/stderr. Detects and classifies execution outcomes:
+
+| Status | Meaning |
+|--------|---------|
+| `SUCCESS` | Program exited cleanly |
+| `TEST_FAILURE` | Unit tests ran but failed |
+| `TIMEOUT` | Program exceeded time limit |
+| `SIGNAL_TERMINATED` | Killed by OS signal |
+| `RUNTIME_ERROR` | Non-zero exit with errors |
+
+Programs are run with `yes ""` piped as stdin to handle interactive prompts automatically. Interactive usage (e.g. `scanf`, `std::cin`, `input()`) is detected and the user is informed.
+
+### 3.10 Platform Header Detection
+Before fix attempts, the tool checks for platform-specific headers in the error output (e.g. `windows.h`, `conio.h`, `jni.h`). If found, fix attempts are skipped and only static analysis is performed, as these are environment issues, not code bugs.
+
+### 3.11 ChecklistReader & ErrorMatcher
+The tool maintains a persistent error checklist (`errorchecklist.txt`) with known error patterns per language. After collecting all error output (compile + runtime + debugger + Valgrind), `ErrorMatcher` matches the output against the checklist.
+
+New error categories discovered in AI responses are automatically appended to the checklist to improve future runs.
+
+### 3.12 ErrorCollector
+Sorts detected errors by difficulty (easy → medium → hard) so the auto-fix loop starts with the simplest problems first.
+
+### 3.13 Auto-Fix Loop (OpenAIClient + CodeChanger)
+The core automated repair cycle:
+
+```
+while errors remain AND round < 20:
+    pick easiest unfixed error
+    for attempt in 1..5:
+        read current source from disk
+        send FixRequest to OpenAI
+        apply fix via CodeChanger
+        recompile + re-run
+        re-detect errors
+        if error gone → break
+    if still not fixed → mark as give-up
+```
+
+- Maximum 20 global rounds, 5 attempts per error
+- After each fix, the project is rebuilt from scratch to get a clean error state
+- Python venv syntax errors inside installed packages trigger a reinstall instead of an AI fix
+
+### 3.14 ReportJson
+Assembles a structured JSON report containing:
+- Target path, fix description, CLI flags
+- Source code content
+- GDB / Valgrind / run output
+- Detected errors, language, compile output
+- AI analysis text (appended after OpenAI response)
+
+### 3.15 ShellQuote
+Safely quotes all file paths passed to shell commands to handle spaces and special characters.
 
 ---
 
-## 6. Datenfluss
+## 4. Data Flow
 
-Der geplante Datenfluss durch das System:
-
-1. **Input:** User übergibt Programm (Source oder Binary) mit Fehlerbeschreibung
-2. **Kompilierung:** Falls Source-Code, automatische Kompilierung mit `-g` Flag
-3. **Tool-Ausführung:** GDB/Valgrind laufen lassen, Output sammeln
-4. **Report-Assembly:** Strukturierung aller Daten in JSON-Format
-5. **LLM-Anfrage:** POST-Request an LLM-API mit aufbereitetem Report
-6. **Output:** Strukturierte Fehleranalyse mit Ursache und Fix-Vorschlägen
-
----
-
-## 7. Scope-Anpassungen
-
-Aufgrund der reduzierten Teamgröße wurden folgende Vereinfachungen vorgenommen:
-
-**Nicht im MVP enthalten:**
-- Web-basiertes Interface
-- Datenbank-Integration
-- User-Management-System
-- IDE-Plugins
-- REST-API-Endpunkt
-
-**Fokus auf:**
-- CLI-basiertes Tool
-- Direkte LLM-API-Integration
-- Single-User-Betrieb
-- Einzeldatei-Analyse
+```
+1. Parse CLI arguments
+        │
+2. Collect source files from path
+        │
+3. Detect language (C/C++/Python/Java)
+        │
+4. Compile or set up environment
+        │
+5. Run program (normal / GDB / JDB / PDB / Valgrind)
+        │
+6. Collect all error output
+        │
+7. Match errors against checklist → sort by difficulty
+        │
+8. Auto-fix loop (AI fix → recompile → redetect)
+        │
+9. Build JSON report
+        │
+10. Send to OpenAI → display analysis
+        │
+11. Update checklist with new error patterns
+```
 
 ---
 
-## 8. Technologie-Stack (vorläufig)
+## 5. Technology Stack
 
-**Sprache:** C++ (tendiert, noch nicht final)
-- Vorteile: Native Integration mit Debug-Tools, Performance
-- Nachteile: Höhere Komplexität, längere Entwicklungszeit
-
-**Datenformat:** JSON
-- Für interne Kommunikation und LLM-Input
-- Gute Library-Unterstützung, LLM-freundlich
-
-**HTTP-Kommunikation:** Noch offen (curl, andere Libraries)
-
----
-
-## 9. Offene Fragestellungen
-
-**Technisch:**
-- Konkrete Implementierung des GDB/Valgrind Output-Parsings
-- Auswahl der HTTP-Library für API-Kommunikation
-- Code-Strukturierung (Klassendesign, Modularisierung)
-
-**Funktional:**
-- Umgang mit Multi-File-Projekten (zunächst ausgeschlossen)
-- Handling von Timeouts bei hängenden Programmen
-- Truncation-Strategie für große Debug-Outputs
-
-**Organisatorisch:**
-- Finale LLM-Wahl nach praktischen Tests in Sprint 3/4
-- Ressourcen-Allokation für 2-Personen-Team
+| Component | Technology |
+|-----------|-----------|
+| Implementation language | C++17 |
+| Build system | GNU Make |
+| JSON | nlohmann/json |
+| HTTP client | libcurl |
+| LLM provider | OpenAI API |
+| Debuggers | GDB, JDB, PDB |
+| Memory checker | Valgrind |
+| Java build tools | javac, Maven, Gradle |
+| Python environment | venv + pip |
 
 ---
 
-## 10. Ergebnis
+## 6. MVP Scope
 
-Der Architekturentwurf wurde erfolgreich erstellt. Trotz Reduktion des Projektumfangs aufgrund von Team-Ausfällen konnten alle notwendigen Komponenten definiert werden:
+**Included:**
+- CLI-based tool
+- Multi-language support (C, C++, Java, Python)
+- Automated compilation and environment setup
+- Debugger integration (GDB / JDB / PDB)
+- Valgrind memory analysis
+- AI-powered auto-fix loop with checklist learning
+- JSON report output
 
-✓ Dreischichtige Systemarchitektur spezifiziert  
-✓ LLM-Optionen evaluiert (Claude favorisiert)  
-✓ Debugging-Tool-Integration konzipiert  
-✓ Datenfluss definiert  
-✓ Realistischer Scope festgelegt  
-
----
-
+**Not included:**
+- Web-based interface
+- Database integration
+- User management
+- IDE plugins
+- REST API endpoint
+- Multi-user operation
