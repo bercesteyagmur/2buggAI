@@ -1,7 +1,7 @@
 # Architecture: 2buggAI Debugging Tool
 
 **Project:** 2buggAI — AI-powered Debugging Tool  
-**Team:** Nikola Cvetkovic, Krystian Piotr Kedzior  
+**Team:** Nikola Cvetkovic, Krystian Piotr Kedzior, Berceste Yagmur Aslan  
 
 ---
 
@@ -51,7 +51,7 @@ Parses CLI flags and options:
 - `targetPath` — file or directory to analyze
 - `--recursive` / `-r` — enable recursive directory scan
 - `--verbose` / `-v` — show full source code and extended output
-- `-g` — run debugger (GDB / JDB / PDB depending on language)
+- `--gdb` — run debugger (GDB / JDB / PDB depending on language)
 - `--valgrind` — run Valgrind memory checker
 - `--json-out <file>` — write full JSON report to file
 - `--api-url`, `--api-token` — OpenAI endpoint configuration
