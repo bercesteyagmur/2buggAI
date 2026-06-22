@@ -1,109 +1,76 @@
-Buggy -  Installation and Usage Guide
+# IDE Setup Guide — 2buggAI with WSL
 
-Overview
+This guide covers how to set up your development environment to build and run 2buggAI on Windows using WSL (Windows Subsystem for Linux).
 
-Buggy is an AI-assisted debugging tool for software projects. It supports C, C++, Java, and Python projects. The tool collects runtime information using debuggers such as GDB, Valgrind, JDB, and PDB, and then forwards the results to OpenAI for automated bug analysis and fix suggestions.
-
----
-Development Environment
-
-The tool was developed and tested using CLion with the WSL (Windows Subsystem for Linux) extension. This setup allows writing, building, and running the C++ tool inside a Linux environment directly from Windows.
-
-When analyzing a project stored on the Windows filesystem, use the WSL mount path format:
-
-./buggy /mnt/c/Users/YourName/Desktop/my-project "describe the bug" -r --gdb
+For general installation and usage, see [README.md](README.md).
 
 ---
 
-Installation
+## Prerequisites
 
-Step 1 - Install System Dependencies
+- Windows 10 (version 2004+) or Windows 11
+- WSL 2 with Ubuntu installed
+- An OpenAI API key (see README for setup)
 
-sudo apt update && sudo apt upgrade -y
+To install WSL with Ubuntu:
 
-sudo apt install -y \
-    build-essential \
-    gdb \
-    valgrind \
-    libcurl4-openssl-dev \
-    nlohmann-json3-dev \
-    git \
-    python3 \
-    default-jdk \
-    maven \
-    wget \
-    unzip
+```powershell
+wsl --install
+```
 
-The following are installed automatically by the tool at runtime:
+Then follow the full dependency installation steps in [README.md](README.md).
 
-- python3-pip — installed automatically before any Python project is analyzed
-- python3-venv — installed automatically when creating a virtual environment
-- Gradle — the required version is downloaded automatically from services.gradle.org
-- Specific Java JDK versions (8, 11, 17, 21) - installed automatically when a project requires a specific version
+---
 
+## Option A: VS Code + WSL Extension
 
-Step 2 - Set Up the OpenAI API Key
+1. Install [VS Code](https://code.visualstudio.com/)
+2. Install the [WSL extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl)
+3. Open a WSL terminal and navigate to the project:
 
-1. Create an account at https://platform.openai.com
-2. Generate an API key under API Keys
-3. Add the key permanently to your shell:
+```bash
+cd ~/2buggAI
+code .
+```
 
-echo 'export OPENAI_API_KEY="sk-proj-YOUR_KEY_HERE"' >> ~/.bashrc
-source ~/.bashrc
+VS Code will reopen in WSL mode. The integrated terminal runs inside Ubuntu, so `make`, `./buggy`, and all Linux tools work directly.
 
-Verify:
-echo $OPENAI_API_KEY
+---
 
+## Option B: CLion + WSL Toolchain
 
-Step 3 — Download and Build the Tool
+1. Install [CLion](https://www.jetbrains.com/clion/)
+2. Go to **Settings → Build, Execution, Deployment → Toolchains**
+3. Click `+` and select **WSL**
+4. CLion will auto-detect the Ubuntu environment and `g++`
+5. Open the project folder (Windows path — CLion handles the WSL translation)
 
-git clone https://github.com/bercesteyagmur/2buggAI_innoLab.git
-cd 2buggAI_innoLab
+---
 
+## Running the tool on Windows filesystem paths
+
+When analyzing a project stored on your Windows filesystem from inside WSL, use the WSL mount path:
+
+```bash
+./buggy /mnt/c/Users/YourName/Desktop/my-project "fix the bug" -r
+```
+
+`/mnt/c/` corresponds to your `C:\` drive. Adjust the path accordingly.
+
+---
+
+## Building
+
+From your WSL terminal (or the VS Code / CLion integrated terminal in WSL mode):
+
+```bash
+git clone https://github.com/bercesteyagmur/2buggAI.git
+cd 2buggAI
 make
-
-ls -lh buggy
-
-./buggy --help
+```
 
 To rebuild from scratch:
 
-make clean
-make
-
----
-Usage
-
-Basic Syntax
-
-./buggy <path> <fix-description> [options]
-
----
-Options:
-
---gdb — Run GDB to collect stack trace and runtime errors (C/C++)
-
---valgrind — Run Valgrind to detect memory leaks (C/C++)
-
--r — Recursively collect all source files from a directory
-
--v / --verbose — Show detailed output including full source code
-
--s — Show AI fix suggestions without automatically applying them
-
---json-out <file> — Save the full debugging report as a JSON file
-
---help — Show usage help
-
----
-How the Tool Works
-
-1. File Collection —> recursively scans the project and collects all source files
-2. Language Detection —> detects the programming language from file extensions
-3. Dependency Installation —> for Python projects, installs pip packages automatically; for Java, detects and installs the required JDK and build tool version
-4. Compilation —> compiles C/C++ with gcc/g++, Java with javac/Maven/Gradle, or sets up a Python virtual environment
-5. Debugging —> runs GDB or Valgrind for C/C++, JDB for Java, PDB for Python
-6. Error Classification — matches output against the internal error checklist and classifies bugs by type and difficulty
-7. AI Analysis —> sends the collected report to OpenAI for bug explanation and fix suggestions
-8. Auto Fix —> writes AI-suggested fixes back to source files (a .bak backup is created before any change)
----
+```bash
+make clean && make
+```

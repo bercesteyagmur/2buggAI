@@ -1,6 +1,135 @@
 # 2buggAI — AI-powered Debugging Tool
 
-2buggAI is a CLI tool written in C++ that automatically compiles, runs, debugs, and fixes source code using an AI-powered loop. It supports C, C++, Java, and Python — single files and multi-file projects.
+2buggAI is a **CLI tool** written in C++ that automatically compiles, runs, debugs, and fixes source code using an AI-powered loop. It supports C, C++, Java, and Python — single files and multi-file projects.
+
+---
+
+## Platform
+
+**This tool runs on Linux (Ubuntu).** It does not run natively on Windows or macOS.
+
+**On Windows:** Use WSL (Windows Subsystem for Linux) with Ubuntu. You can develop inside WSL using:
+- VS Code with the [WSL extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl)
+- CLion with the WSL toolchain
+
+See [Guide.md](Guide.md) for IDE-specific WSL setup instructions.
+
+---
+
+## Requirements
+
+The following must be installed inside your Ubuntu / WSL environment:
+
+```bash
+sudo apt update && sudo apt upgrade -y
+
+sudo apt install -y \
+    build-essential \
+    gdb \
+    valgrind \
+    libcurl4-openssl-dev \
+    nlohmann-json3-dev \
+    git \
+    python3 \
+    default-jdk \
+    maven \
+    wget \
+    unzip
+```
+
+The following are installed automatically by the tool at runtime:
+- `python3-pip` and `python3-venv` — installed before any Python project is analyzed
+- Gradle — downloaded automatically from services.gradle.org when needed
+- Specific JDK versions (8, 11, 17, 21) — installed automatically when a project requires one
+
+---
+
+## OpenAI API Key
+
+The tool requires an OpenAI API key.
+
+1. Create an account at [platform.openai.com](https://platform.openai.com)
+2. Generate an API key under **API Keys**
+3. Add it to your shell permanently:
+
+```bash
+echo 'export OPENAI_API_KEY="sk-proj-YOUR_KEY_HERE"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+Verify it is set:
+```bash
+echo $OPENAI_API_KEY
+```
+
+---
+
+## Build
+
+```bash
+git clone https://github.com/bercesteyagmur/2buggAI.git
+cd 2buggAI
+make
+```
+
+The build produces a binary called `buggy`. To rebuild from scratch:
+
+```bash
+make clean && make
+```
+
+The Makefile requires `g++` with C++20 support and `libcurl`. Both are provided by `build-essential` and `libcurl4-openssl-dev`.
+
+---
+
+## Usage
+
+```bash
+./buggy <path> <fix-description> [options]
+```
+
+`<path>` and `<fix-description>` are both required.
+
+| Option | Description |
+|--------|-------------|
+| `--gdb` | Run debugger (GDB for C/C++, JDB for Java, PDB for Python) |
+| `--valgrind` | Run Valgrind memory checker (C/C++ only) |
+| `-r`, `--recursive` | Recursive directory scan |
+| `-v`, `--verbose` | Show full source code and extended output |
+| `-e`, `--extensions` | Filter by file extensions (e.g. `-e .cpp,.h`) |
+| `--json-out <file>` | Write full JSON report to file |
+| `--api-url <url>` | Override OpenAI API base URL |
+| `--api-token <token>` | Set OpenAI API key via CLI |
+| `--` | Arguments after `--` are forwarded to the target program |
+| `-h`, `--help` | Show help |
+
+**Examples:**
+
+```bash
+# Analyze and auto-fix a single C++ file
+./buggy crash.cpp "fix the segfault"
+
+# Run with GDB in verbose mode
+./buggy --gdb -v crash.cpp "debug the crash"
+
+# Check memory with Valgrind
+./buggy --valgrind program.cpp "find memory leaks"
+
+# Analyze a full project recursively
+./buggy -r ./my_project "fix all errors"
+
+# Pass arguments to the target program
+./buggy server.cpp "fix startup" -- --port 8080
+
+# Save JSON report
+./buggy --json-out report.json program.c "analyze errors"
+```
+
+**On Windows (WSL), use the WSL mount path for files on your Windows filesystem:**
+
+```bash
+./buggy /mnt/c/Users/YourName/Desktop/my-project "fix the bug" -r
+```
 
 ---
 
@@ -20,7 +149,7 @@ Source path
     └── Send to OpenAI → structured Markdown analysis
 ```
 
-The tool reads the actual source files from disk before each fix attempt, fully rebuilds the project after every applied fix, and re-detects errors from the real output — not from AI-reported state. This makes the loop reliable even when multiple bugs interact.
+The tool reads source files from disk before each fix attempt, fully rebuilds the project after every applied fix, and re-detects errors from the real output — not from AI-reported state. This makes the loop reliable even when multiple bugs interact.
 
 ---
 
@@ -76,7 +205,7 @@ while errors remain AND round < 20:
     if still failing after 5 attempts → give up on this error, try next
 ```
 
-After the loop, a full report is sent to OpenAI for a final analysis. The AI response is parsed for new error categories, which are automatically appended to `errorchecklist.txt` to improve future runs.
+After the loop, a full report is sent to OpenAI for final analysis. The AI response is parsed for new error categories, which are automatically appended to `errorchecklist.txt` to improve future runs.
 
 ---
 
@@ -110,47 +239,6 @@ After the loop, a full report is sent to OpenAI for a final analysis. The AI res
 
 **Platform issues**
 - If platform-specific headers are missing (`windows.h`, `conio.h`, `jni.h`, etc.), the fix loop is skipped and only AI analysis is performed — these are environment issues, not code bugs.
-
----
-
-## Usage
-
-```bash
-./buggy <path> [options]
-```
-
-| Option | Description |
-|--------|-------------|
-| `-g` | Run debugger (GDB for C/C++, JDB for Java, PDB for Python) |
-| `--valgrind` | Run Valgrind memory checker (C/C++ only) |
-| `-r` | Recursive directory scan |
-| `-v` | Verbose — show full source code and extended output |
-| `--json-out <file>` | Write full JSON report to file |
-| `--api-url <url>` | Override OpenAI API base URL |
-| `--api-token <token>` | Set OpenAI API key via CLI |
-| `-- <args>` | Passthrough arguments forwarded to the target program |
-
-**Examples:**
-
-```bash
-# Analyze and auto-fix a single C++ file
-./buggy crash.cpp
-
-# Run with GDB in verbose mode
-./buggy -g -v crash.cpp
-
-# Check memory with Valgrind
-./buggy --valgrind program.cpp
-
-# Analyze a full Java/Python/C++ project recursively
-./buggy -r ./my_project
-
-# Pass arguments to the target program
-./buggy server.cpp -- --port 8080
-
-# Save JSON report
-./buggy --json-out report.json program.c
-```
 
 Interactive programs (`scanf`, `std::cin`, `input()`, etc.) are automatically detected. The tool informs the user and pipes empty input so the program does not hang.
 
@@ -189,34 +277,13 @@ critical / high / medium / low
 
 ---
 
-## Requirements
-
-- `g++` with C++17 support
-- `libcurl`
-- `nlohmann/json`
-- `GDB` — optional, for `-g` with C/C++
-- `Valgrind` — optional, for `--valgrind`
-- `JDK` + `Maven` / `Gradle` — optional, for Java projects
-- `Python 3` + `pip` — optional, for Python projects
-- `OPENAI_API_KEY` set in environment
-
----
-
-## Build
-
-```bash
-make
-```
-
----
-
 ## Configuration
 
 | Environment Variable | Default | Description |
 |---------------------|---------|-------------|
 | `OPENAI_API_KEY` | *(required)* | OpenAI API key |
 | `OPENAI_BASE_URL` | `https://api.openai.com` | API base URL |
-| `OPENAI_MODEL` | `gpt-5.2` | Model used for analysis and fixes |
+| `OPENAI_MODEL` | `gpt-4o` | Model used for analysis and fixes |
 
 ---
 
