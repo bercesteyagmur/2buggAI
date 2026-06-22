@@ -20,7 +20,7 @@ Accepts and validates all user input via command-line arguments:
 | Argument | Description |
 |----------|-------------|
 | `<path>` | File or directory to analyze (required) |
-| `-g` | Run debugger (GDB / JDB / PDB, auto-selected by language) |
+| `--gdb` | Run debugger (GDB / JDB / PDB, auto-selected by language) |
 | `--valgrind` | Run Valgrind memory checker (C/C++ only) |
 | `-r` | Recursive directory scan |
 | `-v` | Verbose mode — shows full source code and extended output |
@@ -31,10 +31,10 @@ Accepts and validates all user input via command-line arguments:
 
 **Example usage:**
 ```bash
-./buggy program.cpp
-./buggy -g -v crash.cpp
-./buggy --valgrind server -- --port 8080
-./buggy -r ./my_project
+./buggy program.cpp "fix the error"
+./buggy --gdb -v crash.cpp "debug the crash"
+./buggy --valgrind server "check memory" -- --port 8080
+./buggy -r ./my_project "fix all errors"
 ```
 
 ### 2.2 Language Detection
@@ -85,7 +85,7 @@ Before running, scans source files for interactive input patterns (`std::cin`, `
 
 ### 2.6 Debugger Execution
 
-The `-g` flag triggers a debugger. The tool automatically selects the right one based on language:
+The `--gdb` flag triggers a debugger. The tool automatically selects the right one based on language:
 
 | Language | Debugger | Notes |
 |----------|----------|-------|

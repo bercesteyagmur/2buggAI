@@ -283,7 +283,7 @@ critical / high / medium / low
 |---------------------|---------|-------------|
 | `OPENAI_API_KEY` | *(required)* | OpenAI API key |
 | `OPENAI_BASE_URL` | `https://api.openai.com` | API base URL |
-| `OPENAI_MODEL` | `gpt-4o` | Model used for analysis and fixes |
+| `OPENAI_MODEL` | `gpt-5.2` | Model used for analysis and fixes |
 
 ---
 
