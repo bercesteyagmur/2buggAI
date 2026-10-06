@@ -147,6 +147,21 @@ bool WebEnvironmentManager::ensurePhp(const std::string& projectPath, const std:
         }
     }
 
+    json lock = readJsonFile(projectPath + "/composer.lock");
+    for (const char* section : {"packages", "packages-dev"}) {
+        if (!lock.contains(section) || !lock[section].is_array()) continue;
+        for (const auto& package : lock[section]) {
+            if (!package.contains("require") || !package["require"].is_object()) continue;
+            for (const auto& [name, _] : package["require"].items()) {
+                if (name.rfind("ext-", 0) == 0) {
+                    std::string ext = name.substr(4);
+                    std::transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
+                    required.insert(ext);
+                }
+            }
+        }
+    }
+
     if (dbConnection == "sqlite") required.insert("pdo_sqlite");
     if (dbConnection == "mysql" || dbConnection == "mariadb") required.insert("pdo_mysql");
     if (dbConnection == "pgsql") required.insert("pdo_pgsql");
@@ -379,6 +394,21 @@ std::vector<SetupStep> WebEnvironmentManager::setupProject(const std::string& pr
         steps.push_back(runStep("composer install", projectPath,
                                 "composer install --no-interaction --no-progress"));
 
+        std::smatch m;
+        std::set<std::string> missing;
+        std::string output = steps.back().result.output;
+        std::regex missingExt("requires ext-([A-Za-z0-9_]+) .*it is missing from your system");
+        for (auto it = std::sregex_iterator(output.begin(), output.end(), missingExt); it != std::sregex_iterator(); ++it) {
+            std::string ext = (*it)[1];
+            std::transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
+            missing.insert("php-" + ext);
+        }
+        if (!steps.back().ok() && !missing.empty()
+            && aptInstall(std::vector<std::string>(missing.begin(), missing.end()))) {
+            steps.back() = runStep("composer install (retry)", projectPath,
+                                   "composer install --no-interaction --no-progress");
+        }
+
         if (isLaravel && steps.back().ok()) {
             steps.push_back(runStep("artisan key:generate", projectPath, "php artisan key:generate --force"));
             steps.push_back(runStep("artisan migrate", projectPath, "php artisan migrate --force"));
@@ -440,7 +470,7 @@ std::string WebEnvironmentManager::testCommand(const std::string& projectPath) {
 }
 
 SetupStep WebEnvironmentManager::smokeTest(const std::string& projectPath) {
-    const std::string port = "18765";
+    const std::string port = std::to_string(18000 + std::hash<std::string>{}(projectPath) % 1000);
     const std::string url = "http://127.0.0.1:" + port;
 
     if (!commandExists("curl")) aptInstall({"curl"});
