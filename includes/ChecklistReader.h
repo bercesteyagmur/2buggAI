@@ -22,6 +22,7 @@ public:
     std::string trim(const std::string& s);
     std::string loadRaw();
      bool appendIfNew(const std::string& errorName, const std::string& language, const std::vector<ErrorCategory>& existing);
+     std::vector<std::string> appendFromAiAnalysis(const std::string& analysis, const std::vector<ErrorCategory>& existing);
 };
 
 #endif //INC_2_BUGGY_AI_CHECKLISTREADER_H

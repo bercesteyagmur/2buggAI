@@ -29,6 +29,8 @@
 #include "PdbRunner.h"
 #include "DependencyManager.h"
 #include "EnvironmentManager.h"
+#include "WebEnvironmentManager.h"
+#include "WebPipeline.h"
 
 int main(int argc, char** argv) {
     try {
@@ -157,6 +159,25 @@ int main(int argc, char** argv) {
         if (!files.empty()) {
             LanguageDetector detectorForCompile;
             detectedLanguage = detectorForCompile.detect(files);
+
+            std::cout << "[LANGUAGES]";
+            for (const auto& [lang, count] : detectorForCompile.detectAll(files)) {
+                std::cout << " " << lang << " (" << count << ")";
+            }
+            std::cout << "\n[PRIMARY LANGUAGE] " << detectedLanguage << "\n";
+
+            if (detectedLanguage == "unknown") {
+                if (fs::is_directory(targetPath) && WebEnvironmentManager::isWebProject(targetPath)) {
+                    WebPipelineOptions options;
+                    options.targetPath = targetPath;
+                    options.fixDescription = parser.getFixDescription();
+                    options.jsonOutFile = parser.getJsonOutFile();
+                    options.runtime = parser.isRuntimeUsed();
+                    return WebPipeline::run(options, files);
+                }
+                std::cout << "\nNo build/debug support for the languages of this project yet. Stopping.\n";
+                return 0;
+            }
 
             if (detectedLanguage == "python") {
 
@@ -811,49 +832,10 @@ int main(int argc, char** argv) {
             std::cout << "=================================\n";
 
             // Extract categories from AI response and add to checklist
-            std::istringstream iss(r.text);
-            std::string textLine;
-            const std::string categoryMarker = "**Category:**";
-            const std::string languageMarker = "**Language:**";
-
-            std::string pendingCategory;
-            std::string pendingLanguage;
-
-            while (std::getline(iss, textLine)) {
-                size_t catPos = textLine.find(categoryMarker);
-                if (catPos != std::string::npos) {
-
-                std::string category = textLine.substr(catPos + categoryMarker.size());
-
-                size_t slash = category.find('/');
-                if (slash != std::string::npos) category = category.substr(0, slash);
-
-                    pendingCategory = reader.trim(category);
-                    continue;
-                }
-
-                // Look for Language line
-                size_t langPos = textLine.find(languageMarker);
-                if (langPos != std::string::npos) {
-                    std::string lang = textLine.substr(langPos + languageMarker.size());
-
-                    size_t slash = lang.find('/');
-
-                if (slash != std::string::npos) lang = lang.substr(0, slash);
-
-                pendingLanguage = reader.trim(lang);
-
-                // We have both, try to append
-                if (!pendingCategory.empty() && pendingCategory != "other") {
-                    if (reader.appendIfNew(pendingCategory, pendingLanguage, checklist)) {
-                        std::cout << "New Checklist Entry: " << pendingCategory << " (" << pendingLanguage << ")\n";
-                        }
-                    }
-                    pendingCategory.clear();
-                    pendingLanguage.clear();
-                }
+            for (const auto& entry : reader.appendFromAiAnalysis(r.text, checklist)) {
+                std::cout << "New Checklist Entry: " << entry << "\n";
             }
-            
+
             if (!parser.getJsonOutFile().empty()) {
                 try {
                     nlohmann::json final_json = nlohmann::json::parse(report);

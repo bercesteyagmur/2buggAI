@@ -254,3 +254,49 @@ python | missing_function_call | detect_from_output | missing_function_call
 python | configuration_error | detect_from_output | configuration_error
 
 java | input_validation | detect_from_output | input_validation
+
+# ---------------- PHP ----------------
+php | php_parse_error | detect_from_output | PHP Parse error, Parse error: syntax error, ParseError
+php | undefined_variable_php | detect_from_output | Undefined variable
+php | undefined_method_php | detect_from_output | Call to undefined method, Call to an undefined method
+php | undefined_function_php | detect_from_output | Call to undefined function, Call to an undefined function
+php | class_not_found_php | detect_from_output | Instantiated class, unknown class, Class not found, not found in autoload
+php | undefined_property_php | detect_from_output | Undefined property, Access to an undefined property
+php | type_error_php | detect_from_output | TypeError, Parameter #, Argument #
+php | wrong_return_type_php | detect_from_output | should return
+php | wrong_argument_count_php | detect_from_output | invoked with, Too few arguments
+php | missing_php_extension | detect_from_output | the requested PHP extension, requires ext-
+php | php_version_mismatch | detect_from_output | your php version
+php | composer_dependency_conflict | detect_from_output | Your requirements could not be resolved
+php | missing_app_key | detect_from_output | No application encryption key, MissingAppKeyException
+php | vite_manifest_missing | detect_from_output | Vite manifest not found, ViteManifestNotFoundException
+php | http_server_error | detect_from_output | -> HTTP 500
+
+# ---------------- SQL ----------------
+sql | sql_table_not_found | detect_from_output | Base table or view not found, no such table, Undefined table
+sql | sql_column_not_found | detect_from_output | no such column, Unknown column, Undefined column
+sql | sql_syntax_error | detect_from_output | SQLSTATE[42000], SQLSTATE[42601], syntax error at or near
+sql | db_connection_failed | detect_from_output | SQLSTATE[HY000] [2002], could not find driver, Connection refused, could not connect to server, Database file at path
+sql | sql_constraint_violation | detect_from_output | Integrity constraint violation, UNIQUE constraint failed
+
+# ---------------- JAVASCRIPT ----------------
+javascript | js_reference_error | detect_from_output | ReferenceError
+javascript | js_type_error | detect_from_output | Cannot read properties of, is not a function
+javascript | js_syntax_error | detect_from_output | SyntaxError
+javascript | import_resolve_failed | detect_from_output | Failed to resolve import, Could not resolve, Module not found
+javascript | npm_dependency_conflict | detect_from_output | ERESOLVE, Could not resolve dependency
+javascript | node_version_mismatch | detect_from_output | EBADENGINE, Unsupported engine, is incompatible with this module
+javascript | lockfile_outdated | detect_from_output | lockfile needs to be updated, are in sync, frozen-lockfile
+
+# ---------------- TYPESCRIPT ----------------
+typescript | ts_type_mismatch | detect_from_output | TS2322, TS2345, is not assignable to
+typescript | ts_property_missing | detect_from_output | TS2339, TS2741, does not exist on type
+typescript | ts_cannot_find_name | detect_from_output | TS2304, Cannot find name
+typescript | ts_module_not_found | detect_from_output | TS2307, Cannot find module
+typescript | ts_possibly_null | detect_from_output | TS2531, TS2532, TS18047, TS18048
+typescript | ts_wrong_argument_count | detect_from_output | TS2554, TS2555
+typescript | ts_syntax_error | detect_from_output | TS1005, TS1109, TS1128
+
+# ---------------- VUE ----------------
+vue | vue_template_error | detect_from_output | vue/compiler-sfc, Element is missing end tag, Invalid end tag
+vue | vue_unknown_component | detect_from_output | Failed to resolve component

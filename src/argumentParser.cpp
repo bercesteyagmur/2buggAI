@@ -53,6 +53,9 @@ void ArgumentParser::parse(int argc, char* argv[]){
             else if (arg == "--valgrind") {
                 useValgrind = true;
             }
+            else if (arg == "--runtime") {
+                runtimeChecks = true;
+            }
             else if (arg == "--api-url") {
                 if (i + 1 >= argc) throw std::invalid_argument("Expected url after " + arg);
                 apiUrl = argv[++i];
@@ -113,6 +116,7 @@ void ArgumentParser::parse(int argc, char* argv[]){
 
     bool ArgumentParser::isGdbUsed() const { return useGdb; }
     bool ArgumentParser::isValgrindUsed() const { return useValgrind; }
+    bool ArgumentParser::isRuntimeUsed() const { return runtimeChecks; }
     std::string ArgumentParser::getApiUrl() const { return apiUrl; }
     std::string ArgumentParser::getApiToken() const { return apiToken; }
     std::string ArgumentParser::getJsonOutFile() const { return jsonOutFile; }
@@ -141,6 +145,7 @@ void ArgumentParser::parse(int argc, char* argv[]){
         std::cout << "                      Beispiel: -e .cpp,.h,.txt\n";
         std::cout << "  --gdb               Nutze GDB für Crash-Analyse\n";
         std::cout << "  --valgrind          Nutze Valgrind für Memory-Check\n";
+        std::cout << "  --runtime           PHP/JS: Tests mit Xdebug / Node Stacktraces ausführen\n";
         std::cout << "  --json-out <file>   Speichere JSON-Report in Datei\n";
         std::cout << "  --                  Argumente nach -- werden an das Programm übergeben\n";
         std::cout << "  -h, --help          Zeige diese Hilfe\n\n";

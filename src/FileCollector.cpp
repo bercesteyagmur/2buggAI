@@ -1,4 +1,5 @@
 #include "FileCollector.h"
+#include "LanguageDetector.h"
 #include <filesystem>
 #include <fstream>
 #include <sstream>
@@ -7,11 +8,7 @@
 namespace fs = std::filesystem;
 
 bool FileCollector::isSourceFile(const std::string& path) {
-    std::string ext = std::filesystem::path(path).extension().string();
-    return ext == ".c" || ext == ".cpp" || ext == ".cc"
-        || ext == ".h" || ext == ".hpp"
-        || ext == ".java"
-        || ext == ".py";
+    return !LanguageDetector::languageOf(path).empty();
 }
 
 bool FileCollector::isJavaProjectType(const std::string& path) {
@@ -34,6 +31,13 @@ bool FileCollector::isBuildDirectory(const std::string& path) {
             return true;
         }
 
+        if (s == "node_modules" || s == "vendor" || s == "bower_components"
+            || s == "dist" || s == "target" || s == "coverage"
+            || s == ".git" || s == ".idea" || s == ".yarn" || s == ".next" || s == ".nuxt"
+            || s == "__pycache__") {
+            return true;
+        }
+
         if (s.rfind("cmake-build", 0) == 0) {
             return true;
         }
@@ -46,9 +50,13 @@ std::vector<std::string> FileCollector::collectSourceFiles(const std::string& pa
     std::vector<std::string> files;
 
     if (recursive) {
-        for (const auto& entry : fs::recursive_directory_iterator(path)) {
-            std::string pathStr = entry.path().string();
+        for (auto it = fs::recursive_directory_iterator(path); it != fs::recursive_directory_iterator(); ++it) {
+            const auto& entry = *it;
+            std::string pathStr = entry.path().lexically_relative(path).string();
             if (isBuildDirectory(pathStr)) {
+                if (entry.is_directory()) {
+                    it.disable_recursion_pending();
+                }
                 continue;
             }
 
@@ -117,10 +125,14 @@ std::vector<std::string> FileCollector::collectIncludeDirs(const std::string& pa
     };
 
     if (recursive) {
-        for (const auto& entry : fs::recursive_directory_iterator(path)) {
-            std::string pathStr = entry.path().string();
+        for (auto it = fs::recursive_directory_iterator(path); it != fs::recursive_directory_iterator(); ++it) {
+            const auto& entry = *it;
+            std::string pathStr = entry.path().lexically_relative(path).string();
 
             if (isBuildDirectory(pathStr)) {
+                if (entry.is_directory()) {
+                    it.disable_recursion_pending();
+                }
                 continue;
             }
 
