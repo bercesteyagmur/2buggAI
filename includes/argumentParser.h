@@ -14,6 +14,7 @@ class ArgumentParser {
         std::vector<std::string> fileExtensions;
         bool useGdb{false};
         bool useValgrind{false};
+        bool runtimeChecks{false};
         std::string apiUrl;
         std::string apiToken;
         std::string jsonOutFile;
@@ -31,6 +32,7 @@ class ArgumentParser {
     std::vector<std::string>& getFileExtensions();
     bool isGdbUsed() const;
     bool isValgrindUsed() const;
+    bool isRuntimeUsed() const;
     std::string getApiUrl() const;
     std::string getApiToken() const;
     std::string getJsonOutFile() const;
