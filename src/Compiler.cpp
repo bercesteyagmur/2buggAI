@@ -367,6 +367,11 @@ std::string Compiler::compileMultiple(
     }
 
     for (const auto& src : sources) {
+        std::string ext = std::filesystem::path(src).extension().string();
+        if (ext != ".c" && ext != ".cpp" && ext != ".cc" && ext != ".cxx"
+            && ext != ".h" && ext != ".hpp" && ext != ".hh") {
+            continue;
+        }
         cmd += " " + ShellQuote::quote(src);
     }
 

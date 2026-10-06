@@ -138,7 +138,9 @@ bool ChecklistReader::appendIfNew(const std::string& errorName, const std::strin
     // Validate language (fallback to "general" if invalid)
     std::string lang = language;
     if (lang != "general" && lang != "c" && lang != "cpp"
-        && lang != "java" && lang != "python") {
+        && lang != "java" && lang != "python"
+        && lang != "php" && lang != "javascript" && lang != "typescript"
+        && lang != "vue" && lang != "sql") {
         lang = "general";
     }
 
@@ -151,4 +153,40 @@ bool ChecklistReader::appendIfNew(const std::string& errorName, const std::strin
     file << "\n" << lang << " | " << errorName << " | detect_from_output | " << errorName << "\n";
     file.close();
     return true;
+}
+
+std::vector<std::string> ChecklistReader::appendFromAiAnalysis(const std::string& analysis, const std::vector<ErrorCategory>& existing) {
+    std::vector<std::string> added;
+    std::istringstream iss(analysis);
+    std::string textLine;
+    const std::string categoryMarker = "**Category:**";
+    const std::string languageMarker = "**Language:**";
+
+    std::string pendingCategory;
+
+    while (std::getline(iss, textLine)) {
+        size_t catPos = textLine.find(categoryMarker);
+        if (catPos != std::string::npos) {
+            std::string category = textLine.substr(catPos + categoryMarker.size());
+            size_t slash = category.find('/');
+            if (slash != std::string::npos) category = category.substr(0, slash);
+            pendingCategory = trim(category);
+            continue;
+        }
+
+        size_t langPos = textLine.find(languageMarker);
+        if (langPos != std::string::npos) {
+            std::string lang = textLine.substr(langPos + languageMarker.size());
+            size_t slash = lang.find('/');
+            if (slash != std::string::npos) lang = lang.substr(0, slash);
+            lang = trim(lang);
+
+            if (!pendingCategory.empty() && pendingCategory != "other"
+                && appendIfNew(pendingCategory, lang, existing)) {
+                added.push_back(pendingCategory + " (" + lang + ")");
+            }
+            pendingCategory.clear();
+        }
+    }
+    return added;
 }
