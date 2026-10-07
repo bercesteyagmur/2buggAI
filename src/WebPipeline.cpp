@@ -39,8 +39,7 @@ static std::string limit(const std::string& s, size_t maxChars) {
 std::string WebPipeline::collectErrorOutput(const std::vector<SetupStep>& steps) {
     std::string out;
     for (const auto& s : steps) {
-        bool isInstall = s.name.find("install") != std::string::npos;
-        if (isInstall && s.ok()) continue;
+        if (s.ok()) continue;
 
         out += "===== STEP: " + s.name + " | exit code " + std::to_string(s.result.exit_code) + " =====\n";
 
@@ -158,11 +157,16 @@ std::string WebPipeline::environmentCause(const std::string& errorName,
     std::set<std::string> errorSteps = stepsContaining(keywordsOf(errorName, checklist), steps);
     if (errorSteps.empty()) return "";
 
+    static const std::set<std::string> downstream = {
+        "http_server_error", "sql_table_not_found", "sql_column_not_found", "vite_manifest_missing"
+    };
+
     std::set<std::string> checked;
     for (const auto& c : checklist) {
         if (!isEnvironmentError(c.name) || !checked.insert(c.name).second) continue;
         for (const auto& step : stepsContaining(keywordsOf(c.name, checklist), steps)) {
             if (errorSteps.count(step)) return c.name;
+            if (downstream.count(errorName) && step.find("runtime") == std::string::npos) return c.name;
         }
     }
     return "";
@@ -264,6 +268,24 @@ int WebPipeline::run(const WebPipelineOptions& options, const std::vector<std::s
         std::cout << "  " << codeErrors[i].file << ":" << codeErrors[i].line << "\n";
     }
     std::cout << "=====================================\n\n";
+
+    bool allStepsOk = std::all_of(allSteps.begin(), allSteps.end(), [](const SetupStep& s) { return s.ok(); });
+    if (detectedErrors.empty() && allStepsOk) {
+        std::cout << "No errors found: setup, static analysis, build and runtime checks passed.\n";
+        if (!options.jsonOutFile.empty()) {
+            json report;
+            report["target"] = targetPath;
+            report["languages"] = std::vector<std::string>(languages.begin(), languages.end());
+            report["steps"] = json::array();
+            for (const auto& s : allSteps) {
+                report["steps"].push_back({{"name", s.name}, {"command", s.command}, {"exit_code", s.result.exit_code}});
+            }
+            report["detected_errors"] = json::array();
+            std::ofstream(options.jsonOutFile) << report.dump(2);
+            std::cout << "JSON Report gespeichert: " << options.jsonOutFile << "\n";
+        }
+        return 0;
+    }
 
     std::vector<std::string> giveUp;
     std::vector<std::string> fixedErrors;
