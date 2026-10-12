@@ -292,7 +292,7 @@ static void ensureJavaInstalled(const std::string& javaHome,
     std::cout << "Running install command:\n"
               << installCmd << "\n";
 
-    system(installCmd.c_str());
+    if (system(installCmd.c_str()) != 0) {}  // Ergebnis bewusst ignoriert
 }
 
 std::string Compiler::compileIfNeeded(const std::string& targetPath) {

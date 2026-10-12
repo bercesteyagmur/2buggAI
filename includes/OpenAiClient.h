@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "LlmProvider.h"
 
 struct OpenAIResult {
     long http_status = 0;
@@ -31,7 +32,14 @@ public:
     FixResult fix_code(const FixRequest& req) const;
 
 private:
-    std::string api_key_;
-    std::string base_url_;
-    std::string model_;
+    FixResult fix_code_single(const FixRequest& req) const;
+    FixResult fix_code_pipeline(const FixRequest& req) const;
+
+    LlmProvider report_;     // debug_report (LLM_* / OPENAI_*)
+    LlmProvider fixer_;      // fix_code ohne Pipeline (LLM_* / OPENAI_*)
+
+    bool pipeline_ = false;  // Debugger -> Reviewer -> Verifier
+    LlmProvider debugger_;
+    LlmProvider reviewer_;
+    LlmProvider verifier_;
 };

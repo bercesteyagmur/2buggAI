@@ -318,7 +318,7 @@ bool WebEnvironmentManager::setupDatabase(const std::string& projectPath, const 
         if (!commandExists("mariadb") && !commandExists("mysql")) {
             if (!aptInstall({"mariadb-server"})) return false;
         }
-        system("sudo service mariadb start > /dev/null 2>&1 || sudo service mysql start > /dev/null 2>&1");
+        if (system("sudo service mariadb start > /dev/null 2>&1 || sudo service mysql start > /dev/null 2>&1") != 0) {}  // Ergebnis bewusst ignoriert
 
         std::string sql =
             "CREATE DATABASE IF NOT EXISTS `" + db + "`;"
@@ -339,7 +339,7 @@ bool WebEnvironmentManager::setupDatabase(const std::string& projectPath, const 
         if (!commandExists("psql")) {
             if (!aptInstall({"postgresql"})) return false;
         }
-        system("sudo service postgresql start > /dev/null 2>&1");
+        if (system("sudo service postgresql start > /dev/null 2>&1") != 0) {}  // Ergebnis bewusst ignoriert
 
         std::string role =
             "DO $$ BEGIN "
@@ -349,8 +349,8 @@ bool WebEnvironmentManager::setupDatabase(const std::string& projectPath, const 
         std::cout << "PostgreSQL database '" << db << "' for user '" << user << "'\n";
         if (system(("sudo -u postgres psql -q -c " + ShellQuote::quote(role)).c_str()) != 0) return false;
 
-        system(("sudo -u postgres createdb -O " + ShellQuote::quote(user) + " " + ShellQuote::quote(db)
-                + " > /dev/null 2>&1").c_str());
+        if (system(("sudo -u postgres createdb -O " + ShellQuote::quote(user) + " " + ShellQuote::quote(db)
+                + " > /dev/null 2>&1").c_str()) != 0) {}  // Ergebnis bewusst ignoriert
         return true;
     }
 
