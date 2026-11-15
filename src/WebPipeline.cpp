@@ -157,11 +157,16 @@ std::string WebPipeline::environmentCause(const std::string& errorName,
     std::set<std::string> errorSteps = stepsContaining(keywordsOf(errorName, checklist), steps);
     if (errorSteps.empty()) return "";
 
+    static const std::set<std::string> downstream = {
+        "http_server_error", "sql_table_not_found", "sql_column_not_found", "vite_manifest_missing"
+    };
+
     std::set<std::string> checked;
     for (const auto& c : checklist) {
         if (!isEnvironmentError(c.name) || !checked.insert(c.name).second) continue;
         for (const auto& step : stepsContaining(keywordsOf(c.name, checklist), steps)) {
             if (errorSteps.count(step)) return c.name;
+            if (downstream.count(errorName) && step.find("runtime") == std::string::npos) return c.name;
         }
     }
     return "";
