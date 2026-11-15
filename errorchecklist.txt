@@ -300,3 +300,9 @@ typescript | ts_syntax_error | detect_from_output | TS1005, TS1109, TS1128
 # ---------------- VUE ----------------
 vue | vue_template_error | detect_from_output | vue/compiler-sfc, Element is missing end tag, Invalid end tag
 vue | vue_unknown_component | detect_from_output | Failed to resolve component
+
+php | dependency_version_mismatch | detect_from_output | dependency_version_mismatch
+
+php | dependency_version_conflict | detect_from_output | dependency_version_conflict
+
+javascript | build_toolchain_misconfiguration | detect_from_output | build_toolchain_misconfiguration

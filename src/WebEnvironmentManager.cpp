@@ -110,8 +110,15 @@ SetupStep WebEnvironmentManager::runStep(const std::string& name,
 }
 
 bool WebEnvironmentManager::isWebProject(const std::string& projectPath) {
-    return fs::exists(fs::path(projectPath) / "composer.json")
-        || fs::exists(fs::path(projectPath) / "package.json");
+    if (fs::exists(fs::path(projectPath) / "composer.json")
+        || fs::exists(fs::path(projectPath) / "package.json")) {
+        return true;
+    }
+    // flat PHP projects (e.g. WonderCMS) have no composer.json but are still web projects
+    for (const auto& entry : fs::directory_iterator(projectPath)) {
+        if (entry.path().extension() == ".php") return true;
+    }
+    return false;
 }
 
 bool WebEnvironmentManager::ensurePhp(const std::string& projectPath, const std::string& dbConnection) {
