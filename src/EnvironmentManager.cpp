@@ -65,7 +65,7 @@ bool EnvironmentManager::createVirtualEnv(
 
     if (venvCheck != 0) {
 
-        system("sudo apt install -y python3.12-venv");
+        if (system("sudo apt install -y python3.12-venv") != 0) {}  // Ergebnis bewusst ignoriert
     }
 
     std::string cmd = "python3 -m venv " + ShellQuote::quote(venvPath);
@@ -126,7 +126,7 @@ RunResult EnvironmentManager::installRequirements(
                                " || " + pip + " install psycopg2-binary";
         // Install psycopg2-binary as override and retry the full requirements
         std::string binaryFix = pip + " install psycopg2-binary 2>/dev/null";
-        system(binaryFix.c_str());
+        if (system(binaryFix.c_str()) != 0) {}  // Ergebnis bewusst ignoriert
         std::string retryFull = pip + " install -r '" + requirements + "' --progress-bar on";
         result = system(retryFull.c_str());
     }

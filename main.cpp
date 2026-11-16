@@ -36,6 +36,7 @@ int main(int argc, char** argv) {
     try {
         ArgumentParser parser;
         parser.parse(argc, argv);
+        LlmProvider::validateEnvironment();  // Pipeline: fehlende Keys/Modelle sofort melden
 
         if (parser.isVerbose()) {
             parser.printConfig();
@@ -717,7 +718,7 @@ int main(int argc, char** argv) {
                             std::string pip = EnvironmentManager::getPipExecutable(targetPath);
                             std::cout << "Uninstalling bad package: " << badPkg << "\n";
                             std::string uninstall = pip + " uninstall -y " + badPkg;
-                            system(uninstall.c_str());
+                            if (system(uninstall.c_str()) != 0) {}  // Ergebnis bewusst ignoriert
                             std::vector<std::string> pkgs = {badPkg};
                             DependencyManager::installPythonPackages(targetPath, pkgs);
                         }
