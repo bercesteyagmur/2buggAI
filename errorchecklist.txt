@@ -10,7 +10,7 @@ general | assignment_vs_comparison | ai_presume | -
 general | off_by_one | ai_presume | -
 general | infinite_loop | ai_presume | -
 general | out_of_bounds_access | detect_from_output | out of bounds, index out of range
-general | null_reference | detect_from_output | null, NoneType
+general | null_reference | detect_from_output | null pointer, null reference, NullReferenceException, of null, 'NoneType' object, NoneType object
 general | wrong_indentation | detect_from_output | indentation error
 general | logic_error | ai_presume | -
 general | operator_precedence | ai_presume | -
@@ -43,6 +43,25 @@ java | missing_aws_sdk | detect_from_output | package com.amazonaws does not exi
 java | missing_gson_dependency | detect_from_output | package com.google.gson does not exist
 java | missing_okhttp_dependency | detect_from_output | package com.squareup.okhttp does not exist
 java | gradle_java_version_mismatch | detect_from_output | Could not determine java version
+java | missing_main_manifest | detect_from_output | no main manifest attribute
+java | class_not_found | detect_from_output | NoClassDefFoundError, ClassNotFoundException
+java | jdbc_driver_missing | detect_from_output | No suitable driver found
+java | uncaught_exception_main | detect_from_output | Exception in thread "main"
+
+# ---------------- FALLBACK ----------------
+# Set by the tool (not by keywords) when the build failed or the program crashed / exited with an
+# error code and no other category matched.
+general | unrecognized_build_failure | ai_presume | -
+general | unrecognized_runtime_failure | ai_presume | -
+
+# ---------------- ENVIRONMENT ----------------
+# detection_type "environment": a problem of the machine the program runs on, not of the code.
+# Errors that only show up next to one of these are not fixed in code (see ErrorDetection).
+general | env_service_unreachable | environment | Connection refused, ECONNREFUSED, could not connect to server, postmaster is accepting, Communications link failure, Can't connect to MySQL server
+general | env_db_authentication | environment | password authentication failed, Access denied for user
+general | env_port_in_use | environment | Address already in use, EADDRINUSE
+general | env_unknown_host | environment | UnknownHostException, Name or service not known, Temporary failure in name resolution, getaddrinfo ENOTFOUND, Could not resolve host
+general | env_command_not_found | environment | command not found
 
 # ---------------- C ----------------
 c | implicit_declaration | detect_from_output | implicit declaration
@@ -113,9 +132,9 @@ general | missing_configuration | detect_from_output | missing_configuration
 
 general | missing_dependency_manifest | detect_from_output | missing_dependency_manifest
 
-general | timeout | detect_from_output | timeout
+general | timeout | ai_presume | -
 
-general | misconfiguration | detect_from_output | misconfiguration
+general | misconfiguration | ai_presume | -
 
 general | missing_dependency_spec | detect_from_output | missing_dependency_spec
 
@@ -169,7 +188,7 @@ general | `dependency_injection_misuse` | detect_from_output | `dependency_injec
 
 general | build_configuration | detect_from_output | build_configuration
 
-general | permissions | detect_from_output | permissions
+general | permissions | ai_presume | -
 
 java | wrong_resource_index | detect_from_output | wrong_resource_index
 
@@ -306,3 +325,30 @@ php | dependency_version_mismatch | detect_from_output | dependency_version_mism
 php | dependency_version_conflict | detect_from_output | dependency_version_conflict
 
 javascript | build_toolchain_misconfiguration | detect_from_output | build_toolchain_misconfiguration
+
+# ---------------- FULLSTACK (Python backend / JS-TS frontend / SQL / services) ----------------
+python | pytest_collection_error | detect_from_output | error during collection, errors during collection, ImportError while importing test module
+python | python_circular_import | detect_from_output | partially initialized module, most likely due to a circular import
+python | pytest_fixture_missing | detect_from_output | fixture ', available fixtures
+python | undefined_name_python | detect_from_output | F821, undefined name, [name-defined]
+python | mypy_type_error | detect_from_output | [arg-type], [assignment], [return-value], [attr-defined], [call-arg], Incompatible types, Incompatible return value
+python | pip_install_failed | detect_from_output | No matching distribution found, Could not find a version that satisfies, ResolutionImpossible, externally-managed-environment
+general | missing_env_var | detect_from_output | environment variable, os.environ[, is not set in the environment, Missing required env
+general | api_contract_mismatch | detect_from_output | 422 Unprocessable, ResponseValidationError, RequestValidationError, Field required, unexpected keyword argument
+general | command_timeout | detect_from_output | command timed out after
+typescript | ts_unknown_property | detect_from_output | TS2353, TS2561, Object literal may only specify known properties
+typescript | ts_missing_properties | detect_from_output | TS2739, TS2740, is missing the following properties
+typescript | ts_implicit_any | detect_from_output | TS7006, TS7031, TS7053, implicitly has an 'any' type
+javascript | js_test_failed | detect_from_output | Test Suites:, Test Files , expect(received), AssertionError: expected
+javascript | eslint_error | detect_from_output | no-undef, no-unused-vars, no-unreachable, problems (
+javascript | npm_install_failed | detect_from_output | npm ERR! code, npm error code, ERR_PNPM
+sql | sql_migration_failed | detect_from_output | migration stopped at, alembic.util.exc, Can't locate revision, Multiple head revisions, incomplete input
+sql | sql_object_exists | detect_from_output | already exists, duplicate column name
+sql | sql_foreign_key_error | detect_from_output | foreign key mismatch, FOREIGN KEY constraint failed
+sql | orm_schema_mismatch | detect_from_output | has no column named, sqlalchemy.exc.OperationalError, sqlalchemy.exc.ProgrammingError, UndefinedColumn, UndefinedTable, P2021, P2022
+
+java | jdbc_driver_not_loaded | detect_from_output | jdbc_driver_not_loaded
+
+java | missing_driver_registration | detect_from_output | missing_driver_registration
+
+java | environment_service_unreachable | detect_from_output | environment_service_unreachable

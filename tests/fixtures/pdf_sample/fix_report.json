@@ -1,0 +1,1100 @@
+{
+  "detected_errors": [
+    "wrong_data_type"
+  ],
+  "language": "cpp",
+  "fix_report": {
+    "context_lines": 3,
+    "fix_description": "fix all errors",
+    "fixes": [
+      {
+        "attempts": [
+          {
+            "agent_pipeline": true,
+            "applied": true,
+            "diff": "--- a/main.cpp\n+++ b/main.cpp\n@@ -12,5 +12,5 @@\n int main() {\n     int count = std::string(\"42\");\n     std::cout << compute(count) << std::endl;\n-    return 0\n+    return 0;\n }\n",
+            "error_gone": true,
+            "explanation": {
+              "affected_lines": [
+                15
+              ],
+              "error_category": "missing_semicolon",
+              "fix_explanation": "Das fehlende Semikolon wurde hinter 'return 0' ergänzt. Damit ist die Anweisung vollständig und main() kompiliert wieder.",
+              "root_cause_explanation": "Nach der return-Anweisung fehlt das Semikolon. In C++ muss jede Anweisung mit einem Semikolon enden, sonst kann der Compiler das Ende der Anweisung nicht erkennen und bricht beim folgenden '}' ab.",
+              "side_effects": "Keine."
+            },
+            "failed_checks": [],
+            "file": "main.cpp",
+            "number": 1,
+            "outcome": "fixed",
+            "reason": "",
+            "remaining_errors": [
+              "undeclared_variable",
+              "wrong_data_type",
+              "missing_include_cpp"
+            ],
+            "review": {
+              "approved": true,
+              "comment": "Minimaler Fix an der eigentlichen Ursache.",
+              "findings": [],
+              "ran": true,
+              "revised": false,
+              "verdict": "APPROVE"
+            },
+            "snippet": {
+              "hunks": [
+                {
+                  "new": [
+                    {
+                      "line": 12,
+                      "mark": false,
+                      "text": "int main() {"
+                    },
+                    {
+                      "line": 13,
+                      "mark": false,
+                      "text": "    int count = std::string(\"42\");"
+                    },
+                    {
+                      "line": 14,
+                      "mark": false,
+                      "text": "    std::cout << compute(count) << std::endl;"
+                    },
+                    {
+                      "line": 15,
+                      "mark": true,
+                      "text": "    return 0;"
+                    },
+                    {
+                      "line": 16,
+                      "mark": false,
+                      "text": "}"
+                    }
+                  ],
+                  "old": [
+                    {
+                      "line": 12,
+                      "mark": false,
+                      "text": "int main() {"
+                    },
+                    {
+                      "line": 13,
+                      "mark": false,
+                      "text": "    int count = std::string(\"42\");"
+                    },
+                    {
+                      "line": 14,
+                      "mark": false,
+                      "text": "    std::cout << compute(count) << std::endl;"
+                    },
+                    {
+                      "line": 15,
+                      "mark": true,
+                      "text": "    return 0"
+                    },
+                    {
+                      "line": 16,
+                      "mark": false,
+                      "text": "}"
+                    }
+                  ],
+                  "truncated": false
+                }
+              ],
+              "omitted_hunks": 0
+            },
+            "verification": {
+              "confirmed": true,
+              "ran": true,
+              "reason": "Diff behebt die Ursache.",
+              "remaining_issues": []
+            }
+          }
+        ],
+        "category": "syntax_error",
+        "difficulty": "leicht",
+        "error_name": "syntax_error",
+        "excerpt": {
+          "hunks": [
+            {
+              "new": [],
+              "old": [
+                {
+                  "line": 12,
+                  "mark": false,
+                  "text": "int main() {"
+                },
+                {
+                  "line": 13,
+                  "mark": false,
+                  "text": "    int count = std::string(\"42\");"
+                },
+                {
+                  "line": 14,
+                  "mark": false,
+                  "text": "    std::cout << compute(count) << std::endl;"
+                },
+                {
+                  "line": 15,
+                  "mark": true,
+                  "text": "    return 0"
+                },
+                {
+                  "line": 16,
+                  "mark": false,
+                  "text": "}"
+                }
+              ],
+              "truncated": false
+            }
+          ],
+          "omitted_hunks": 0
+        },
+        "file": "main.cpp",
+        "id": 1,
+        "iterations": 1,
+        "language": "cpp",
+        "lines": [
+          15
+        ],
+        "message": "main.cpp:15:13: error: expected ';' before '}' token\n   15 |     return 0\n      |             ^\n",
+        "resolved_by": 0,
+        "severity": "error",
+        "status": "fixed",
+        "status_reason": "",
+        "title": "syntax_error in main.cpp",
+        "tool": "Compiler (g++)"
+      },
+      {
+        "attempts": [
+          {
+            "agent_pipeline": true,
+            "applied": true,
+            "diff": "--- a/main.cpp\n+++ b/main.cpp\n@@ -5,6 +5,7 @@\n const char* api_key = \"***\";\n \n int compute(int a) {\n+    int y = 1;\n     int z = y + a;\n     return z * 2;\n }\n",
+            "error_gone": true,
+            "explanation": {
+              "affected_lines": [
+                8
+              ],
+              "error_category": "undeclared_variable",
+              "fix_explanation": "",
+              "root_cause_explanation": "Die Variable y wird in compute() verwendet, ist dort aber nirgends deklariert. Der Compiler kennt den Namen deshalb nicht.",
+              "side_effects": ""
+            },
+            "failed_checks": [],
+            "file": "main.cpp",
+            "number": 1,
+            "outcome": "fixed",
+            "reason": "",
+            "remaining_errors": [
+              "wrong_data_type"
+            ],
+            "review": {
+              "approved": true,
+              "comment": "Minimaler Fix an der eigentlichen Ursache.",
+              "findings": [],
+              "ran": true,
+              "revised": false,
+              "verdict": "APPROVE"
+            },
+            "snippet": {
+              "hunks": [
+                {
+                  "new": [
+                    {
+                      "line": 5,
+                      "mark": false,
+                      "text": "const char* api_key = \"***\";"
+                    },
+                    {
+                      "line": 6,
+                      "mark": false,
+                      "text": ""
+                    },
+                    {
+                      "line": 7,
+                      "mark": false,
+                      "text": "int compute(int a) {"
+                    },
+                    {
+                      "line": 8,
+                      "mark": true,
+                      "text": "    int y = 1;"
+                    },
+                    {
+                      "line": 9,
+                      "mark": false,
+                      "text": "    int z = y + a;"
+                    },
+                    {
+                      "line": 10,
+                      "mark": false,
+                      "text": "    return z * 2;"
+                    },
+                    {
+                      "line": 11,
+                      "mark": false,
+                      "text": "}"
+                    },
+                    {
+                      "line": 12,
+                      "mark": false,
+                      "text": ""
+                    }
+                  ],
+                  "old": [
+                    {
+                      "line": 5,
+                      "mark": false,
+                      "text": "const char* api_key = \"***\";"
+                    },
+                    {
+                      "line": 6,
+                      "mark": false,
+                      "text": ""
+                    },
+                    {
+                      "line": 7,
+                      "mark": false,
+                      "text": "int compute(int a) {"
+                    },
+                    {
+                      "line": 8,
+                      "mark": true,
+                      "text": "    int z = y + a;"
+                    },
+                    {
+                      "line": 9,
+                      "mark": false,
+                      "text": "    return z * 2;"
+                    },
+                    {
+                      "line": 10,
+                      "mark": false,
+                      "text": "}"
+                    },
+                    {
+                      "line": 11,
+                      "mark": false,
+                      "text": ""
+                    }
+                  ],
+                  "truncated": false
+                }
+              ],
+              "omitted_hunks": 0
+            },
+            "verification": {
+              "confirmed": true,
+              "ran": true,
+              "reason": "Diff behebt die Ursache.",
+              "remaining_issues": []
+            }
+          }
+        ],
+        "category": "undeclared_variable",
+        "difficulty": "leicht",
+        "error_name": "undeclared_variable",
+        "excerpt": {
+          "hunks": [
+            {
+              "new": [],
+              "old": [
+                {
+                  "line": 5,
+                  "mark": false,
+                  "text": "const char* api_key = \"***\";"
+                },
+                {
+                  "line": 6,
+                  "mark": false,
+                  "text": ""
+                },
+                {
+                  "line": 7,
+                  "mark": false,
+                  "text": "int compute(int a) {"
+                },
+                {
+                  "line": 8,
+                  "mark": true,
+                  "text": "    int z = y + a;"
+                },
+                {
+                  "line": 9,
+                  "mark": false,
+                  "text": "    return z * 2;"
+                },
+                {
+                  "line": 10,
+                  "mark": false,
+                  "text": "}"
+                },
+                {
+                  "line": 11,
+                  "mark": false,
+                  "text": ""
+                }
+              ],
+              "truncated": false
+            }
+          ],
+          "omitted_hunks": 0
+        },
+        "file": "main.cpp",
+        "id": 2,
+        "iterations": 1,
+        "language": "cpp",
+        "lines": [
+          8
+        ],
+        "message": "main.cpp: In function 'int compute(int)':\nmain.cpp:8:13: error: 'y' was not declared in this scope\n    8 |     int z = y + a;\n      |             ^\n",
+        "resolved_by": 0,
+        "severity": "error",
+        "status": "fixed",
+        "status_reason": "",
+        "title": "undeclared_variable in main.cpp",
+        "tool": "Compiler (g++)"
+      },
+      {
+        "attempts": [
+          {
+            "agent_pipeline": true,
+            "applied": false,
+            "diff": "--- a/main.cpp\n+++ b/main.cpp\n@@ -11,7 +11,7 @@\n }\n \n int main() {\n-    int count = std::string(\"42\");\n+    int count = (int)std::string(\"42\");\n     std::cout << compute(count) << std::endl;\n     return 0;\n }\n",
+            "error_gone": false,
+            "explanation": {
+              "affected_lines": [
+                13
+              ],
+              "error_category": "type_mismatch",
+              "fix_explanation": "Die Zuweisung wird explizit nach int gecastet.",
+              "root_cause_explanation": "Ein std::string wird einer int-Variablen zugewiesen. Es gibt keine implizite Umwandlung von std::string nach int.",
+              "side_effects": "Der Cast verdeckt den eigentlichen Typfehler."
+            },
+            "failed_checks": [],
+            "file": "main.cpp",
+            "number": 1,
+            "outcome": "rejected",
+            "reason": "Verifier abgelehnt: Ein Cast von std::string nach int kompiliert nicht; der Fehler bleibt.",
+            "remaining_errors": [],
+            "review": {
+              "approved": false,
+              "comment": "Der Cast verdeckt den Typfehler nur.",
+              "findings": [
+                "[high] main.cpp: C-Cast von std::string nach int ist ungültig"
+              ],
+              "ran": true,
+              "revised": true,
+              "verdict": "CHANGES_REQUESTED"
+            },
+            "snippet": {
+              "hunks": [
+                {
+                  "new": [
+                    {
+                      "line": 11,
+                      "mark": false,
+                      "text": "}"
+                    },
+                    {
+                      "line": 12,
+                      "mark": false,
+                      "text": ""
+                    },
+                    {
+                      "line": 13,
+                      "mark": false,
+                      "text": "int main() {"
+                    },
+                    {
+                      "line": 14,
+                      "mark": true,
+                      "text": "    int count = (int)std::string(\"42\");"
+                    },
+                    {
+                      "line": 15,
+                      "mark": false,
+                      "text": "    std::cout << compute(count) << std::endl;"
+                    },
+                    {
+                      "line": 16,
+                      "mark": false,
+                      "text": "    return 0;"
+                    },
+                    {
+                      "line": 17,
+                      "mark": false,
+                      "text": "}"
+                    }
+                  ],
+                  "old": [
+                    {
+                      "line": 11,
+                      "mark": false,
+                      "text": "}"
+                    },
+                    {
+                      "line": 12,
+                      "mark": false,
+                      "text": ""
+                    },
+                    {
+                      "line": 13,
+                      "mark": false,
+                      "text": "int main() {"
+                    },
+                    {
+                      "line": 14,
+                      "mark": true,
+                      "text": "    int count = std::string(\"42\");"
+                    },
+                    {
+                      "line": 15,
+                      "mark": false,
+                      "text": "    std::cout << compute(count) << std::endl;"
+                    },
+                    {
+                      "line": 16,
+                      "mark": false,
+                      "text": "    return 0;"
+                    },
+                    {
+                      "line": 17,
+                      "mark": false,
+                      "text": "}"
+                    }
+                  ],
+                  "truncated": false
+                }
+              ],
+              "omitted_hunks": 0
+            },
+            "verification": {
+              "confirmed": false,
+              "ran": true,
+              "reason": "Ein Cast von std::string nach int kompiliert nicht; der Fehler bleibt.",
+              "remaining_issues": [
+                "std::stoi statt Cast verwenden"
+              ]
+            }
+          },
+          {
+            "agent_pipeline": true,
+            "applied": false,
+            "diff": "--- a/main.cpp\n+++ b/main.cpp\n@@ -11,7 +11,7 @@\n }\n \n int main() {\n-    int count = std::string(\"42\");\n+    int count = (int)std::string(\"42\");\n     std::cout << compute(count) << std::endl;\n     return 0;\n }\n",
+            "error_gone": false,
+            "explanation": {
+              "affected_lines": [
+                13
+              ],
+              "error_category": "type_mismatch",
+              "fix_explanation": "Die Zuweisung wird explizit nach int gecastet.",
+              "root_cause_explanation": "Ein std::string wird einer int-Variablen zugewiesen. Es gibt keine implizite Umwandlung von std::string nach int.",
+              "side_effects": "Der Cast verdeckt den eigentlichen Typfehler."
+            },
+            "failed_checks": [],
+            "file": "main.cpp",
+            "number": 2,
+            "outcome": "rejected",
+            "reason": "Verifier abgelehnt: Ein Cast von std::string nach int kompiliert nicht; der Fehler bleibt.",
+            "remaining_errors": [],
+            "review": {
+              "approved": false,
+              "comment": "Der Cast verdeckt den Typfehler nur.",
+              "findings": [
+                "[high] main.cpp: C-Cast von std::string nach int ist ungültig"
+              ],
+              "ran": true,
+              "revised": true,
+              "verdict": "CHANGES_REQUESTED"
+            },
+            "snippet": {
+              "hunks": [
+                {
+                  "new": [
+                    {
+                      "line": 11,
+                      "mark": false,
+                      "text": "}"
+                    },
+                    {
+                      "line": 12,
+                      "mark": false,
+                      "text": ""
+                    },
+                    {
+                      "line": 13,
+                      "mark": false,
+                      "text": "int main() {"
+                    },
+                    {
+                      "line": 14,
+                      "mark": true,
+                      "text": "    int count = (int)std::string(\"42\");"
+                    },
+                    {
+                      "line": 15,
+                      "mark": false,
+                      "text": "    std::cout << compute(count) << std::endl;"
+                    },
+                    {
+                      "line": 16,
+                      "mark": false,
+                      "text": "    return 0;"
+                    },
+                    {
+                      "line": 17,
+                      "mark": false,
+                      "text": "}"
+                    }
+                  ],
+                  "old": [
+                    {
+                      "line": 11,
+                      "mark": false,
+                      "text": "}"
+                    },
+                    {
+                      "line": 12,
+                      "mark": false,
+                      "text": ""
+                    },
+                    {
+                      "line": 13,
+                      "mark": false,
+                      "text": "int main() {"
+                    },
+                    {
+                      "line": 14,
+                      "mark": true,
+                      "text": "    int count = std::string(\"42\");"
+                    },
+                    {
+                      "line": 15,
+                      "mark": false,
+                      "text": "    std::cout << compute(count) << std::endl;"
+                    },
+                    {
+                      "line": 16,
+                      "mark": false,
+                      "text": "    return 0;"
+                    },
+                    {
+                      "line": 17,
+                      "mark": false,
+                      "text": "}"
+                    }
+                  ],
+                  "truncated": false
+                }
+              ],
+              "omitted_hunks": 0
+            },
+            "verification": {
+              "confirmed": false,
+              "ran": true,
+              "reason": "Ein Cast von std::string nach int kompiliert nicht; der Fehler bleibt.",
+              "remaining_issues": [
+                "std::stoi statt Cast verwenden"
+              ]
+            }
+          },
+          {
+            "agent_pipeline": true,
+            "applied": false,
+            "diff": "--- a/main.cpp\n+++ b/main.cpp\n@@ -11,7 +11,7 @@\n }\n \n int main() {\n-    int count = std::string(\"42\");\n+    int count = (int)std::string(\"42\");\n     std::cout << compute(count) << std::endl;\n     return 0;\n }\n",
+            "error_gone": false,
+            "explanation": {
+              "affected_lines": [
+                13
+              ],
+              "error_category": "type_mismatch",
+              "fix_explanation": "Die Zuweisung wird explizit nach int gecastet.",
+              "root_cause_explanation": "Ein std::string wird einer int-Variablen zugewiesen. Es gibt keine implizite Umwandlung von std::string nach int.",
+              "side_effects": "Der Cast verdeckt den eigentlichen Typfehler."
+            },
+            "failed_checks": [],
+            "file": "main.cpp",
+            "number": 3,
+            "outcome": "rejected",
+            "reason": "Verifier abgelehnt: Ein Cast von std::string nach int kompiliert nicht; der Fehler bleibt.",
+            "remaining_errors": [],
+            "review": {
+              "approved": false,
+              "comment": "Der Cast verdeckt den Typfehler nur.",
+              "findings": [
+                "[high] main.cpp: C-Cast von std::string nach int ist ungültig"
+              ],
+              "ran": true,
+              "revised": true,
+              "verdict": "CHANGES_REQUESTED"
+            },
+            "snippet": {
+              "hunks": [
+                {
+                  "new": [
+                    {
+                      "line": 11,
+                      "mark": false,
+                      "text": "}"
+                    },
+                    {
+                      "line": 12,
+                      "mark": false,
+                      "text": ""
+                    },
+                    {
+                      "line": 13,
+                      "mark": false,
+                      "text": "int main() {"
+                    },
+                    {
+                      "line": 14,
+                      "mark": true,
+                      "text": "    int count = (int)std::string(\"42\");"
+                    },
+                    {
+                      "line": 15,
+                      "mark": false,
+                      "text": "    std::cout << compute(count) << std::endl;"
+                    },
+                    {
+                      "line": 16,
+                      "mark": false,
+                      "text": "    return 0;"
+                    },
+                    {
+                      "line": 17,
+                      "mark": false,
+                      "text": "}"
+                    }
+                  ],
+                  "old": [
+                    {
+                      "line": 11,
+                      "mark": false,
+                      "text": "}"
+                    },
+                    {
+                      "line": 12,
+                      "mark": false,
+                      "text": ""
+                    },
+                    {
+                      "line": 13,
+                      "mark": false,
+                      "text": "int main() {"
+                    },
+                    {
+                      "line": 14,
+                      "mark": true,
+                      "text": "    int count = std::string(\"42\");"
+                    },
+                    {
+                      "line": 15,
+                      "mark": false,
+                      "text": "    std::cout << compute(count) << std::endl;"
+                    },
+                    {
+                      "line": 16,
+                      "mark": false,
+                      "text": "    return 0;"
+                    },
+                    {
+                      "line": 17,
+                      "mark": false,
+                      "text": "}"
+                    }
+                  ],
+                  "truncated": false
+                }
+              ],
+              "omitted_hunks": 0
+            },
+            "verification": {
+              "confirmed": false,
+              "ran": true,
+              "reason": "Ein Cast von std::string nach int kompiliert nicht; der Fehler bleibt.",
+              "remaining_issues": [
+                "std::stoi statt Cast verwenden"
+              ]
+            }
+          },
+          {
+            "agent_pipeline": true,
+            "applied": false,
+            "diff": "--- a/main.cpp\n+++ b/main.cpp\n@@ -11,7 +11,7 @@\n }\n \n int main() {\n-    int count = std::string(\"42\");\n+    int count = (int)std::string(\"42\");\n     std::cout << compute(count) << std::endl;\n     return 0;\n }\n",
+            "error_gone": false,
+            "explanation": {
+              "affected_lines": [
+                13
+              ],
+              "error_category": "type_mismatch",
+              "fix_explanation": "Die Zuweisung wird explizit nach int gecastet.",
+              "root_cause_explanation": "Ein std::string wird einer int-Variablen zugewiesen. Es gibt keine implizite Umwandlung von std::string nach int.",
+              "side_effects": "Der Cast verdeckt den eigentlichen Typfehler."
+            },
+            "failed_checks": [],
+            "file": "main.cpp",
+            "number": 4,
+            "outcome": "rejected",
+            "reason": "Verifier abgelehnt: Ein Cast von std::string nach int kompiliert nicht; der Fehler bleibt.",
+            "remaining_errors": [],
+            "review": {
+              "approved": false,
+              "comment": "Der Cast verdeckt den Typfehler nur.",
+              "findings": [
+                "[high] main.cpp: C-Cast von std::string nach int ist ungültig"
+              ],
+              "ran": true,
+              "revised": true,
+              "verdict": "CHANGES_REQUESTED"
+            },
+            "snippet": {
+              "hunks": [
+                {
+                  "new": [
+                    {
+                      "line": 11,
+                      "mark": false,
+                      "text": "}"
+                    },
+                    {
+                      "line": 12,
+                      "mark": false,
+                      "text": ""
+                    },
+                    {
+                      "line": 13,
+                      "mark": false,
+                      "text": "int main() {"
+                    },
+                    {
+                      "line": 14,
+                      "mark": true,
+                      "text": "    int count = (int)std::string(\"42\");"
+                    },
+                    {
+                      "line": 15,
+                      "mark": false,
+                      "text": "    std::cout << compute(count) << std::endl;"
+                    },
+                    {
+                      "line": 16,
+                      "mark": false,
+                      "text": "    return 0;"
+                    },
+                    {
+                      "line": 17,
+                      "mark": false,
+                      "text": "}"
+                    }
+                  ],
+                  "old": [
+                    {
+                      "line": 11,
+                      "mark": false,
+                      "text": "}"
+                    },
+                    {
+                      "line": 12,
+                      "mark": false,
+                      "text": ""
+                    },
+                    {
+                      "line": 13,
+                      "mark": false,
+                      "text": "int main() {"
+                    },
+                    {
+                      "line": 14,
+                      "mark": true,
+                      "text": "    int count = std::string(\"42\");"
+                    },
+                    {
+                      "line": 15,
+                      "mark": false,
+                      "text": "    std::cout << compute(count) << std::endl;"
+                    },
+                    {
+                      "line": 16,
+                      "mark": false,
+                      "text": "    return 0;"
+                    },
+                    {
+                      "line": 17,
+                      "mark": false,
+                      "text": "}"
+                    }
+                  ],
+                  "truncated": false
+                }
+              ],
+              "omitted_hunks": 0
+            },
+            "verification": {
+              "confirmed": false,
+              "ran": true,
+              "reason": "Ein Cast von std::string nach int kompiliert nicht; der Fehler bleibt.",
+              "remaining_issues": [
+                "std::stoi statt Cast verwenden"
+              ]
+            }
+          },
+          {
+            "agent_pipeline": true,
+            "applied": false,
+            "diff": "--- a/main.cpp\n+++ b/main.cpp\n@@ -11,7 +11,7 @@\n }\n \n int main() {\n-    int count = std::string(\"42\");\n+    int count = (int)std::string(\"42\");\n     std::cout << compute(count) << std::endl;\n     return 0;\n }\n",
+            "error_gone": false,
+            "explanation": {
+              "affected_lines": [
+                13
+              ],
+              "error_category": "type_mismatch",
+              "fix_explanation": "Die Zuweisung wird explizit nach int gecastet.",
+              "root_cause_explanation": "Ein std::string wird einer int-Variablen zugewiesen. Es gibt keine implizite Umwandlung von std::string nach int.",
+              "side_effects": "Der Cast verdeckt den eigentlichen Typfehler."
+            },
+            "failed_checks": [],
+            "file": "main.cpp",
+            "number": 5,
+            "outcome": "rejected",
+            "reason": "Verifier abgelehnt: Ein Cast von std::string nach int kompiliert nicht; der Fehler bleibt.",
+            "remaining_errors": [],
+            "review": {
+              "approved": false,
+              "comment": "Der Cast verdeckt den Typfehler nur.",
+              "findings": [
+                "[high] main.cpp: C-Cast von std::string nach int ist ungültig"
+              ],
+              "ran": true,
+              "revised": true,
+              "verdict": "CHANGES_REQUESTED"
+            },
+            "snippet": {
+              "hunks": [
+                {
+                  "new": [
+                    {
+                      "line": 11,
+                      "mark": false,
+                      "text": "}"
+                    },
+                    {
+                      "line": 12,
+                      "mark": false,
+                      "text": ""
+                    },
+                    {
+                      "line": 13,
+                      "mark": false,
+                      "text": "int main() {"
+                    },
+                    {
+                      "line": 14,
+                      "mark": true,
+                      "text": "    int count = (int)std::string(\"42\");"
+                    },
+                    {
+                      "line": 15,
+                      "mark": false,
+                      "text": "    std::cout << compute(count) << std::endl;"
+                    },
+                    {
+                      "line": 16,
+                      "mark": false,
+                      "text": "    return 0;"
+                    },
+                    {
+                      "line": 17,
+                      "mark": false,
+                      "text": "}"
+                    }
+                  ],
+                  "old": [
+                    {
+                      "line": 11,
+                      "mark": false,
+                      "text": "}"
+                    },
+                    {
+                      "line": 12,
+                      "mark": false,
+                      "text": ""
+                    },
+                    {
+                      "line": 13,
+                      "mark": false,
+                      "text": "int main() {"
+                    },
+                    {
+                      "line": 14,
+                      "mark": true,
+                      "text": "    int count = std::string(\"42\");"
+                    },
+                    {
+                      "line": 15,
+                      "mark": false,
+                      "text": "    std::cout << compute(count) << std::endl;"
+                    },
+                    {
+                      "line": 16,
+                      "mark": false,
+                      "text": "    return 0;"
+                    },
+                    {
+                      "line": 17,
+                      "mark": false,
+                      "text": "}"
+                    }
+                  ],
+                  "truncated": false
+                }
+              ],
+              "omitted_hunks": 0
+            },
+            "verification": {
+              "confirmed": false,
+              "ran": true,
+              "reason": "Ein Cast von std::string nach int kompiliert nicht; der Fehler bleibt.",
+              "remaining_issues": [
+                "std::stoi statt Cast verwenden"
+              ]
+            }
+          }
+        ],
+        "category": "wrong_data_type",
+        "difficulty": "leicht",
+        "error_name": "wrong_data_type",
+        "excerpt": {
+          "hunks": [
+            {
+              "new": [],
+              "old": [
+                {
+                  "line": 11,
+                  "mark": false,
+                  "text": "}"
+                },
+                {
+                  "line": 12,
+                  "mark": false,
+                  "text": ""
+                },
+                {
+                  "line": 13,
+                  "mark": false,
+                  "text": "int main() {"
+                },
+                {
+                  "line": 14,
+                  "mark": true,
+                  "text": "    int count = std::string(\"42\");"
+                },
+                {
+                  "line": 15,
+                  "mark": false,
+                  "text": "    std::cout << compute(count) << std::endl;"
+                },
+                {
+                  "line": 16,
+                  "mark": false,
+                  "text": "    return 0;"
+                },
+                {
+                  "line": 17,
+                  "mark": false,
+                  "text": "}"
+                }
+              ],
+              "truncated": false
+            }
+          ],
+          "omitted_hunks": 0
+        },
+        "file": "main.cpp",
+        "id": 3,
+        "iterations": 5,
+        "language": "cpp",
+        "lines": [
+          14
+        ],
+        "message": "main.cpp: In function 'int main()':\nmain.cpp:14:22: error: cannot convert 'std::string' {aka 'std::__cxx11::basic_string<char>'} to 'int' in initialization\n   14 |     int count = std::string(\"42\");\n      |                      ^~~~~~~~~~~~\n",
+        "resolved_by": 0,
+        "severity": "error",
+        "status": "not_fixed",
+        "status_reason": "Nach 5 Versuch(en) nicht behoben. Letzter Grund: Verifier abgelehnt: Ein Cast von std::string nach int kompiliert nicht; der Fehler bleibt.",
+        "title": "wrong_data_type in main.cpp",
+        "tool": "Compiler (g++)"
+      },
+      {
+        "attempts": [],
+        "category": "missing_include_cpp",
+        "difficulty": "leicht",
+        "error_name": "missing_include_cpp",
+        "excerpt": {
+          "hunks": [],
+          "omitted_hunks": 0
+        },
+        "file": "main.cpp",
+        "id": 4,
+        "iterations": 0,
+        "language": "cpp",
+        "lines": [
+          8
+        ],
+        "message": "main.cpp: In function 'int compute(int)':\nmain.cpp:8:13: error: 'y' was not declared in this scope\n    8 |     int z = y + a;\n      |             ^\n",
+        "resolved_by": 2,
+        "severity": "error",
+        "status": "fixed",
+        "status_reason": "Mit dem Fix in Abschnitt 2 behoben (dieselbe Ursache bzw. Meldung).",
+        "title": "missing_include_cpp in main.cpp",
+        "tool": "Compiler (g++)"
+      },
+      {
+        "attempts": [],
+        "category": "missing_semicolon_cpp",
+        "difficulty": "leicht",
+        "error_name": "missing_semicolon_cpp",
+        "excerpt": {
+          "hunks": [],
+          "omitted_hunks": 0
+        },
+        "file": "main.cpp",
+        "id": 5,
+        "iterations": 0,
+        "language": "cpp",
+        "lines": [
+          15
+        ],
+        "message": "main.cpp:15:13: error: expected ';' before '}' token\n   15 |     return 0\n      |             ^\n",
+        "resolved_by": 1,
+        "severity": "error",
+        "status": "fixed",
+        "status_reason": "Mit dem Fix in Abschnitt 1 behoben (dieselbe Ursache bzw. Meldung).",
+        "title": "missing_semicolon_cpp in main.cpp",
+        "tool": "Compiler (g++)"
+      }
+    ],
+    "language": "de",
+    "languages": "cpp",
+    "models": {
+      "debugger": "gemini/gemini-2.5-pro",
+      "mode": "pipeline",
+      "report": "llm/gpt-5.2",
+      "reviewer": "claude/claude-sonnet-5-5",
+      "verifier": "openai/gpt-5.2"
+    },
+    "project": "demo",
+    "run_id": "20261117-101500-4242",
+    "schema": 1,
+    "summary": {
+      "fixed": 4,
+      "found": 5,
+      "not_fixed": 1
+    },
+    "target": "/home/user/demo"
+  },
+  "ai_analysis": "## Summary\nZwei von drei Fehlern wurden behoben.\n\n## Severity\nmedium\n\n## Bugs\n### Bug 1: Typfehler\n- **File:** main.cpp:13\n```\nint count = std::stoi(\"42\");\n```\n"
+}

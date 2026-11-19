@@ -31,6 +31,13 @@
 #include "EnvironmentManager.h"
 #include "WebEnvironmentManager.h"
 #include "WebPipeline.h"
+#include "StackDetector.h"
+#include "StackPipeline.h"
+#include "PdfReportExporter.h"
+#include "FixRecord.h"
+#include "FixHistory.h"
+#include "ErrorDetection.h"
+#include "ToolOutputParser.h"
 
 int main(int argc, char** argv) {
     try {
@@ -42,12 +49,37 @@ int main(int argc, char** argv) {
             parser.printConfig();
         }
 
-        const std::string targetPath = parser.getTargetPath();
         namespace fs = std::filesystem;
+        // Absolute path: fixes, backups and reports resolve file paths against the project folder.
+        // With a relative path ("./proj", "src/main.c") the fix loop looked for "proj/proj/main.c"
+        // and the run ended at the first fix.
+        const std::string targetPath = [&] {
+            std::string p = fs::absolute(parser.getTargetPath()).lexically_normal().string();
+            while (p.size() > 1 && p.back() == '/') p.pop_back();
+            return p;
+        }();
 
         if (!fs::exists(targetPath)) {
             throw std::runtime_error("Path does not exist: " + targetPath);
         }
+
+        // PDF-Export der JSON-Reports: Defaults < <projekt>/.buggai.json (pdf_export) < CLI.
+        // Der Exporter lebt bis zum Ende des Runs; sein Destruktor schreibt den Gesamt-Report.
+        PdfExportConfig pdfConfig = PdfReportExporter::loadConfig(targetPath);
+        if (parser.isPdfDisabled()) pdfConfig.enabled = false;
+        if (parser.isPdfCombinedDisabled()) pdfConfig.combined = false;
+        if (parser.isPdfPerIteration()) pdfConfig.perIteration = true;
+        if (!parser.getPdfDir().empty()) pdfConfig.outputDir = parser.getPdfDir();
+        PdfReportExporter pdfExporter(pdfConfig);
+        const std::string pdfName = fs::path(targetPath).lexically_normal().filename().string() + "_report";
+        int pdfIteration = 0;
+
+        // Fehler-/Fix-Abschnitte des Reports: werden im Fix-Loop befüllt (docs/PLAN_REPORT_REDESIGN.md)
+        const std::string reportRoot = fs::is_directory(targetPath)
+            ? targetPath : fs::path(targetPath).parent_path().string();
+        FixReportBuilder fixReport(reportRoot, pdfConfig.contextLines, pdfConfig.language);
+        fixReport.setPipeline(LlmProvider::pipelineEnabled());
+        const std::string explanationLanguage = pdfConfig.language == "en" ? "English" : "German";
 
         // Alle Dateiinhalte sammeln
         FileCollector collector;
@@ -154,6 +186,7 @@ int main(int argc, char** argv) {
         // Nur kompilieren/ausführen, wenn targetPath eine Datei ist
         std::string program;
         bool canRunProgram = false;
+        bool buildFailed = false;  // the compiler / build tool produced no program
         std::string detectedLanguage = "unknown";
         std::string cmd;
 
@@ -167,6 +200,30 @@ int main(int argc, char** argv) {
             }
             std::cout << "\n[PRIMARY LANGUAGE] " << detectedLanguage << "\n";
 
+            // Fullstack / multi-service repositories (Python backend + JS/TS frontend + SQL,
+            // several services) are checked per component by the stack pipeline. Projects that
+            // are C/C++ or Java, PHP projects (composer.json) and everything with --stack legacy
+            // keep the existing paths below.
+            if (fs::is_directory(targetPath) && parser.getStackMode() != "legacy"
+                && (detectedLanguage == "python" || detectedLanguage == "unknown")
+                && !fs::exists(fs::path(targetPath) / "composer.json")) {
+                ProjectStack stack = StackDetector::detect(targetPath);
+                if (parser.getStackMode() == "fullstack") stack.config.stack = "fullstack";
+                if (stack.isFullstack()) {
+                    std::cout << "[STACK] fullstack project detected (use --stack legacy for the single-language mode)\n";
+                    WebPipelineOptions options;
+                    options.targetPath = targetPath;
+                    options.fixDescription = parser.getFixDescription();
+                    options.jsonOutFile = parser.getJsonOutFile();
+                    options.runtime = parser.isRuntimeUsed();
+                    options.pdf = &pdfExporter;
+                    return StackPipeline::run(options, files, stack);
+                }
+                if (parser.getStackMode() == "fullstack") {
+                    std::cout << "[STACK] --stack fullstack: no Python, Node or SQL component found, using the default mode\n";
+                }
+            }
+
             if (detectedLanguage == "unknown") {
                 if (fs::is_directory(targetPath) && WebEnvironmentManager::isWebProject(targetPath)) {
                     WebPipelineOptions options;
@@ -174,6 +231,7 @@ int main(int argc, char** argv) {
                     options.fixDescription = parser.getFixDescription();
                     options.jsonOutFile = parser.getJsonOutFile();
                     options.runtime = parser.isRuntimeUsed();
+                    options.pdf = &pdfExporter;
                     return WebPipeline::run(options, files);
                 }
                 std::cout << "\nNo build/debug support for the languages of this project yet. Stopping.\n";
@@ -364,6 +422,7 @@ int main(int argc, char** argv) {
             }
             }
             canRunProgram = !program.empty();
+            buildFailed = !canRunProgram && detectedLanguage != "python";
 
             // Detect interactive usage and inform the user (but still run)
             if (canRunProgram) {
@@ -440,36 +499,33 @@ int main(int argc, char** argv) {
             std::cout << "Valgrind Beendet mit Exit-Code: " << vgRes.run.exit_code << "\n\n";
         }
 
+        // Zeitlimit: Server (z. B. HttpServer, Spring Boot) enden nie von selbst und
+        // würden den Lauf und jede Fix-Iteration (redetect) blockieren.
+        const int runTimeout = parser.getRunTimeoutSec();
+
+        // Command for a normal run of the current program (also used by the fix loop, which
+        // needs it when the very first build failed and only a fix made the program buildable).
+        auto buildRunCmd = [&]() -> std::string {
+            if (program.empty()) return "";
+            std::string cdPath = targetPath;
+            if (fs::is_regular_file(targetPath)) cdPath = fs::path(targetPath).parent_path().string();
+
+            std::string c = "export MPLBACKEND=Agg && cd " + ShellQuote::quote(cdPath) + " && yes \"\" | ";
+            if (runTimeout > 0) c += "timeout -k 5s " + std::to_string(runTimeout) + "s ";
+
+            const bool isJar = program.size() > 4 && program.substr(program.size() - 4) == ".jar";
+            c += isJar ? "java -jar " + ShellQuote::quote(program) : ShellQuote::quote(program);
+            for (const auto& arg : passArgs) c += " " + ShellQuote::quote(arg);
+            return c;
+        };
+
         // Normaler Run nur für Dateien
         if (canRunProgram && !program.empty() && !parser.isGdbUsed() && !parser.isValgrindUsed()) {
             std::cout << "╔════════════════════════════════════════╗\n";
             std::cout << "║   NORMALES PROGRAMM WIRD AUSGEFÜHRT    ║\n";
             std::cout << "╚════════════════════════════════════════╝\n\n";
 
-            std::string cdPath = targetPath;
-            if(std::filesystem::is_regular_file(targetPath)) {
-                cdPath = std::filesystem::path(targetPath).parent_path().string();
-            }
-
-            cmd = "export MPLBACKEND=Agg && cd '" + cdPath + "' && yes \"\" | ";
-
-           // cmd += "timeout 1200s ";
-
-            bool isJar = program.size() > 4 &&
-                         program.substr(program.size() - 4) == ".jar";
-            if (isJar) {
-                cmd += "java -jar " + ShellQuote::quote(program);
-            } else {
-                cmd += ShellQuote::quote(program);
-            }
-
-            for (const auto& arg : passArgs) {
-
-                cmd += " ";
-
-                cmd += ShellQuote::quote(arg);
-            }
-
+            cmd = buildRunCmd();
             runRes = run_capture(cmd);
             runPtr = &runRes;
 
@@ -492,7 +548,8 @@ int main(int argc, char** argv) {
                 case ExecutionStatus::TIMEOUT:
 
                     std::cout
-                        << "Program timeout\n";
+                        << "Program timeout: lief noch nach " << runTimeout
+                        << "s und wurde beendet (bei Servern normal, kein Absturz)\n";
 
                     break;
 
@@ -594,14 +651,39 @@ int main(int argc, char** argv) {
 
         std::cout << "[LANGUAGE] " << language << "\n";
 
-        // 4. match errors
-        ErrorMatcher matcher(checklist);
-        auto detectedErrors = matcher.match(error_output, language);
+        // 4. detect errors: checklist categories, a fallback for unknown build failures / crashes,
+        // and environment problems (no code fix). Sorted easy -> hard, so the fix loop starts
+        // with the easiest error.
+        auto runFailedOf = [](const RunResult* r) {
+            return r && (r->status == ExecutionStatus::RUNTIME_ERROR
+                      || r->status == ExecutionStatus::SIGNAL_TERMINATED
+                      || r->status == ExecutionStatus::TEST_FAILURE);
+        };
+        // error_output = build output + everything the program / debugger / Valgrind printed
+        auto detectNow = [&](bool failedBuild, const RunResult* run) {
+            const std::string& buildOut = compiler.getLastCompileOutput();
+            const bool startsWithBuild = error_output.compare(0, buildOut.size(), buildOut) == 0;
+            const std::string runOut = startsWithBuild ? error_output.substr(buildOut.size()) : error_output;
+            return ErrorDetection::detect(checklist, language, startsWithBuild ? buildOut : "", failedBuild,
+                                          runOut, runFailedOf(run));
+        };
+        // Environment problems: say so once per new problem, with what to do.
+        std::vector<std::string> reportedEnvironment;
+        auto reportEnvironment = [&](const ErrorDetection::Result& d) {
+            for (const auto& env : d.environment) {
+                if (std::find(reportedEnvironment.begin(), reportedEnvironment.end(), env) != reportedEnvironment.end()) continue;
+                reportedEnvironment.push_back(env);
+                std::cout << "[UMGEBUNGSPROBLEM] " << env << ": " << ErrorDetection::environmentHint(env) << "\n";
+            }
+            if (!d.environment.empty() && !d.environmentCaused.empty()) {
+                std::cout << "  Folgefehler ohne Code-Fix-Versuch:";
+                for (const auto& e : d.environmentCaused) std::cout << " " << e;
+                std::cout << "\n";
+            }
+        };
 
-        // 4b. nach Schwierigkeit sortieren (leicht -> mittel -> schwer),
-        // damit der Fix Loop mit den einfachsten Fehlern beginnt
-        ErrorCollector errorCollector;
-        detectedErrors = errorCollector.sortedErrors(detectedErrors);
+        ErrorDetection::Result detection = detectNow(buildFailed, runPtr);
+        auto detectedErrors = detection.errors;
 
         // 5. print results
         std::cout << "\n========== DETECTED ERRORS ==========\n";
@@ -614,7 +696,43 @@ int main(int argc, char** argv) {
             }
         }
 
-        std::cout << "=====================================\n\n";
+        std::cout << "=====================================\n";
+        reportEnvironment(detection);
+        std::cout << "\n";
+
+        // Ort, Tool und Meldung eines Fehlers für den Report, aus der aktuellen Ausgabe
+        fixReport.setDescriber([&](const std::string& name) {
+            ErrorInfo info;
+            info.language = language;
+            const std::vector<std::string> keywords = FixReportBuilder::keywordsFor(name, checklist);
+            auto mentions = [&](const std::string& text) {
+                std::string lower = text;
+                std::transform(lower.begin(), lower.end(), lower.begin(), [](unsigned char c) { return std::tolower(c); });
+                return std::any_of(keywords.begin(), keywords.end(),
+                                   [&](const std::string& k) { return lower.find(k) != std::string::npos; });
+            };
+            // compiler messages (file:line:col: ...) and Python tracebacks of project files
+            for (const auto& e : ToolOutputParser::parse("generic", error_output, reportRoot, reportRoot)) {
+                if (!mentions(e.message)) continue;
+                if (info.file.empty()) { info.file = e.file; info.severity = e.severity; }
+                if (e.file == info.file && std::find(info.lines.begin(), info.lines.end(), e.line) == info.lines.end())
+                    info.lines.push_back(e.line);
+            }
+            if (mentions(compiler.getLastCompileOutput())) {
+                info.tool = detectedLanguage == "c" ? "Compiler (gcc)" : detectedLanguage == "cpp" ? "Compiler (g++)"
+                          : detectedLanguage == "java" ? "Compiler (Java)" : "Compiler";
+            } else if (gdbPtr && mentions(gdbPtr->output)) {
+                info.tool = detectedLanguage == "java" ? "Debugger (jdb)" : detectedLanguage == "python" ? "Debugger (pdb)" : "Debugger (gdb)";
+            } else if (vgPtr && mentions(vgPtr->run.output)) {
+                info.tool = "Valgrind";
+            } else {
+                info.tool = fixReport.tr("Laufzeit (Programmausgabe)", "runtime (program output)");
+            }
+            info.message = FixReportBuilder::excerptMessage(error_output, keywords, info.file, 14,
+                fs::absolute(reportRoot).lexically_normal().string() + "/");
+            return info;
+        });
+        fixReport.observe(detectedErrors);
 
         // Detect platform-specific headers(environment issue not code bug)
         {
@@ -628,31 +746,40 @@ int main(int argc, char** argv) {
                               << "', which is not available on this OS.\n"
                               << "This is an environment/portability issue, not a code bug.\n"
                               << "Skipping fix attempts; running static analysis only.\n\n";
+                    for (const auto& e : detectedErrors) {
+                        fixReport.skipError(e, fixReport.tr("Plattform-Header '", "Platform header '") + hdr
+                            + fixReport.tr("' ist auf diesem System nicht verfügbar (Umgebungsproblem) - kein Fix-Versuch.",
+                                           "' is not available on this system (environment problem) - no fix attempt."));
+                    }
                     detectedErrors.clear();
                     break;
                 }
             }
         }
         // Fix Loop
+        bool anyFixApplied = false;  // then the final report needs fresh code and debugger output
     if (!detectedErrors.empty()) {
 
         OpenAIClient fixClient;
         std::string checkListRaw = reader.loadRaw();
 
-        const int MAX_ROUNDS = 20;  // global budget against endless loops
-        const int MAX_ITER   = 5;   // attempts per single error
+        const int MAX_ROUNDS   = 20;  // global budget against endless loops
+        const int MAX_ITER     = 5;   // attempts per single error
+        const int MAX_ATTEMPTS = 15;  // with attempts that made progress (each one earns one more)
+
+        bool lastBuildFailed = buildFailed;  // state of the last build, kept by redetect()
 
         // Re-build / re-run the project and re-detect errors from the fresh
         // output. The REAL project state is the source of truth after every
         // applied fix, instead of trusting AI-reported new_errors.
         auto redetect = [&]() -> std::vector<std::string> {
             std::string freshOutput;
+            std::string prog = program;  // Python has no build step: the program stays
 
             if (detectedLanguage == "java") {
                 JavaProjectDetector jpd;
                 JavaProjectType t = jpd.detect(targetPath);
                 std::string bp = jpd.getBuildPath();
-                std::string prog;
                 switch (t) {
                     case JavaProjectType::Maven:
                     case JavaProjectType::SpringBootMaven:  prog = compiler.compileMaven(bp);  break;
@@ -664,22 +791,49 @@ int main(int argc, char** argv) {
                 if (!prog.empty()) program = prog;
             } else if (detectedLanguage != "python") {
                 // C / C++
-                std::string prog = (files.size() > 1)
+                prog = (files.size() > 1)
                     ? compiler.compileMultiple(files, includeDirs)
                     : compiler.compileIfNeeded(files[0]);
                 freshOutput += compiler.getLastCompileOutput();
                 if (!prog.empty()) program = prog;
             }
+            const bool failedBuild = prog.empty() && detectedLanguage != "python";
+            lastBuildFailed = failedBuild;
 
-            // Re-run the program if we have a run command.
-            if (canRunProgram && !cmd.empty()) {
-                RunResult rr = run_capture(cmd);
-                freshOutput += "\n" + rr.output;
+            // Run the program again, in the same mode as the first run: normal run, debugger or
+            // Valgrind. (Before, only the normal run was repeated, so with --gdb / --valgrind a
+            // crash counted as fixed as soon as the code compiled.) After a failed build there is
+            // no program for the current code; its old binary is not run.
+            if (failedBuild || program.empty()) {
+                runPtr = nullptr;
+                gdbPtr = nullptr;
+                vgPtr = nullptr;
+            } else {
+                canRunProgram = true;
+                if (parser.isGdbUsed()) {
+                    if (detectedLanguage == "java")        gdbRes = run_jdb(program);
+                    else if (detectedLanguage == "python") gdbRes = run_pdb(program);
+                    else                                   gdbRes = run_gdb(program, passArgs);
+                    gdbPtr = &gdbRes;
+                    freshOutput += "\n" + gdbRes.output;
+                }
+                if (parser.isValgrindUsed()) {
+                    vgRes = run_valgrind(program, passArgs);
+                    vgPtr = &vgRes;
+                    freshOutput += "\n" + vgRes.run.output;
+                }
+                if (!parser.isGdbUsed() && !parser.isValgrindUsed()) {
+                    if (cmd.empty()) cmd = buildRunCmd();  // first build failed, now there is a program
+                    runRes = run_capture(cmd);
+                    runPtr = &runRes;  // the final report shows the state after the fixes
+                    freshOutput += "\n" + runRes.output;
+                }
             }
 
             error_output = freshOutput;  // refresh shared output for next request
-            std::vector<std::string> errs = matcher.match(error_output, language);
-            return errorCollector.sortedErrors(errs);
+            detection = detectNow(failedBuild, runPtr);
+            reportEnvironment(detection);
+            return detection.errors;
         };
 
         std::vector<std::string> giveUp;  // errors abandoned after MAX_ITER
@@ -694,6 +848,22 @@ int main(int argc, char** argv) {
             for (const auto& e : detectedErrors)
                 if (!isGivenUp(e)) { current = e; break; }
             if (current.empty()) break;  // nothing left to do
+
+            // Caused by the environment (database down, port in use, ...): a code change cannot
+            // fix it, and the model would only build workarounds. Report it, do not try.
+            if (detection.environmentCaused.count(current) && !detection.environment.empty()) {
+                std::string envList;
+                for (const auto& env : detection.environment) {
+                    envList += (envList.empty() ? "" : ", ") + env;
+                }
+                std::cout << "Skipping " << current << ": caused by the environment (" << envList << ")\n";
+                fixReport.skipError(current, fixReport.tr(
+                    "Umgebungsproblem (" + envList + "): " + ErrorDetection::environmentHint(detection.environment.front())
+                        + " Kein Code-Fix-Versuch.",
+                    "Environment problem (" + envList + "): not a code bug, no fix attempt."));
+                giveUp.push_back(current);
+                continue;
+            }
 
             // venv special case: a syntax error inside an installed package
             // can never be fixed by retrying — reinstall and skip.
@@ -723,7 +893,13 @@ int main(int argc, char** argv) {
                             DependencyManager::installPythonPackages(targetPath, pkgs);
                         }
                     }
+                    const int reportId = fixReport.beginError(current);
                     detectedErrors = redetect();  // re-detect after reinstall
+                    fixReport.observe(detectedErrors, reportId);
+                    const bool reinstalled = std::find(detectedErrors.begin(), detectedErrors.end(), current) == detectedErrors.end();
+                    fixReport.finishError(reportId, reinstalled,
+                        fixReport.tr("Syntaxfehler in einem installierten Paket (venv): Paket neu installiert, kein Code-Fix.",
+                                     "Syntax error inside an installed package (venv): package reinstalled, no code fix."));
                     giveUp.push_back(current);    // don't retry this one via AI
                     continue;
                 }
@@ -731,9 +907,12 @@ int main(int argc, char** argv) {
 
             round++;
             bool fixed = false;
+            const int reportId = fixReport.beginError(current);
+            std::vector<std::string> history;  // failed attempts for this error, sent with the next request
 
-            for (int attempt = 1; attempt <= MAX_ITER; ++attempt) {
-                std::cout << "Attempt " << attempt << "/" << MAX_ITER
+            int budget = MAX_ITER;  // an attempt that makes progress earns one more (up to MAX_ATTEMPTS)
+            for (int attempt = 1; attempt <= budget; ++attempt) {
+                std::cout << "Attempt " << attempt << "/" << budget
                           << " for error: " << current
                           << " (difficulty: " << ErrorCollector::difficultyOf(current) << ")\n";
 
@@ -752,17 +931,140 @@ int main(int argc, char** argv) {
                 fix_req.language     = language;
                 fix_req.source_code  = sourceCode;
                 fix_req.checklist    = checkListRaw;
+                fix_req.explanation_language = explanationLanguage;
+                fix_req.previous_attempts = history;
 
                 FixResult fix_res = fixClient.fix_code(fix_req);
-                if (!fix_res.success) continue;
+                if (!fix_res.success) {
+                    fixReport.addAttempt(reportId, attempt, fix_res, "", false, false, {}, {});
+                    history.push_back(FixHistory::describeAttempt(attempt, fix_res.file_path, fix_res.explanation.fix,
+                        "not applied (" + (fix_res.failure_reason.empty() ? std::string("no usable fix") : fix_res.failure_reason) + ")",
+                        ""));
+                    continue;
+                }
 
-                CodeChanger changer(targetPath);
-                changer.apply_fix(fix_res);
+                CodeChanger changer(reportRoot);  // project folder, also when the target is one file
+                try {
+                    changer.apply_fix(fix_res);
+                } catch (const std::exception& e) {
+                    // Not written (path, permissions, full disk, ...): record it and go on with the
+                    // next attempt instead of ending the whole run without a report.
+                    std::cout << "  -> fix could not be written: " << e.what() << "\n";
+                    fixReport.addAttempt(reportId, attempt, fix_res, "", false, false, {}, {}, e.what());
+                    history.push_back(FixHistory::describeAttempt(attempt, fix_res.file_path, fix_res.explanation.fix,
+                        std::string("not applied (could not be written: ") + e.what() + ")", ""));
+                    continue;
+                }
+                anyFixApplied = true;
 
                 // Re-build / re-run and check whether the error is gone.
+                const std::vector<std::string> errorsBefore = detectedErrors;
+                const std::string outputBefore = error_output;
+                const bool buildFailedBefore = lastBuildFailed;
                 detectedErrors = redetect();
+                const std::string outputAfter = error_output;
                 bool gone = std::find(detectedErrors.begin(), detectedErrors.end(), current)
                             == detectedErrors.end();
+                auto newCategories = [&] {
+                    std::string s;
+                    for (const auto& e : detectedErrors) {
+                        if (std::find(errorsBefore.begin(), errorsBefore.end(), e) != errorsBefore.end()) continue;
+                        s += (s.empty() ? "" : ", ") + e;
+                    }
+                    return s;
+                };
+
+                // Does the change stay? Only when it helped. A change that is taken back:
+                //  - broke the build (runtime errors then vanish only because nothing runs any more)
+                //  - only changed the error's form: categories vanished, new ones appeared and the
+                //    program still crashes at the same place (e.g. Class.forName turning "No suitable
+                //    driver" into a ClassNotFoundException)
+                //  - left the error in place and added new error categories
+                //  - had no effect: the error output is the same as before
+                // A change after which the category is still there but the failure looks different
+                // (the next failing assert, another test) is progress: it stays and earns one more attempt.
+                // Python has no build step: a syntax error the fix introduced stops the program at
+                // import, so every runtime error "vanishes". That is a broken build as well.
+                auto pythonSyntaxError = [](const std::string& out) {
+                    return out.find("SyntaxError:") != std::string::npos
+                        || out.find("IndentationError:") != std::string::npos
+                        || out.find("TabError:") != std::string::npos;
+                };
+                const bool brokeBuild = (!buildFailedBefore && lastBuildFailed)
+                    || (detectedLanguage == "python" && pythonSyntaxError(outputAfter) && !pythonSyntaxError(outputBefore));
+
+                std::string revertDe, revertEn, historyOutcome, stillPresentReason;
+                if (brokeBuild) {
+                    const std::string cats = newCategories();
+                    revertDe = "Fix hat den Build gebrochen (" + cats + ")";
+                    revertEn = "The fix broke the build (" + cats + ")";
+                    historyOutcome = "the change broke the build (" + cats + ")";
+                } else if (FixHistory::onlyTransformed(errorsBefore, detectedErrors, outputBefore, outputAfter,
+                                                       files, fix_res.file_path)) {
+                    const std::string site = FixHistory::crashSite(outputAfter, files, fix_res.file_path);
+                    const std::string cats = newCategories();
+                    revertDe = "Fehler hat nur seine Form geändert (" + cats
+                             + "), das Programm stürzt weiter an derselben Stelle ab (" + site + ")";
+                    revertEn = "The error only changed its form (" + cats
+                             + "), the program still crashes at the same place (" + site + ")";
+                    historyOutcome = "the error only changed its form into " + cats
+                                   + " and the program still crashed at " + site;
+                } else if (!gone) {
+                    const std::string cats = newCategories();
+                    if (!cats.empty()) {
+                        revertDe = "Fehler besteht weiter und der Fix hat neue Fehler eingeführt (" + cats + ")";
+                        revertEn = "The error is still present and the fix introduced new errors (" + cats + ")";
+                        historyOutcome = "error still present and the change introduced new errors (" + cats + ")";
+                    } else if (FixHistory::failureFingerprint(outputBefore) == FixHistory::failureFingerprint(outputAfter)) {
+                        revertDe = "Fix hatte keine Wirkung, die Fehlerausgabe ist unverändert";
+                        revertEn = "The fix had no effect, the error output is unchanged";
+                        historyOutcome = "no effect, the error output did not change";
+                    } else {
+                        stillPresentReason = fixReport.tr(
+                            "Fehlerausgabe hat sich geändert (Fortschritt), die Kategorie besteht aber weiter. Änderung bleibt.",
+                            "The error output changed (progress), but the category is still present. The change was kept.");
+                        history.push_back(FixHistory::describeAttempt(attempt, fix_res.file_path, fix_res.explanation.fix,
+                            "progress: the error output changed but the category is still present; this change was KEPT",
+                            outputAfter));
+                        if (budget < MAX_ATTEMPTS) ++budget;
+                        std::cout << "  -> progress: the error output changed, keeping this change\n";
+                    }
+                }
+
+                if (!revertEn.empty()) {
+                    gone = false;
+                    std::cout << "  -> " << revertEn << ". Reverting this change.\n";
+                    fs::path changedPath = fix_res.file_path;
+                    if (changedPath.is_relative()) changedPath = fs::path(reportRoot) / changedPath;
+                    bool reverted = false;
+                    {
+                        std::ofstream revert(changedPath, std::ios::binary | std::ios::trunc);
+                        revert << changer.previousContent();
+                        reverted = static_cast<bool>(revert);
+                    }
+                    if (!reverted) std::cout << "  -> could not write the previous version back to " << changedPath << "\n";
+                    detectedErrors = redetect();  // state after the revert
+                    stillPresentReason = reverted
+                        ? fixReport.tr(revertDe + ". Änderung wurde zurückgenommen.", revertEn + ". The change was reverted.")
+                        : fixReport.tr(revertDe + ". Zurücknehmen fehlgeschlagen, Änderung ist noch im Code.",
+                                       revertEn + ". Reverting failed, the change is still in the code.");
+                    history.push_back(FixHistory::describeAttempt(attempt, fix_res.file_path, fix_res.explanation.fix,
+                        historyOutcome + (reverted ? "; this change was REVERTED" : "; reverting it FAILED, it is still in the code"),
+                        outputAfter));
+                }
+                fixReport.addAttempt(reportId, attempt, fix_res, changer.previousContent(), true, gone, detectedErrors, {},
+                                     "", stillPresentReason);
+                fixReport.observe(detectedErrors, reportId);
+
+                // optional: PDF mit dem Stand nach dieser Fix-Iteration (pdf_export.per_iteration)
+                if (pdfConfig.perIteration) {
+                    pdfExporter.exportIteration(++pdfIteration, {
+                        {"iteration", pdfIteration}, {"error", current}, {"attempt", attempt},
+                        {"file_path", fix_res.file_path}, {"error_fixed", gone},
+                        {"remaining_errors", detectedErrors}, {"fixed_code", fix_res.fixed_code},
+                        {"error_output", error_output}
+                    }, parser.getJsonOutFile(), pdfName);
+                }
                 if (gone) {
                     std::cout << "  -> fixed. Remaining errors: " << detectedErrors.size() << "\n";
                     fixed = true;
@@ -771,6 +1073,7 @@ int main(int argc, char** argv) {
                 std::cout << "  -> error still present, retrying\n";
             }
 
+            fixReport.finishError(reportId, fixed);
             if (!fixed) {
                 std::cerr << "Could not fix error: " << current << "\n";
                 giveUp.push_back(current);  // prevent infinite retries on same error
@@ -783,6 +1086,28 @@ int main(int argc, char** argv) {
             std::cout << "\nFinished. " << giveUp.size() << " error(s) could not be fixed.\n";
     }
 
+        // The report and the final analysis describe the state AFTER the fixes: the source code
+        // as it is on disk now and the last run (redetect() keeps the program, debugger and
+        // Valgrind results current). Before, they showed the state of the very first run.
+        if (anyFixApplied) {
+            std::stringstream finalCollected;
+            for (const auto& f : files) {
+                finalCollected << "===== FILE: " << f << " =====\n";
+                finalCollected << collector.readSourceCode(f) << "\n\n";
+            }
+            sourceCode = finalCollected.str();
+        }
+
+
+        fixReport.finalize(detectedErrors);
+        const nlohmann::json fixReportJson = fixReport.toJson({
+            {"project", fs::path(targetPath).lexically_normal().filename().string()},
+            {"target", targetPath},
+            {"fix_description", parser.getFixDescription()},
+            {"languages", language},
+            {"run_id", pdfExporter.runId()},
+            {"models", OpenAIClient::describeModels()}
+        });
 
         // Report JSON bauen
         std::string report = make_report_json(
@@ -798,6 +1123,25 @@ int main(int argc, char** argv) {
             sourceCode
         );
 
+        // Environment problems of the last run (JSON, PDF and the final analysis): the model
+        // should recommend fixing the environment, not the code.
+        if (!detection.environment.empty()) {
+            nlohmann::ordered_json withEnv = nlohmann::ordered_json::parse(report, nullptr, false);
+            if (withEnv.is_object()) {
+                nlohmann::ordered_json envList = nlohmann::ordered_json::array();
+                for (const auto& env : detection.environment) {
+                    envList.push_back({{"name", env}, {"hint", ErrorDetection::environmentHint(env)}});
+                }
+                withEnv["environment_problems"] = envList;
+                withEnv["environment_caused_errors"] = std::vector<std::string>(
+                    detection.environmentCaused.begin(), detection.environmentCaused.end());
+                withEnv["environment_note"] =
+                    "These errors come from the environment the program ran in (not from the code). "
+                    "They were not fixed in code; recommend fixing the environment.";
+                report = withEnv.dump(2, ' ', false, nlohmann::ordered_json::error_handler_t::replace);
+            }
+        }
+
         // Optional: JSON in Datei schreiben
         if (!parser.getJsonOutFile().empty()) {
             try {
@@ -807,15 +1151,31 @@ int main(int argc, char** argv) {
                 final_json["detected_errors"] = detectedErrors;
                 final_json["language"] = language;
                 final_json["compile_output"] = compiler.getLastCompileOutput();
+                final_json["fix_report"] = fixReportJson;
 
             std::ofstream out(parser.getJsonOutFile());
             out << final_json.dump(2);
+            out.close();
             std::cout << "JSON Report gespeichert: " << parser.getJsonOutFile() << "\n\n";
+            pdfExporter.exportJson(final_json.dump(2), parser.getJsonOutFile(), pdfName);
             } catch (const std::exception& e) {
                 // Fallback: Wenn Parse fehlschlägt, speichere original
                 std::ofstream out(parser.getJsonOutFile());
                 out << report;
+                out.close();
                 std::cout << "JSON Report gespeichert: " << parser.getJsonOutFile() << "\n\n";
+                pdfExporter.exportJson(report, parser.getJsonOutFile(), pdfName);
+            }
+        } else {
+            // kein --json-out: PDF nur, wenn ein Ausgabeordner konfiguriert ist
+            nlohmann::ordered_json pdf_json = nlohmann::ordered_json::parse(report, nullptr, false);
+            if (pdf_json.is_object()) {
+                pdf_json["detected_errors"] = detectedErrors;
+                pdf_json["language"] = language;
+                pdf_json["fix_report"] = fixReportJson;
+                pdfExporter.exportJson(pdf_json.dump(2, ' ', false, nlohmann::ordered_json::error_handler_t::replace), "", pdfName);
+            } else {
+                pdfExporter.exportJson(report, "", pdfName);
             }
         }
 
@@ -843,13 +1203,26 @@ int main(int argc, char** argv) {
                     final_json["detected_errors"] = detectedErrors;
                     final_json["language"] = language;
                     final_json["compile_output"] = compiler.getLastCompileOutput();
+                    final_json["fix_report"] = fixReportJson;
                     final_json["ai_analysis"] = r.text;  // Markdown-Text vom AI
 
                     std::ofstream out(parser.getJsonOutFile());
                     out << final_json.dump(2);
+                    out.close();
                     std::cout << "Final JSON Report aktualisiert: " << parser.getJsonOutFile() << "\n";
+                    pdfExporter.exportJson(final_json.dump(2), parser.getJsonOutFile(), pdfName);
                 } catch (...) {
                     // Ignore - JSON wurde schon vorher gespeichert
+                }
+            } else if (!pdfConfig.outputDir.empty()) {
+                // kein --json-out, aber PDF-Ordner: Report inklusive AI-Analyse als PDF
+                nlohmann::ordered_json final_json = nlohmann::ordered_json::parse(report, nullptr, false);
+                if (final_json.is_object()) {
+                    final_json["detected_errors"] = detectedErrors;
+                    final_json["language"] = language;
+                    final_json["fix_report"] = fixReportJson;
+                    final_json["ai_analysis"] = r.text;
+                    pdfExporter.exportJson(final_json.dump(2, ' ', false, nlohmann::ordered_json::error_handler_t::replace), "", pdfName);
                 }
             }
             return 0;

@@ -15,8 +15,8 @@ public:
     // Example:
     // python3 -m pip --version
     //
-    // If pip is missing, automatically install it:
-    // sudo apt install python3-pip
+    // If pip is missing, install it with passwordless sudo only (sudo -n apt-get install
+    // python3-pip); otherwise print the command for the user and return false.
     static bool ensurePipInstalled();
 
     // Step 2:

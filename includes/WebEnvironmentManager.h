@@ -22,6 +22,13 @@ public:
 
     static void printSummary(const std::vector<SetupStep>& steps, const std::string& title = "SETUP SUMMARY");
 
+    // Also used by StackToolchain (fullstack projects).
+    static std::string typeCheckCommand(const std::string& projectPath);
+    static std::string testCommand(const std::string& projectPath);
+    static std::string detectPackageManager(const std::string& projectPath);
+    static bool commandExists(const std::string& command);
+    static SetupStep runStep(const std::string& name, const std::string& projectPath, const std::string& command);
+
 private:
     static bool ensurePhp(const std::string& projectPath, const std::string& dbConnection);
     static bool ensureComposer();
@@ -31,18 +38,13 @@ private:
     static void prepareEnvFile(const std::string& projectPath);
     static bool setupDatabase(const std::string& projectPath, const std::string& dbConnection);
 
-    static std::string typeCheckCommand(const std::string& projectPath);
-    static std::string testCommand(const std::string& projectPath);
     static SetupStep smokeTest(const std::string& projectPath);
     static SetupStep prepareTestDatabase(const std::string& projectPath);
     static std::string readCommandOutput(const std::string& command);
 
-    static std::string detectPackageManager(const std::string& projectPath);
     static std::string readEnvValue(const std::string& envFile, const std::string& key);
     static void writeEnvValue(const std::string& envFile, const std::string& key, const std::string& value);
-    static bool commandExists(const std::string& command);
     static bool aptInstall(const std::vector<std::string>& packages);
-    static SetupStep runStep(const std::string& name, const std::string& projectPath, const std::string& command);
 };
 
 #endif //INC_2BUGGAI_WEBENVIRONMENTMANAGER_H

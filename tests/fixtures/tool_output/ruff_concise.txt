@@ -1,0 +1,4 @@
+app/lint_me.py:1:8: F401 [*] `os` imported but unused
+app/lint_me.py:5:26: F821 Undefined name `undefined_bonus`
+Found 2 errors.
+[*] 1 fixable with `--fix`.

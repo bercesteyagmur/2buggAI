@@ -93,7 +93,7 @@ bool WebEnvironmentManager::aptInstall(const std::vector<std::string>& packages)
     for (const auto& p : packages) list += " " + p;
 
     std::cout << "Installing:" << list << "\n";
-    std::string cmd = "sudo apt-get update -qq && sudo apt-get install -y" + list;
+    std::string cmd = "sudo -n apt-get update -qq && sudo -n apt-get install -y" + list;
     return system(cmd.c_str()) == 0;
 }
 
@@ -223,17 +223,17 @@ bool WebEnvironmentManager::ensureNode(const std::string& projectPath) {
     if (!commandExists("curl")) aptInstall({"curl"});
 
     std::string cmd = "curl -fsSL https://deb.nodesource.com/setup_" + std::to_string(required)
-                    + ".x | sudo -E bash - && sudo apt-get install -y nodejs";
+                    + ".x | sudo -n -E bash - && sudo -n apt-get install -y nodejs";
     return system(cmd.c_str()) == 0;
 }
 
 bool WebEnvironmentManager::ensurePackageManager(const std::string& pm) {
     if (pm == "npm" || commandExists(pm)) return true;
 
-    if (system("sudo corepack enable > /dev/null 2>&1") == 0 && commandExists(pm)) {
+    if (system("sudo -n corepack enable > /dev/null 2>&1") == 0 && commandExists(pm)) {
         return true;
     }
-    return system(("sudo npm install -g " + pm).c_str()) == 0;
+    return system(("sudo -n npm install -g " + pm).c_str()) == 0;
 }
 
 std::string WebEnvironmentManager::detectPackageManager(const std::string& projectPath) {
@@ -325,7 +325,7 @@ bool WebEnvironmentManager::setupDatabase(const std::string& projectPath, const 
         if (!commandExists("mariadb") && !commandExists("mysql")) {
             if (!aptInstall({"mariadb-server"})) return false;
         }
-        if (system("sudo service mariadb start > /dev/null 2>&1 || sudo service mysql start > /dev/null 2>&1") != 0) {}  // Ergebnis bewusst ignoriert
+        if (system("sudo -n service mariadb start > /dev/null 2>&1 || sudo -n service mysql start > /dev/null 2>&1") != 0) {}  // Ergebnis bewusst ignoriert
 
         std::string sql =
             "CREATE DATABASE IF NOT EXISTS `" + db + "`;"
@@ -337,7 +337,7 @@ bool WebEnvironmentManager::setupDatabase(const std::string& projectPath, const 
             "GRANT ALL PRIVILEGES ON `" + db + "`.* TO '" + user + "'@'127.0.0.1';"
             "FLUSH PRIVILEGES;";
         std::cout << "MySQL/MariaDB database '" << db << "' for user '" << user << "'\n";
-        return system(("sudo mysql -e " + ShellQuote::quote(sql)).c_str()) == 0;
+        return system(("sudo -n mysql -e " + ShellQuote::quote(sql)).c_str()) == 0;
     }
 
     if (dbConnection == "pgsql") {
@@ -346,7 +346,7 @@ bool WebEnvironmentManager::setupDatabase(const std::string& projectPath, const 
         if (!commandExists("psql")) {
             if (!aptInstall({"postgresql"})) return false;
         }
-        if (system("sudo service postgresql start > /dev/null 2>&1") != 0) {}  // Ergebnis bewusst ignoriert
+        if (system("sudo -n service postgresql start > /dev/null 2>&1") != 0) {}  // Ergebnis bewusst ignoriert
 
         std::string role =
             "DO $$ BEGIN "
@@ -354,9 +354,9 @@ bool WebEnvironmentManager::setupDatabase(const std::string& projectPath, const 
             "CREATE ROLE \"" + user + "\" LOGIN; END IF; END $$;"
             "ALTER ROLE \"" + user + "\" WITH LOGIN CREATEDB PASSWORD '" + password + "';";
         std::cout << "PostgreSQL database '" << db << "' for user '" << user << "'\n";
-        if (system(("sudo -u postgres psql -q -c " + ShellQuote::quote(role)).c_str()) != 0) return false;
+        if (system(("sudo -n -u postgres psql -q -c " + ShellQuote::quote(role)).c_str()) != 0) return false;
 
-        if (system(("sudo -u postgres createdb -O " + ShellQuote::quote(user) + " " + ShellQuote::quote(db)
+        if (system(("sudo -n -u postgres createdb -O " + ShellQuote::quote(user) + " " + ShellQuote::quote(db)
                 + " > /dev/null 2>&1").c_str()) != 0) {}  // Ergebnis bewusst ignoriert
         return true;
     }

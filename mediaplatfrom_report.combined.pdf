@@ -1,0 +1,999 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Count 5 /Kids [ 6 0 R 8 0 R 10 0 R 12 0 R 14 0 R ] >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Title (2buggAI run report) /Producer (2buggAI PdfReportExporter) >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.00 842.00] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 7 0 R >>
+endobj
+7 0 obj
+<< /Length 944 >>
+stream
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 812.00 Tm (2buggAI run report) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 329.40 812.00 Tm (Run 20261118-163000-62148   2026-11-18 16:30:00) Tj
+ET
+0.60 G 0.50 w 40.00 806.00 m 555.00 806.00 l S
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 780.00 Tm (2buggAI run report) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 760.00 Tm (Run ID:   20261118-163000-62148) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 750.00 Tm (Created:  2026-11-18 16:30:00) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 730.00 Tm (Documents \(1\), each starting on a new page:) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 40.00 720.00 Tm (  1. ) Tj
+/F1 8.00 Tf 0.10 0.30 0.65 rg 1 0 0 1 64.00 720.00 Tm (mediaplatfrom_report.json) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 40.00 30.00 Tm (2buggAI report) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 502.20 30.00 Tm (Page 1 of 5) Tj
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.00 842.00] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 9 0 R /Annots [ 16 0 R ] >>
+endobj
+9 0 obj
+<< /Length 8751 >>
+stream
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 812.00 Tm (mediaplatfrom_report.json) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 329.40 812.00 Tm (Run 20261118-163000-62148   2026-11-18 16:30:00) Tj
+ET
+0.60 G 0.50 w 40.00 806.00 m 555.00 806.00 l S
+BT
+/F2 12.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 780.00 Tm (2buggAI Fehlerbericht) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 760.00 Tm (Projekt:       ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 760.00 Tm (Mediaplatfrom) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 750.00 Tm (Ziel:          ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 750.00 Tm (/home/nikog/projects/Mediaplatfrom) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 740.00 Tm (Run-ID:        ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 740.00 Tm (20261118-163000-62148) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 730.00 Tm (Datum:         ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 730.00 Tm (2026-11-18 16:30:00) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 720.00 Tm (Auftrag:       ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 720.00 Tm (Finde und behebe alle Fehler \(Build, Tests, Laufzeit\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 710.00 Tm (Sprachen:      ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 710.00 Tm (java) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 700.00 Tm (Modus:         ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 700.00 Tm (Einzelmodell) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 690.00 Tm (Fix-Modell:    ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 690.00 Tm (llm/gpt-4.1-mini) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 680.00 Tm (Analyse:       ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 680.00 Tm (llm/gpt-4.1-mini) Tj
+ET
+BT
+/F2 12.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 660.00 Tm (Zusammenfassung) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 640.00 Tm (  Gefunden: 1   ) Tj
+/F2 8.00 Tf 0.05 0.45 0.10 rg 1 0 0 1 116.80 640.00 Tm (Behoben: 1   ) Tj
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 179.20 640.00 Tm (Nicht behoben: 0) Tj
+ET
+0.94 0.94 0.94 rg 37.00 617.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 620.00 Tm ( Nr.  | Datei:Zeile                      | Kategorie                  | Status               | Abschnitt) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 610.00 Tm ( 1    | pom.xml:26, 27                   | missing_main_manifest      | ) Tj
+/F2 8.00 Tf 0.05 0.45 0.10 rg 1 0 0 1 385.60 610.00 Tm (behoben             ) Tj
+/F1 8.00 Tf 0.10 0.30 0.65 rg 1 0 0 1 481.60 610.00 Tm ( | S.  2) Tj
+ET
+BT
+/F1 8.00 Tf 0.45 0.45 0.45 rg 1 0 0 1 40.00 590.00 Tm (  Die Zeilen der Tabelle sind Links auf den jeweiligen Abschnitt.) Tj
+ET
+0.88 0.90 0.96 rg 37.00 557.50 521.00 16.00 re f
+BT
+/F2 12.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 560.00 Tm (1. missing_main_manifest in pom.xml) Tj
+ET
+0.78 0.92 0.78 rg 37.00 547.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.05 0.45 0.10 rg 1 0 0 1 40.00 550.00 Tm (  BEHOBEN - Iterationen: 1) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 530.00 Tm (Datei:         ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 530.00 Tm (pom.xml) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 520.00 Tm (Zeile\(n\):      ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 520.00 Tm (26, 27) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 510.00 Tm (Sprache:       ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 510.00 Tm (java) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 500.00 Tm (Tool/Quelle:   ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 500.00 Tm (Laufzeit \(Programmausgabe\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 490.00 Tm (Schweregrad:   ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 490.00 Tm (error \(Schwierigkeit: leicht\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 480.00 Tm (Kategorie:     ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 480.00 Tm (missing_main_manifest \(Checkliste\); laut Modell: build_configuration) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 460.00 Tm (FEHLERMELDUNG) Tj
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 102.40 460.00 Tm (  \(gek\374rzt auf das Relevante\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 447.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 450.00 Tm (  no main manifest attribute, in target/Mediaplatfrom-1.0-SNAPSHOT.jar) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 430.00 Tm (FEHLERHAFTER CODE) Tj
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 121.60 430.00 Tm (  \(pom.xml, vor dem Fix\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 417.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 420.00 Tm (   23 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 420.00 Tm (            <groupId>org.junit.jupiter</groupId>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 407.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 410.00 Tm (   24 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 410.00 Tm (            <artifactId>junit-jupiter</artifactId>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 397.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 400.00 Tm (   25 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 400.00 Tm (            <version>5.10.2</version>) Tj
+ET
+1.00 0.87 0.87 rg 37.00 387.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 390.00 Tm (   26 > ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 390.00 Tm (            <scope>test</scope>) Tj
+ET
+1.00 0.87 0.87 rg 37.00 377.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 380.00 Tm (   27 > ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 380.00 Tm (        </dependency>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 367.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 370.00 Tm (   28 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 370.00 Tm (        <dependency>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 357.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 360.00 Tm (   29 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 360.00 Tm (            <groupId>org.mockito</groupId>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 347.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 350.00 Tm (   30 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 350.00 Tm (            <artifactId>mockito-core</artifactId>) Tj
+ET
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 340.00 Tm (      ....................) Tj
+ET
+0.94 0.94 0.94 rg 37.00 327.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 330.00 Tm (   66 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 330.00 Tm (                <artifactId>maven-surefire-plugin</artifactId>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 317.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 320.00 Tm (   67 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 320.00 Tm (                <version>3.2.5</version>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 307.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 310.00 Tm (   68 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 310.00 Tm (            </plugin>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 297.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 300.00 Tm (   69 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 300.00 Tm (        </plugins>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 287.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 290.00 Tm (   70 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 290.00 Tm (    </build>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 277.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 280.00 Tm (   71 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 280.00 Tm (</project>) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 260.00 Tm (WARUM DAS EIN FEHLER IST) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 250.00 Tm (  Der Fehler "no main manifest attribute" tritt auf, weil das erzeugte JAR-Archiv keine Main-Class im ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 240.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 240.00 Tm (MANIFEST.MF enth\344lt. Ohne diese Angabe wei\337 die JVM nicht, welchen Einstiegspunkt \(main-Methode\) sie ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 230.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 230.00 Tm (beim Ausf\374hren des JARs verwenden soll. Das Maven-Build muss daher so konfiguriert werden, dass der ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 220.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 220.00 Tm (Main-Class-Eintrag im Manifest gesetzt wird.) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 40.00 30.00 Tm (2buggAI report) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 502.20 30.00 Tm (Page 2 of 5) Tj
+ET
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.00 842.00] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 11 0 R >>
+endobj
+11 0 obj
+<< /Length 12107 >>
+stream
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 812.00 Tm (mediaplatfrom_report.json) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 329.40 812.00 Tm (Run 20261118-163000-62148   2026-11-18 16:30:00) Tj
+ET
+0.60 G 0.50 w 40.00 806.00 m 555.00 806.00 l S
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 780.00 Tm (GEFIXTER CODE) Tj
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 102.40 780.00 Tm (  \(pom.xml, nach dem Fix\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 767.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 770.00 Tm (   23 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 770.00 Tm (            <groupId>org.junit.jupiter</groupId>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 757.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 760.00 Tm (   24 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 760.00 Tm (            <artifactId>junit-jupiter</artifactId>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 747.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 750.00 Tm (   25 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 750.00 Tm (            <version>5.10.2</version>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 737.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 740.00 Tm (   26 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 740.00 Tm (            <scope>test</scope>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 727.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 730.00 Tm (   27 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 730.00 Tm (        </dependency>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 717.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 720.00 Tm (   28 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 720.00 Tm (        <dependency>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 707.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 710.00 Tm (   29 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 710.00 Tm (            <groupId>org.mockito</groupId>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 697.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 700.00 Tm (   30 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 700.00 Tm (            <artifactId>mockito-core</artifactId>) Tj
+ET
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 690.00 Tm (      ....................) Tj
+ET
+0.94 0.94 0.94 rg 37.00 677.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 680.00 Tm (   66 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 680.00 Tm (                <artifactId>maven-surefire-plugin</artifactId>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 667.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 670.00 Tm (   67 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 670.00 Tm (                <version>3.2.5</version>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 657.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 660.00 Tm (   68 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 660.00 Tm (            </plugin>) Tj
+ET
+0.86 0.96 0.86 rg 37.00 647.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 650.00 Tm (   69 + ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 650.00 Tm () Tj
+ET
+0.86 0.96 0.86 rg 37.00 637.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 640.00 Tm (   70 + ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 640.00 Tm (            <plugin>) Tj
+ET
+0.86 0.96 0.86 rg 37.00 627.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 630.00 Tm (   71 + ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 630.00 Tm (                <groupId>org.apache.maven.plugins</groupId>) Tj
+ET
+0.86 0.96 0.86 rg 37.00 617.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 620.00 Tm (   72 + ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 620.00 Tm (                <artifactId>maven-jar-plugin</artifactId>) Tj
+ET
+0.86 0.96 0.86 rg 37.00 607.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 610.00 Tm (   73 + ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 610.00 Tm (                <version>3.2.2</version>) Tj
+ET
+0.86 0.96 0.86 rg 37.00 597.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 600.00 Tm (   74 + ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 600.00 Tm (                <configuration>) Tj
+ET
+0.86 0.96 0.86 rg 37.00 587.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 590.00 Tm (   75 + ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 590.00 Tm (                    <archive>) Tj
+ET
+0.86 0.96 0.86 rg 37.00 577.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 580.00 Tm (   76 + ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 580.00 Tm (                        <manifest>) Tj
+ET
+0.86 0.96 0.86 rg 37.00 567.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 570.00 Tm (   77 + ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 570.00 Tm (                            <mainClass>Main</mainClass>) Tj
+ET
+0.86 0.96 0.86 rg 37.00 557.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 560.00 Tm (   78 + ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 560.00 Tm (                        </manifest>) Tj
+ET
+0.86 0.96 0.86 rg 37.00 547.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 550.00 Tm (   79 + ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 550.00 Tm (                    </archive>) Tj
+ET
+0.86 0.96 0.86 rg 37.00 537.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 540.00 Tm (   80 + ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 540.00 Tm (                </configuration>) Tj
+ET
+0.86 0.96 0.86 rg 37.00 527.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 530.00 Tm (   81 + ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 530.00 Tm (            </plugin>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 517.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 520.00 Tm (   82 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 520.00 Tm (        </plugins>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 507.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 510.00 Tm (   83 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 510.00 Tm (    </build>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 497.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 500.00 Tm (   84 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 500.00 Tm (</project>) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 480.00 Tm (DIFF) Tj
+ET
+0.94 0.94 0.94 rg 37.00 467.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 470.00 Tm (--- a/pom.xml) Tj
+ET
+0.94 0.94 0.94 rg 37.00 457.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 460.00 Tm (+++ b/pom.xml) Tj
+ET
+0.94 0.94 0.94 rg 37.00 447.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.10 0.30 0.65 rg 1 0 0 1 40.00 450.00 Tm (@@ -66,6 +66,19 @@) Tj
+ET
+0.94 0.94 0.94 rg 37.00 437.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 440.00 Tm (                 <artifactId>maven-surefire-plugin</artifactId>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 427.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 430.00 Tm (                 <version>3.2.5</version>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 417.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 420.00 Tm (             </plugin>) Tj
+ET
+0.86 0.96 0.86 rg 37.00 407.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.05 0.42 0.10 rg 1 0 0 1 40.00 410.00 Tm (+) Tj
+ET
+0.86 0.96 0.86 rg 37.00 397.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.05 0.42 0.10 rg 1 0 0 1 40.00 400.00 Tm (+            <plugin>) Tj
+ET
+0.86 0.96 0.86 rg 37.00 387.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.05 0.42 0.10 rg 1 0 0 1 40.00 390.00 Tm (+                <groupId>org.apache.maven.plugins</groupId>) Tj
+ET
+0.86 0.96 0.86 rg 37.00 377.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.05 0.42 0.10 rg 1 0 0 1 40.00 380.00 Tm (+                <artifactId>maven-jar-plugin</artifactId>) Tj
+ET
+0.86 0.96 0.86 rg 37.00 367.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.05 0.42 0.10 rg 1 0 0 1 40.00 370.00 Tm (+                <version>3.2.2</version>) Tj
+ET
+0.86 0.96 0.86 rg 37.00 357.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.05 0.42 0.10 rg 1 0 0 1 40.00 360.00 Tm (+                <configuration>) Tj
+ET
+0.86 0.96 0.86 rg 37.00 347.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.05 0.42 0.10 rg 1 0 0 1 40.00 350.00 Tm (+                    <archive>) Tj
+ET
+0.86 0.96 0.86 rg 37.00 337.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.05 0.42 0.10 rg 1 0 0 1 40.00 340.00 Tm (+                        <manifest>) Tj
+ET
+0.86 0.96 0.86 rg 37.00 327.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.05 0.42 0.10 rg 1 0 0 1 40.00 330.00 Tm (+                            <mainClass>Main</mainClass>) Tj
+ET
+0.86 0.96 0.86 rg 37.00 317.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.05 0.42 0.10 rg 1 0 0 1 40.00 320.00 Tm (+                        </manifest>) Tj
+ET
+0.86 0.96 0.86 rg 37.00 307.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.05 0.42 0.10 rg 1 0 0 1 40.00 310.00 Tm (+                    </archive>) Tj
+ET
+0.86 0.96 0.86 rg 37.00 297.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.05 0.42 0.10 rg 1 0 0 1 40.00 300.00 Tm (+                </configuration>) Tj
+ET
+0.86 0.96 0.86 rg 37.00 287.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.05 0.42 0.10 rg 1 0 0 1 40.00 290.00 Tm (+            </plugin>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 277.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 280.00 Tm (         </plugins>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 267.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 270.00 Tm (     </build>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 257.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 260.00 Tm ( </project>) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 240.00 Tm (ERKL\304RUNG DER BEHEBUNG) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 230.00 Tm (  Ich habe im pom.xml die Konfiguration des maven-jar-plugin erg\344nzt, damit beim Erzeugen des JARs die ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 220.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 220.00 Tm (mainClass mit dem richtigen Startklassen-Namen angegeben wird. Dies f\374gt dem Manifest-File des JARs den ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 210.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 210.00 Tm (notwendigen Eintrag hinzu, um beim Ausf\374hren das Hauptprogramm erkennen zu k\366nnen. Dadurch wird der ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 200.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 200.00 Tm (Fehler behoben, dass die Main-Class fehlt.) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 190.00 Tm (  M\366gliche Nebenwirkungen: ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 169.60 190.00 Tm (Beim Packen des JAR wird jetzt ein Main-Class-Attribut ins Manifest ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 180.00 Tm (    ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 59.20 180.00 Tm (geschrieben. Dies kann Auswirkungen haben, wenn das JAR f\374r andere Zwecke ohne Main verwendet wurde, ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 170.00 Tm (    ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 59.20 170.00 Tm (ist aber Standard und notwendig f\374r ausf\374hrbare JARs.) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 150.00 Tm (ERGEBNIS) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 140.00 Tm (Reviewer:      ) Tj
+/F1 8.00 Tf 0.45 0.45 0.45 rg 1 0 0 1 112.00 140.00 Tm (nicht ausgef\374hrt \(Einzelmodell-Modus\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 130.00 Tm (Verifier:      ) Tj
+/F1 8.00 Tf 0.45 0.45 0.45 rg 1 0 0 1 112.00 130.00 Tm (nicht ausgef\374hrt \(Einzelmodell-Modus\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 120.00 Tm (Re-Run:        ) Tj
+/F2 8.00 Tf 0.05 0.45 0.10 rg 1 0 0 1 112.00 120.00 Tm (Fehler behoben, alle Pr\374fungen/Tests bestanden) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 110.00 Tm (Iterationen:   ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 110.00 Tm (1) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 40.00 30.00 Tm (2buggAI report) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 502.20 30.00 Tm (Page 3 of 5) Tj
+ET
+endstream
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.00 842.00] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 13 0 R >>
+endobj
+13 0 obj
+<< /Length 10853 >>
+stream
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 812.00 Tm (mediaplatfrom_report.json) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 329.40 812.00 Tm (Run 20261118-163000-62148   2026-11-18 16:30:00) Tj
+ET
+0.60 G 0.50 w 40.00 806.00 m 555.00 806.00 l S
+0.91 0.95 1.00 rg 37.00 777.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 780.00 Tm (Gesamtanalyse des Modells) Tj
+ET
+0.91 0.95 1.00 rg 37.00 767.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 770.00 Tm (Freitext-Analyse nach dem Run, aus $.ai_analysis  \(91 Zeilen\)) Tj
+ET
+0.91 0.95 1.00 rg 37.00 757.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 747.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 750.00 Tm (Summary) Tj
+ET
+0.91 0.95 1.00 rg 37.00 737.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 740.00 Tm (The main issue is the runtime error message when attempting to run the built jar:  ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 727.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 730.00 Tm (`no main manifest attribute, in /home/nikog/projects/Mediaplatfrom/target/Mediaplatfrom-1.0-SNAPSHOT.jar`  ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 717.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 720.00 Tm (This indicates that the generated JAR file does not contain a `Main-Class` entry in its manifest and thus ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 707.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 710.00 Tm (cannot be executed directly with `java -jar`.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 697.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 687.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 690.00 Tm (Severity) Tj
+ET
+0.91 0.95 1.00 rg 37.00 677.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 680.00 Tm (high) Tj
+ET
+0.91 0.95 1.00 rg 37.00 667.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 657.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 660.00 Tm (Bugs) Tj
+ET
+0.91 0.95 1.00 rg 37.00 647.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 637.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 640.00 Tm (Bug 1: Missing Main-Class Manifest Entry in JAR) Tj
+ET
+0.91 0.95 1.00 rg 37.00 627.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 630.00 Tm (- **File:** `/home/nikog/projects/Mediaplatfrom/pom.xml`) Tj
+ET
+0.91 0.95 1.00 rg 37.00 617.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 620.00 Tm (- **Category:** build_configuration) Tj
+ET
+0.91 0.95 1.00 rg 37.00 607.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 610.00 Tm (- **Language:** general) Tj
+ET
+0.91 0.95 1.00 rg 37.00 597.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 587.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 590.00 Tm (- **Problem:**  ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 577.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 580.00 Tm (The Maven build configuration \(pom.xml\) does not specify the `Main-Class` attribute in the manifest for ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 567.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 570.00 Tm (the executable JAR. This attribute is necessary for `java -jar` to know which class contains the `main` ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 557.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 560.00 Tm (method to launch.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 547.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 537.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 540.00 Tm (**Buggy code \(excerpt from pom.xml\):**) Tj
+ET
+0.94 0.94 0.94 rg 37.00 527.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 530.00 Tm (  <build>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 517.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 520.00 Tm (      <plugins>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 507.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 510.00 Tm (          <plugin>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 497.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 500.00 Tm (              <groupId>org.apache.maven.plugins</groupId>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 487.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 490.00 Tm (              <artifactId>maven-compiler-plugin</artifactId>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 477.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 480.00 Tm (              <version>3.13.0</version>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 467.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 470.00 Tm (              <configuration>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 457.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 460.00 Tm (                  <release>21</release>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 447.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 450.00 Tm (              </configuration>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 437.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 440.00 Tm (          </plugin>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 427.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 430.00 Tm (  ) Tj
+ET
+0.94 0.94 0.94 rg 37.00 417.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 420.00 Tm (          <plugin>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 407.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 410.00 Tm (              <groupId>org.apache.maven.plugins</groupId>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 397.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 400.00 Tm (              <artifactId>maven-surefire-plugin</artifactId>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 387.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 390.00 Tm (              <version>3.2.5</version>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 377.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 380.00 Tm (          </plugin>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 367.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 370.00 Tm (      </plugins>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 357.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 360.00 Tm (  </build>) Tj
+ET
+0.91 0.95 1.00 rg 37.00 347.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 337.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 340.00 Tm (There is no `<maven-jar-plugin>` or configuration to specify the entry point.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 327.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 317.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 320.00 Tm (**Fixed code \(add maven-jar-plugin with main class\):**) Tj
+ET
+0.94 0.94 0.94 rg 37.00 307.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 310.00 Tm (  <build>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 297.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 300.00 Tm (      <plugins>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 287.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 290.00 Tm (          <plugin>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 277.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 280.00 Tm (              <groupId>org.apache.maven.plugins</groupId>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 267.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 270.00 Tm (              <artifactId>maven-compiler-plugin</artifactId>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 257.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 260.00 Tm (              <version>3.13.0</version>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 247.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 250.00 Tm (              <configuration>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 237.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 240.00 Tm (                  <release>21</release>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 227.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 230.00 Tm (              </configuration>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 217.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 220.00 Tm (          </plugin>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 207.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 210.00 Tm (  ) Tj
+ET
+0.94 0.94 0.94 rg 37.00 197.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 200.00 Tm (          <plugin>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 187.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 190.00 Tm (              <groupId>org.apache.maven.plugins</groupId>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 177.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 180.00 Tm (              <artifactId>maven-jar-plugin</artifactId>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 167.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 170.00 Tm (              <version>3.3.0</version>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 157.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 160.00 Tm (              <configuration>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 147.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 150.00 Tm (                  <archive>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 137.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 140.00 Tm (                      <manifest>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 127.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 130.00 Tm (                          <addDefaultImplementationEntries>true</addDefaultImplementationEntries>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 117.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 120.00 Tm (                          <mainClass>Main</mainClass>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 107.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 110.00 Tm (                      </manifest>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 97.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 100.00 Tm (                  </archive>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 87.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 90.00 Tm (              </configuration>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 77.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 80.00 Tm (          </plugin>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 67.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 70.00 Tm (  ) Tj
+ET
+0.94 0.94 0.94 rg 37.00 57.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 60.00 Tm (          <plugin>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 47.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 50.00 Tm (              <groupId>org.apache.maven.plugins</groupId>) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 40.00 30.00 Tm (2buggAI report) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 502.20 30.00 Tm (Page 4 of 5) Tj
+ET
+endstream
+endobj
+14 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.00 842.00] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 15 0 R >>
+endobj
+15 0 obj
+<< /Length 4091 >>
+stream
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 812.00 Tm (mediaplatfrom_report.json) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 329.40 812.00 Tm (Run 20261118-163000-62148   2026-11-18 16:30:00) Tj
+ET
+0.60 G 0.50 w 40.00 806.00 m 555.00 806.00 l S
+0.94 0.94 0.94 rg 37.00 777.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 780.00 Tm (              <artifactId>maven-surefire-plugin</artifactId>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 767.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 770.00 Tm (              <version>3.2.5</version>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 757.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 760.00 Tm (          </plugin>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 747.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 750.00 Tm (      </plugins>) Tj
+ET
+0.94 0.94 0.94 rg 37.00 737.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 740.00 Tm (  </build>) Tj
+ET
+0.91 0.95 1.00 rg 37.00 727.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 717.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 720.00 Tm (**Explanation:**  ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 707.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 710.00 Tm (Adding the `maven-jar-plugin` with the `<mainClass>` element in the `<manifest>` configuration tells Maven ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 697.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 700.00 Tm (to add a `Main-Class` attribute to the manifest file inside the generated jar. This informs the Java ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 687.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 690.00 Tm (runtime about the entry point class when the jar is executed with `java -jar`. In this project, the main ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 677.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 680.00 Tm (class is `Main` \(confirmed by the presence of `public static void main` in `Main.java`\), so it is ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 667.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 670.00 Tm (specified as `Main`.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 657.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 647.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 650.00 Tm (---) Tj
+ET
+0.91 0.95 1.00 rg 37.00 637.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 627.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 630.00 Tm (Recommendations) Tj
+ET
+0.91 0.95 1.00 rg 37.00 617.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 620.00 Tm (- After this fix, run `mvn clean package` to clean and rebuild the jar.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 607.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 610.00 Tm (- Then run the jar using `java -jar target/Mediaplatfrom-1.0-SNAPSHOT.jar`.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 597.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 600.00 Tm (- Consider also including the `maven-shade-plugin` if you want an uber-jar with dependencies included, ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 587.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 590.00 Tm (otherwise ensure dependencies are on the classpath when running.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 577.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 567.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 570.00 Tm (---) Tj
+ET
+0.91 0.95 1.00 rg 37.00 557.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 547.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 550.00 Tm (This fix addresses the runtime error due to missing manifest attribute. Other sources appear fine and are ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 537.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 540.00 Tm (covered by decent tests and usage of standard patterns.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 527.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 40.00 30.00 Tm (2buggAI report) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 502.20 30.00 Tm (Page 5 of 5) Tj
+ET
+endstream
+endobj
+16 0 obj
+<< /Type /Annot /Subtype /Link /Border [0 0 0] /Rect [37.00 607.50 558.00 617.50] /Dest [8 0 R /Fit] >>
+endobj
+xref
+0 17
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000150 00000 n 
+0000000245 00000 n 
+0000000345 00000 n 
+0000000432 00000 n 
+0000000574 00000 n 
+0000001568 00000 n 
+0000001729 00000 n 
+0000010531 00000 n 
+0000010675 00000 n 
+0000022835 00000 n 
+0000022979 00000 n 
+0000033885 00000 n 
+0000034029 00000 n 
+0000038172 00000 n 
+trailer
+<< /Size 17 /Root 1 0 R /Info 5 0 R >>
+startxref
+38292
+%%EOF

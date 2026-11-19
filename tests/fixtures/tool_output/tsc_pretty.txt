@@ -1,0 +1,8 @@
+src/format.ts:4:18 - error TS2339: Property 'name' does not exist on type 'User'.
+
+4   return `${user.name} <${user.email}>`;
+                   ~~~~
+
+
+Found 1 error in src/format.ts:4
+

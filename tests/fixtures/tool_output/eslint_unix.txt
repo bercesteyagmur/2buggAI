@@ -1,0 +1,4 @@
+/work/fullstack_sample/frontend/src/format.ts:4:13: 'usr' is not defined. [Error/no-undef]
+/work/fullstack_sample/frontend/src/format.ts:7:1: Unexpected console statement. [Warning/no-console]
+
+2 problems

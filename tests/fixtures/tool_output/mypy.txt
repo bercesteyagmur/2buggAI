@@ -1,0 +1,3 @@
+app/lint_me.py:5: error: Name "undefined_bonus" is not defined  [name-defined]
+app/lint_me.py:9: error: Incompatible return value type (got "int", expected "str")  [return-value]
+Found 2 errors in 1 file (checked 1 source file)

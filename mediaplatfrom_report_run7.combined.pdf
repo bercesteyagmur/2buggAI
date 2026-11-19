@@ -1,0 +1,527 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Count 3 /Kids [ 6 0 R 8 0 R 10 0 R ] >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Title (2buggAI run report) /Producer (2buggAI PdfReportExporter) >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.00 842.00] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 7 0 R >>
+endobj
+7 0 obj
+<< /Length 949 >>
+stream
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 812.00 Tm (2buggAI run report) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 329.40 812.00 Tm (Run 20261118-171206-83026   2026-11-18 17:12:06) Tj
+ET
+0.60 G 0.50 w 40.00 806.00 m 555.00 806.00 l S
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 780.00 Tm (2buggAI run report) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 760.00 Tm (Run ID:   20261118-171206-83026) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 750.00 Tm (Created:  2026-11-18 17:12:06) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 730.00 Tm (Documents \(1\), each starting on a new page:) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 40.00 720.00 Tm (  1. ) Tj
+/F1 8.00 Tf 0.10 0.30 0.65 rg 1 0 0 1 64.00 720.00 Tm (mediaplatfrom_report_run7.json) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 40.00 30.00 Tm (2buggAI report) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 502.20 30.00 Tm (Page 1 of 3) Tj
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.00 842.00] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 9 0 R /Annots [ 12 0 R ] >>
+endobj
+9 0 obj
+<< /Length 10282 >>
+stream
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 812.00 Tm (mediaplatfrom_report_run7.json) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 329.40 812.00 Tm (Run 20261118-171206-83026   2026-11-18 17:12:06) Tj
+ET
+0.60 G 0.50 w 40.00 806.00 m 555.00 806.00 l S
+BT
+/F2 12.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 780.00 Tm (2buggAI Fehlerbericht) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 760.00 Tm (Projekt:       ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 760.00 Tm (Mediaplatfrom) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 750.00 Tm (Ziel:          ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 750.00 Tm (/home/nikog/projects/Mediaplatfrom) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 740.00 Tm (Run-ID:        ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 740.00 Tm (20261118-171206-83026) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 730.00 Tm (Datum:         ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 730.00 Tm (2026-11-18 17:12:06) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 720.00 Tm (Auftrag:       ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 720.00 Tm (Finde und behebe alle Fehler \(Build, Tests, Laufzeit\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 710.00 Tm (Sprachen:      ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 710.00 Tm (java) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 700.00 Tm (Modus:         ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 700.00 Tm (Einzelmodell) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 690.00 Tm (Fix-Modell:    ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 690.00 Tm (llm/gpt-4.1-mini) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 680.00 Tm (Analyse:       ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 680.00 Tm (llm/gpt-4.1-mini) Tj
+ET
+BT
+/F2 12.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 660.00 Tm (Zusammenfassung) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 640.00 Tm (  Gefunden: 1   ) Tj
+/F2 8.00 Tf 0.05 0.45 0.10 rg 1 0 0 1 116.80 640.00 Tm (Behoben: 0   ) Tj
+/F2 8.00 Tf 0.75 0.10 0.10 rg 1 0 0 1 179.20 640.00 Tm (Nicht behoben: 1) Tj
+ET
+0.94 0.94 0.94 rg 37.00 617.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 620.00 Tm ( Nr.  | Datei:Zeile                      | Kategorie                  | Status               | Abschnitt) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 610.00 Tm ( 1    | -                                | uncaught_exception_main    | ) Tj
+/F2 8.00 Tf 0.75 0.10 0.10 rg 1 0 0 1 385.60 610.00 Tm (NICHT BEHOBEN       ) Tj
+/F1 8.00 Tf 0.10 0.30 0.65 rg 1 0 0 1 481.60 610.00 Tm ( | S.  2) Tj
+ET
+BT
+/F1 8.00 Tf 0.45 0.45 0.45 rg 1 0 0 1 40.00 590.00 Tm (  Die Zeilen der Tabelle sind Links auf den jeweiligen Abschnitt.) Tj
+ET
+0.88 0.90 0.96 rg 37.00 557.50 521.00 16.00 re f
+BT
+/F2 12.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 560.00 Tm (1. DataAccessException) Tj
+ET
+0.97 0.78 0.78 rg 37.00 547.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.75 0.10 0.10 rg 1 0 0 1 40.00 550.00 Tm (  NICHT BEHOBEN) Tj
+ET
+0.97 0.78 0.78 rg 37.00 537.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.75 0.10 0.10 rg 1 0 0 1 40.00 540.00 Tm (  Grund: Umgebungsproblem \(env_service_unreachable\): Ein Dienst \(z. B. Datenbank\) ist nicht erreichbar: ) Tj
+ET
+0.97 0.78 0.78 rg 37.00 527.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 530.00 Tm (  ) Tj
+/F2 8.00 Tf 0.75 0.10 0.10 rg 1 0 0 1 49.60 530.00 Tm (starten und Host/Port pr\374fen, dann erneut ausf\374hren. Kein Code-Fix-Versuch.) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 510.00 Tm (Datei:         ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 510.00 Tm (-) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 500.00 Tm (Zeile\(n\):      ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 500.00 Tm (-) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 490.00 Tm (Sprache:       ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 490.00 Tm (java) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 480.00 Tm (Tool/Quelle:   ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 480.00 Tm (Laufzeit \(Programmausgabe\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 470.00 Tm (Schweregrad:   ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 470.00 Tm (error \(Schwierigkeit: leicht\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 460.00 Tm (Kategorie:     ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 460.00 Tm (uncaught_exception_main \(Checkliste\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 440.00 Tm (FEHLERMELDUNG) Tj
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 102.40 440.00 Tm (  \(gek\374rzt auf das Relevante\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 427.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 430.00 Tm (  Exception in thread "main" database.DataAccessException: Datenbankverbindungsaufbau nicht erfolgreich) Tj
+ET
+0.94 0.94 0.94 rg 37.00 417.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 420.00 Tm (      at database.DatabaseManager.getConnection\(DatabaseManager.java:18\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 400.00 Tm (ERGEBNIS) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 390.00 Tm (Reviewer:      ) Tj
+/F1 8.00 Tf 0.45 0.45 0.45 rg 1 0 0 1 112.00 390.00 Tm (nicht ausgef\374hrt \(kein Fix-Versuch\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 380.00 Tm (Verifier:      ) Tj
+/F1 8.00 Tf 0.45 0.45 0.45 rg 1 0 0 1 112.00 380.00 Tm (nicht ausgef\374hrt \(kein Fix-Versuch\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 370.00 Tm (Iterationen:   ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 370.00 Tm (0) Tj
+ET
+0.91 0.95 1.00 rg 37.00 337.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 340.00 Tm (Gesamtanalyse des Modells) Tj
+ET
+0.91 0.95 1.00 rg 37.00 327.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 330.00 Tm (Freitext-Analyse nach dem Run, aus $.ai_analysis  \(68 Zeilen\)) Tj
+ET
+0.91 0.95 1.00 rg 37.00 317.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 307.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 310.00 Tm (Summary) Tj
+ET
+0.91 0.95 1.00 rg 37.00 297.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 300.00 Tm (The application fails to start correctly because it cannot establish a connection to the PostgreSQL ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 287.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 290.00 Tm (database running on localhost:5432. The exception indicates that the connection was refused, meaning the ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 277.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 280.00 Tm (database service is not reachable or not accepting connections.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 267.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 257.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 260.00 Tm (Severity) Tj
+ET
+0.91 0.95 1.00 rg 37.00 247.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 250.00 Tm (critical) Tj
+ET
+0.91 0.95 1.00 rg 37.00 237.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 227.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 230.00 Tm (Bugs) Tj
+ET
+0.91 0.95 1.00 rg 37.00 217.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 207.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 210.00 Tm (Bug 1: Database Connection Refused at Startup) Tj
+ET
+0.91 0.95 1.00 rg 37.00 197.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 200.00 Tm (- **File:** database/DatabaseManager.java:13-18 \(call site visible in stacktrace at line 18\)) Tj
+ET
+0.91 0.95 1.00 rg 37.00 187.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 190.00 Tm (- **Category:** environment_service_unreachable) Tj
+ET
+0.91 0.95 1.00 rg 37.00 177.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 180.00 Tm (- **Language:** java) Tj
+ET
+0.91 0.95 1.00 rg 37.00 167.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 170.00 Tm (- **Problem:** The application tries to connect to the PostgreSQL database at ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 157.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 160.00 Tm (`jdbc:postgresql://localhost:5432/swendb` with credentials `postgres`/`password` but the connection is ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 147.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 150.00 Tm (refused, causing a cascading failure starting at `DatabaseManager.getConnection\(\)` and preventing the ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 137.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 140.00 Tm (server from starting.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 127.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 117.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 120.00 Tm (**Exception excerpt:**) Tj
+ET
+0.94 0.94 0.94 rg 37.00 107.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 110.00 Tm (  database.DataAccessException: Datenbankverbindungsaufbau nicht erfolgreich) Tj
+ET
+0.94 0.94 0.94 rg 37.00 97.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 100.00 Tm (      at database.DatabaseManager.getConnection\(DatabaseManager.java:18\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 87.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 90.00 Tm (  ...) Tj
+ET
+0.94 0.94 0.94 rg 37.00 77.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 80.00 Tm (  Caused by: org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the ) Tj
+ET
+0.94 0.94 0.94 rg 37.00 67.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 70.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 70.00 Tm (hostname and port are correct and that the postmaster is accepting TCP/IP connections.) Tj
+ET
+0.94 0.94 0.94 rg 37.00 57.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 60.00 Tm (  ...) Tj
+ET
+0.94 0.94 0.94 rg 37.00 47.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 50.00 Tm (  Caused by: java.net.ConnectException: Connection refused) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 40.00 30.00 Tm (2buggAI report) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 502.20 30.00 Tm (Page 2 of 3) Tj
+ET
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.00 842.00] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 11 0 R >>
+endobj
+11 0 obj
+<< /Length 7767 >>
+stream
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 812.00 Tm (mediaplatfrom_report_run7.json) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 329.40 812.00 Tm (Run 20261118-171206-83026   2026-11-18 17:12:06) Tj
+ET
+0.60 G 0.50 w 40.00 806.00 m 555.00 806.00 l S
+0.91 0.95 1.00 rg 37.00 777.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 767.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 770.00 Tm (**Problem analysis:**) Tj
+ET
+0.91 0.95 1.00 rg 37.00 757.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 760.00 Tm (- The PostgreSQL server is not reachable at localhost:5432.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 747.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 750.00 Tm (- Possible reasons:) Tj
+ET
+0.91 0.95 1.00 rg 37.00 737.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 740.00 Tm (  - PostgreSQL server is not running.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 727.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 730.00 Tm (  - PostgreSQL is listening on a different port or interface.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 717.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 720.00 Tm (  - Network or firewall blocking connection.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 707.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 710.00 Tm (  - The database `swendb` or user/password does not exist or are not correct.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 697.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 700.00 Tm (- Since this is an environment problem, the issue is not in the code but with the server or database setup.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 687.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 677.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 680.00 Tm (**Code with connection:**) Tj
+ET
+0.94 0.94 0.94 rg 37.00 667.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 670.00 Tm (  public Connection getConnection\(\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 657.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 660.00 Tm (  {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 647.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 650.00 Tm (      try {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 637.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 640.00 Tm (          return DriverManager.getConnection\() Tj
+ET
+0.94 0.94 0.94 rg 37.00 627.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 630.00 Tm (              "jdbc:postgresql://localhost:5432/swendb",) Tj
+ET
+0.94 0.94 0.94 rg 37.00 617.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 620.00 Tm (              "postgres",) Tj
+ET
+0.94 0.94 0.94 rg 37.00 607.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 610.00 Tm (              "password"\);) Tj
+ET
+0.94 0.94 0.94 rg 37.00 597.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 600.00 Tm (      } catch \(SQLException e\) {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 587.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 590.00 Tm (          throw new DataAccessException\("Datenbankverbindungsaufbau nicht erfolgreich", e\);) Tj
+ET
+0.94 0.94 0.94 rg 37.00 577.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 580.00 Tm (      }) Tj
+ET
+0.94 0.94 0.94 rg 37.00 567.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 570.00 Tm (  }) Tj
+ET
+0.91 0.95 1.00 rg 37.00 557.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 547.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 550.00 Tm (**Fix:**) Tj
+ET
+0.91 0.95 1.00 rg 37.00 537.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 540.00 Tm (- Ensure PostgreSQL is installed and running.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 527.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 530.00 Tm (- Verify PostgreSQL listens on `localhost:5432`: ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 517.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 520.00 Tm (  - Check postgresql.conf `listen_addresses` parameter \(should include 'localhost' or '*'\).) Tj
+ET
+0.91 0.95 1.00 rg 37.00 507.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 510.00 Tm (  - Restart PostgreSQL after changes.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 497.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 500.00 Tm (- Check firewall settings if applicable.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 487.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 490.00 Tm (- Verify the database `swendb` exists.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 477.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 480.00 Tm (- Verify user `postgres` with password `password` can access the database \(try `psql` or other client\).) Tj
+ET
+0.91 0.95 1.00 rg 37.00 467.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 470.00 Tm (- Update `DatabaseManager` connection string or credentials if needed to match the actual environment.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 457.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 460.00 Tm (- Once the database is reachable, restart the application.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 447.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 437.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 440.00 Tm (**No code changes needed inside the project** if environment fixes are applied.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 427.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 417.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 420.00 Tm (Recommendations) Tj
+ET
+0.91 0.95 1.00 rg 37.00 407.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 410.00 Tm (- Add proper configuration management to make the DB connection configurable \(e.g., environment variables ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 397.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 400.00 Tm (or external config files\), so DB host, port, database name, user and password can be changed without code ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 387.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 390.00 Tm (changes.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 377.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 380.00 Tm (- Add retry logic on startup or better error handling to provide clearer error messages.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 367.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 370.00 Tm (- Consider containerizing the database and application for consistent environments, or document how to set ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 357.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 360.00 Tm (up the DB.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 347.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 337.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 340.00 Tm (Summary) Tj
+ET
+0.91 0.95 1.00 rg 37.00 327.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 330.00 Tm (The root cause of the error is the unavailability of the PostgreSQL database at `localhost:5432`. This is ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 317.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 320.00 Tm (an environment configuration issue, not a problem with the code. Ensuring the database is running and ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 307.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 310.00 Tm (accessible with the given connection details will resolve the startup failure.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 297.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 40.00 30.00 Tm (2buggAI report) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 502.20 30.00 Tm (Page 3 of 3) Tj
+ET
+endstream
+endobj
+12 0 obj
+<< /Type /Annot /Subtype /Link /Border [0 0 0] /Rect [37.00 607.50 558.00 617.50] /Dest [8 0 R /Fit] >>
+endobj
+xref
+0 13
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000136 00000 n 
+0000000231 00000 n 
+0000000331 00000 n 
+0000000418 00000 n 
+0000000560 00000 n 
+0000001559 00000 n 
+0000001720 00000 n 
+0000012054 00000 n 
+0000012198 00000 n 
+0000020017 00000 n 
+trailer
+<< /Size 13 /Root 1 0 R /Info 5 0 R >>
+startxref
+20137
+%%EOF

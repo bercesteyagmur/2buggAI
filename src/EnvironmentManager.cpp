@@ -42,9 +42,14 @@ bool EnvironmentManager::ensurePipInstalled() {
     // This is necessary because many Python projects
     // require external dependencies such as:
     // Django, Flask, NumPy, Pandas, etc.
+    // sudo -n: never wait for a password (a run without a terminal would hang). With
+    // passwordless sudo pip is installed, otherwise the user gets the command to run.
     std::cout << "Installing pip...\n";
 
-    return system("sudo apt install -y python3-pip") == 0;
+    if (system("sudo -n apt-get install -y python3-pip > /dev/null 2>&1") == 0) return true;
+    std::cout << "[UMGEBUNGSPROBLEM] pip fehlt und konnte ohne Passwort nicht installiert werden.\n"
+              << "  Bitte ausführen: sudo apt install python3-pip\n";
+    return false;
 }
 
 bool EnvironmentManager::createVirtualEnv(
@@ -61,16 +66,25 @@ bool EnvironmentManager::createVirtualEnv(
 
     std::cout << "Creating virtual environment at: " << venvPath << "\n";
 
-    int venvCheck = system("dpkg -s python3.12-venv > /dev/null 2>&1");
+    // Just try it: the venv module is what matters, whatever Python version / distribution
+    // provides it (the old check asked dpkg for "python3.12-venv" and otherwise ran sudo).
+    const std::string cmd = "python3 -m venv " + ShellQuote::quote(venvPath) + " > /dev/null 2>&1";
+    if (system(cmd.c_str()) == 0) return true;
 
-    if (venvCheck != 0) {
+    // A failed attempt can leave a half-created folder behind.
+    std::error_code ec;
+    fs::remove_all(venvPath, ec);
 
-        if (system("sudo apt install -y python3.12-venv") != 0) {}  // Ergebnis bewusst ignoriert
+    // Missing venv package (Debian/Ubuntu): install it only with passwordless sudo, never wait
+    // for a password.
+    std::cout << "python3 -m venv failed, trying to install python3-venv (sudo -n)...\n";
+    if (system("sudo -n apt-get install -y python3-venv > /dev/null 2>&1") == 0 && system(cmd.c_str()) == 0) {
+        return true;
     }
-
-    std::string cmd = "python3 -m venv " + ShellQuote::quote(venvPath);
-
-    return system(cmd.c_str()) == 0;
+    fs::remove_all(venvPath, ec);
+    std::cout << "[UMGEBUNGSPROBLEM] Das Python-Modul venv fehlt und konnte ohne Passwort nicht installiert werden.\n"
+              << "  Bitte ausführen: sudo apt install python3-venv\n";
+    return false;
 }
 
 std::string EnvironmentManager::getPythonExecutable(

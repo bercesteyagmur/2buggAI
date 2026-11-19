@@ -56,6 +56,35 @@ void ArgumentParser::parse(int argc, char* argv[]){
             else if (arg == "--runtime") {
                 runtimeChecks = true;
             }
+            else if (arg == "--stack") {
+                if (i + 1 >= argc) throw std::invalid_argument("Expected auto, fullstack or legacy after " + arg);
+                stackMode = argv[++i];
+                if (stackMode != "auto" && stackMode != "fullstack" && stackMode != "legacy") {
+                    throw std::invalid_argument("Invalid value for --stack: " + stackMode + " (allowed: auto, fullstack, legacy)");
+                }
+            }
+            else if (arg == "--no-pdf") {
+                noPdf = true;
+            }
+            else if (arg == "--no-pdf-combined") {
+                noPdfCombined = true;
+            }
+            else if (arg == "--pdf-per-iteration") {
+                pdfPerIteration = true;
+            }
+            else if (arg == "--pdf-dir") {
+                if (i + 1 >= argc) throw std::invalid_argument("Expected directory after " + arg);
+                pdfDir = argv[++i];
+            }
+            else if (arg == "--run-timeout") {
+                if (i + 1 >= argc) throw std::invalid_argument("Expected seconds after " + arg);
+                std::string value = argv[++i];
+                if (value.empty() || value.size() > 6 ||
+                    value.find_first_not_of("0123456789") != std::string::npos) {
+                    throw std::invalid_argument("Invalid value for --run-timeout: " + value + " (seconds, 0 = no limit)");
+                }
+                runTimeoutSec = std::stoi(value);
+            }
             else if (arg == "--api-url") {
                 if (i + 1 >= argc) throw std::invalid_argument("Expected url after " + arg);
                 apiUrl = argv[++i];
@@ -117,6 +146,12 @@ void ArgumentParser::parse(int argc, char* argv[]){
     bool ArgumentParser::isGdbUsed() const { return useGdb; }
     bool ArgumentParser::isValgrindUsed() const { return useValgrind; }
     bool ArgumentParser::isRuntimeUsed() const { return runtimeChecks; }
+    std::string ArgumentParser::getStackMode() const { return stackMode; }
+    bool ArgumentParser::isPdfDisabled() const { return noPdf; }
+    bool ArgumentParser::isPdfCombinedDisabled() const { return noPdfCombined; }
+    bool ArgumentParser::isPdfPerIteration() const { return pdfPerIteration; }
+    std::string ArgumentParser::getPdfDir() const { return pdfDir; }
+    int ArgumentParser::getRunTimeoutSec() const { return runTimeoutSec; }
     std::string ArgumentParser::getApiUrl() const { return apiUrl; }
     std::string ArgumentParser::getApiToken() const { return apiToken; }
     std::string ArgumentParser::getJsonOutFile() const { return jsonOutFile; }
@@ -146,7 +181,16 @@ void ArgumentParser::parse(int argc, char* argv[]){
         std::cout << "  --gdb               Nutze GDB für Crash-Analyse\n";
         std::cout << "  --valgrind          Nutze Valgrind für Memory-Check\n";
         std::cout << "  --runtime           PHP/JS: Tests mit Xdebug / Node Stacktraces ausführen\n";
+        std::cout << "  --stack <mode>      Fullstack-Erkennung (Python + JS/TS + SQL + Services):\n";
+        std::cout << "                      auto (Standard), fullstack (erzwingen), legacy (aus)\n";
         std::cout << "  --json-out <file>   Speichere JSON-Report in Datei\n";
+        std::cout << "                      (dazu automatisch <file>.pdf und <file>.combined.pdf)\n";
+        std::cout << "  --no-pdf            Keine PDF-Reports erzeugen\n";
+        std::cout << "  --no-pdf-combined   Keinen Gesamt-Report (alle JSONs in einer PDF)\n";
+        std::cout << "  --pdf-per-iteration Zusätzlich eine PDF nach jeder Fix-Iteration\n";
+        std::cout << "  --pdf-dir <dir>     PDFs in diesen Ordner statt neben die JSON-Datei\n";
+        std::cout << "  --run-timeout <s>   Zeitlimit für den Programmlauf in Sekunden (Standard 120,\n";
+        std::cout << "                      0 = kein Limit). Server laufen bis zum Limit weiter\n";
         std::cout << "  --                  Argumente nach -- werden an das Programm übergeben\n";
         std::cout << "  -h, --help          Zeige diese Hilfe\n\n";
     }

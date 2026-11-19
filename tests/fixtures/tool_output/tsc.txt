@@ -1,0 +1,2 @@
+src/format.ts(4,18): error TS2339: Property 'name' does not exist on type 'User'.
+src/format.test.ts(6,22): error TS2345: Argument of type '{ id: number; name: string; }' is not assignable to parameter of type 'User'.

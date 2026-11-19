@@ -1,0 +1,1628 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Count 7 /Kids [ 6 0 R 8 0 R 10 0 R 12 0 R 14 0 R 16 0 R 18 0 R ] >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Title (2buggAI run report) /Producer (2buggAI PdfReportExporter) >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.00 842.00] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 7 0 R >>
+endobj
+7 0 obj
+<< /Length 949 >>
+stream
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 812.00 Tm (2buggAI run report) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 329.40 812.00 Tm (Run 20261118-163134-62850   2026-11-18 16:31:34) Tj
+ET
+0.60 G 0.50 w 40.00 806.00 m 555.00 806.00 l S
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 780.00 Tm (2buggAI run report) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 760.00 Tm (Run ID:   20261118-163134-62850) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 750.00 Tm (Created:  2026-11-18 16:31:34) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 730.00 Tm (Documents \(1\), each starting on a new page:) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 40.00 720.00 Tm (  1. ) Tj
+/F1 8.00 Tf 0.10 0.30 0.65 rg 1 0 0 1 64.00 720.00 Tm (mediaplatfrom_report_run3.json) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 40.00 30.00 Tm (2buggAI report) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 502.20 30.00 Tm (Page 1 of 7) Tj
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.00 842.00] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 9 0 R /Annots [ 20 0 R 21 0 R 22 0 R ] >>
+endobj
+9 0 obj
+<< /Length 8955 >>
+stream
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 812.00 Tm (mediaplatfrom_report_run3.json) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 329.40 812.00 Tm (Run 20261118-163134-62850   2026-11-18 16:31:34) Tj
+ET
+0.60 G 0.50 w 40.00 806.00 m 555.00 806.00 l S
+BT
+/F2 12.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 780.00 Tm (2buggAI Fehlerbericht) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 760.00 Tm (Projekt:       ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 760.00 Tm (Mediaplatfrom) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 750.00 Tm (Ziel:          ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 750.00 Tm (/home/nikog/projects/Mediaplatfrom) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 740.00 Tm (Run-ID:        ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 740.00 Tm (20261118-163134-62850) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 730.00 Tm (Datum:         ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 730.00 Tm (2026-11-18 16:31:34) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 720.00 Tm (Auftrag:       ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 720.00 Tm (Finde und behebe alle Fehler \(Build, Tests, Laufzeit\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 710.00 Tm (Sprachen:      ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 710.00 Tm (java) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 700.00 Tm (Modus:         ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 700.00 Tm (Einzelmodell) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 690.00 Tm (Fix-Modell:    ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 690.00 Tm (llm/gpt-4.1-mini) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 680.00 Tm (Analyse:       ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 680.00 Tm (llm/gpt-4.1-mini) Tj
+ET
+BT
+/F2 12.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 660.00 Tm (Zusammenfassung) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 640.00 Tm (  Gefunden: 3   ) Tj
+/F2 8.00 Tf 0.05 0.45 0.10 rg 1 0 0 1 116.80 640.00 Tm (Behoben: 1   ) Tj
+/F2 8.00 Tf 0.75 0.10 0.10 rg 1 0 0 1 179.20 640.00 Tm (Nicht behoben: 2) Tj
+ET
+0.94 0.94 0.94 rg 37.00 617.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 620.00 Tm ( Nr.  | Datei:Zeile                      | Kategorie                  | Status               | Abschnitt) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 610.00 Tm ( 1    | src/main/java/database/Databa... | jdbc_driver_missing        | ) Tj
+/F2 8.00 Tf 0.05 0.45 0.10 rg 1 0 0 1 385.60 610.00 Tm (behoben             ) Tj
+/F1 8.00 Tf 0.10 0.30 0.65 rg 1 0 0 1 481.60 610.00 Tm ( | S.  2) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 600.00 Tm ( 2    | src/main/java/database/Databa... | class_not_found            | ) Tj
+/F2 8.00 Tf 0.75 0.10 0.10 rg 1 0 0 1 385.60 600.00 Tm (NICHT BEHOBEN       ) Tj
+/F1 8.00 Tf 0.10 0.30 0.65 rg 1 0 0 1 481.60 600.00 Tm ( | S.  4) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 590.00 Tm ( 3    | src/main/java/database/Databa... | uncaught_exception_main    | ) Tj
+/F2 8.00 Tf 0.75 0.10 0.10 rg 1 0 0 1 385.60 590.00 Tm (NICHT BEHOBEN       ) Tj
+/F1 8.00 Tf 0.10 0.30 0.65 rg 1 0 0 1 481.60 590.00 Tm ( | S.  5) Tj
+ET
+BT
+/F1 8.00 Tf 0.45 0.45 0.45 rg 1 0 0 1 40.00 570.00 Tm (  Die Zeilen der Tabelle sind Links auf den jeweiligen Abschnitt.) Tj
+ET
+0.88 0.90 0.96 rg 37.00 537.50 521.00 16.00 re f
+BT
+/F2 12.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 540.00 Tm (1. SQLException in src/main/java/database/DatabaseManager.java) Tj
+ET
+0.78 0.92 0.78 rg 37.00 527.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.05 0.45 0.10 rg 1 0 0 1 40.00 530.00 Tm (  BEHOBEN - Iterationen: 1) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 510.00 Tm (Datei:         ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 510.00 Tm (src/main/java/database/DatabaseManager.java) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 500.00 Tm (Zeile\(n\):      ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 500.00 Tm (7, 8) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 490.00 Tm (Sprache:       ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 490.00 Tm (java) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 480.00 Tm (Tool/Quelle:   ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 480.00 Tm (Laufzeit \(Programmausgabe\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 470.00 Tm (Schweregrad:   ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 470.00 Tm (error \(Schwierigkeit: leicht\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 460.00 Tm (Kategorie:     ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 460.00 Tm (jdbc_driver_missing \(Checkliste\); laut Modell: java | jdbc_driver_missing) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 440.00 Tm (FEHLERMELDUNG) Tj
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 102.40 440.00 Tm (  \(gek\374rzt auf das Relevante\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 427.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 430.00 Tm (  Caused by: java.sql.SQLException: No suitable driver found for jdbc:postgresql://localhost:5432/swendb) Tj
+ET
+0.94 0.94 0.94 rg 37.00 417.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 420.00 Tm (      at java.sql/java.sql.DriverManager.getConnection\(DriverManager.java:708\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 400.00 Tm (FEHLERHAFTER CODE) Tj
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 121.60 400.00 Tm (  \(src/main/java/database/DatabaseManager.java, vor dem Fix\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 387.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 390.00 Tm (    4 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 390.00 Tm (import java.sql.DriverManager;) Tj
+ET
+0.94 0.94 0.94 rg 37.00 377.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 380.00 Tm (    5 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 380.00 Tm (import java.sql.SQLException;) Tj
+ET
+0.94 0.94 0.94 rg 37.00 367.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 370.00 Tm (    6 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 370.00 Tm () Tj
+ET
+1.00 0.87 0.87 rg 37.00 357.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 360.00 Tm (    7 > ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 360.00 Tm (public enum DatabaseManager {) Tj
+ET
+1.00 0.87 0.87 rg 37.00 347.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 350.00 Tm (    8 > ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 350.00 Tm (    INSTANCE;) Tj
+ET
+0.94 0.94 0.94 rg 37.00 337.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 340.00 Tm (    9 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 340.00 Tm () Tj
+ET
+0.94 0.94 0.94 rg 37.00 327.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 330.00 Tm (   10 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 330.00 Tm (    public Connection getConnection\(\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 317.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 320.00 Tm (   11 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 320.00 Tm (    {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 307.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 310.00 Tm (   12 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 310.00 Tm (        try {) Tj
+ET
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 300.00 Tm (      ....................) Tj
+ET
+0.94 0.94 0.94 rg 37.00 287.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 290.00 Tm (   19 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 290.00 Tm (        }) Tj
+ET
+0.94 0.94 0.94 rg 37.00 277.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 280.00 Tm (   20 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 280.00 Tm (    }) Tj
+ET
+0.94 0.94 0.94 rg 37.00 267.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 270.00 Tm (   21 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 270.00 Tm (}) Tj
+ET
+1.00 0.87 0.87 rg 37.00 257.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 260.00 Tm (   22 > ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 260.00 Tm () Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 240.00 Tm (WARUM DAS EIN FEHLER IST) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 230.00 Tm (  Der Fehler "No suitable driver found" tritt auf, weil der JDBC-Treiber f\374r PostgreSQL nicht geladen ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 220.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 220.00 Tm (wurde. Ohne die Registrierung des Treibers kann die DriverManager-Klasse keine passende Verbindung ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 210.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 210.00 Tm (herstellen, da der Treiber nicht bekannt ist.) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 40.00 30.00 Tm (2buggAI report) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 502.20 30.00 Tm (Page 2 of 7) Tj
+ET
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.00 842.00] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 11 0 R >>
+endobj
+11 0 obj
+<< /Length 10107 >>
+stream
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 812.00 Tm (mediaplatfrom_report_run3.json) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 329.40 812.00 Tm (Run 20261118-163134-62850   2026-11-18 16:31:34) Tj
+ET
+0.60 G 0.50 w 40.00 806.00 m 555.00 806.00 l S
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 780.00 Tm (GEFIXTER CODE) Tj
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 102.40 780.00 Tm (  \(src/main/java/database/DatabaseManager.java, nach dem Fix\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 767.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 770.00 Tm (    4 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 770.00 Tm (import java.sql.DriverManager;) Tj
+ET
+0.94 0.94 0.94 rg 37.00 757.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 760.00 Tm (    5 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 760.00 Tm (import java.sql.SQLException;) Tj
+ET
+0.94 0.94 0.94 rg 37.00 747.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 750.00 Tm (    6 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 750.00 Tm () Tj
+ET
+0.94 0.94 0.94 rg 37.00 737.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 740.00 Tm (    7 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 740.00 Tm (public enum DatabaseManager {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 727.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 730.00 Tm (    8 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 730.00 Tm (    INSTANCE;) Tj
+ET
+0.94 0.94 0.94 rg 37.00 717.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 720.00 Tm (    9 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 720.00 Tm () Tj
+ET
+0.86 0.96 0.86 rg 37.00 707.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 710.00 Tm (   10 + ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 710.00 Tm (    static {) Tj
+ET
+0.86 0.96 0.86 rg 37.00 697.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 700.00 Tm (   11 + ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 700.00 Tm (        try {) Tj
+ET
+0.86 0.96 0.86 rg 37.00 687.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 690.00 Tm (   12 + ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 690.00 Tm (            Class.forName\("org.postgresql.Driver"\);) Tj
+ET
+0.86 0.96 0.86 rg 37.00 677.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 680.00 Tm (   13 + ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 680.00 Tm (        } catch \(ClassNotFoundException e\) {) Tj
+ET
+0.86 0.96 0.86 rg 37.00 667.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 670.00 Tm (   14 + ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 670.00 Tm (            throw new RuntimeException\("Failed to load PostgreSQL JDBC driver", e\);) Tj
+ET
+0.86 0.96 0.86 rg 37.00 657.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 660.00 Tm (   15 + ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 660.00 Tm (        }) Tj
+ET
+0.86 0.96 0.86 rg 37.00 647.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 650.00 Tm (   16 + ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 650.00 Tm (    }) Tj
+ET
+0.86 0.96 0.86 rg 37.00 637.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 640.00 Tm (   17 + ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 640.00 Tm () Tj
+ET
+0.94 0.94 0.94 rg 37.00 627.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 630.00 Tm (   18 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 630.00 Tm (    public Connection getConnection\(\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 617.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 620.00 Tm (   19 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 620.00 Tm (    {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 607.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 610.00 Tm (   20 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 610.00 Tm (        try {) Tj
+ET
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 600.00 Tm (      ....................) Tj
+ET
+0.94 0.94 0.94 rg 37.00 587.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 590.00 Tm (   27 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 590.00 Tm (        }) Tj
+ET
+0.94 0.94 0.94 rg 37.00 577.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 580.00 Tm (   28 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 580.00 Tm (    }) Tj
+ET
+0.94 0.94 0.94 rg 37.00 567.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 570.00 Tm (   29 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 570.00 Tm (}) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 550.00 Tm (DIFF) Tj
+ET
+0.94 0.94 0.94 rg 37.00 537.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 540.00 Tm (--- a/src/main/java/database/DatabaseManager.java) Tj
+ET
+0.94 0.94 0.94 rg 37.00 527.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 530.00 Tm (+++ b/src/main/java/database/DatabaseManager.java) Tj
+ET
+0.94 0.94 0.94 rg 37.00 517.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.10 0.30 0.65 rg 1 0 0 1 40.00 520.00 Tm (@@ -7,6 +7,14 @@) Tj
+ET
+0.94 0.94 0.94 rg 37.00 507.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 510.00 Tm ( public enum DatabaseManager {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 497.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 500.00 Tm (     INSTANCE;) Tj
+ET
+0.94 0.94 0.94 rg 37.00 487.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 490.00 Tm ( ) Tj
+ET
+0.86 0.96 0.86 rg 37.00 477.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.05 0.42 0.10 rg 1 0 0 1 40.00 480.00 Tm (+    static {) Tj
+ET
+0.86 0.96 0.86 rg 37.00 467.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.05 0.42 0.10 rg 1 0 0 1 40.00 470.00 Tm (+        try {) Tj
+ET
+0.86 0.96 0.86 rg 37.00 457.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.05 0.42 0.10 rg 1 0 0 1 40.00 460.00 Tm (+            Class.forName\("org.postgresql.Driver"\);) Tj
+ET
+0.86 0.96 0.86 rg 37.00 447.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.05 0.42 0.10 rg 1 0 0 1 40.00 450.00 Tm (+        } catch \(ClassNotFoundException e\) {) Tj
+ET
+0.86 0.96 0.86 rg 37.00 437.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.05 0.42 0.10 rg 1 0 0 1 40.00 440.00 Tm (+            throw new RuntimeException\("Failed to load PostgreSQL JDBC driver", e\);) Tj
+ET
+0.86 0.96 0.86 rg 37.00 427.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.05 0.42 0.10 rg 1 0 0 1 40.00 430.00 Tm (+        }) Tj
+ET
+0.86 0.96 0.86 rg 37.00 417.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.05 0.42 0.10 rg 1 0 0 1 40.00 420.00 Tm (+    }) Tj
+ET
+0.86 0.96 0.86 rg 37.00 407.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.05 0.42 0.10 rg 1 0 0 1 40.00 410.00 Tm (+) Tj
+ET
+0.94 0.94 0.94 rg 37.00 397.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 400.00 Tm (     public Connection getConnection\(\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 387.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 390.00 Tm (     {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 377.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 380.00 Tm (         try {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 367.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.10 0.30 0.65 rg 1 0 0 1 40.00 370.00 Tm (@@ -19,4 +27,3 @@) Tj
+ET
+0.94 0.94 0.94 rg 37.00 357.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 360.00 Tm (         }) Tj
+ET
+0.94 0.94 0.94 rg 37.00 347.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 350.00 Tm (     }) Tj
+ET
+0.94 0.94 0.94 rg 37.00 337.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 340.00 Tm ( }) Tj
+ET
+1.00 0.87 0.87 rg 37.00 327.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.65 0.05 0.05 rg 1 0 0 1 40.00 330.00 Tm (-) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 310.00 Tm (ERKL\304RUNG DER BEHEBUNG) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 300.00 Tm (  Ich habe einen statischen Initialisierer eingef\374gt, der die Klasse des PostgreSQL JDBC-Treibers mit ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 290.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 290.00 Tm (Class.forName l\344dt. Dadurch wird der Treiber registriert und DriverManager kann die Verbindung ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 280.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 280.00 Tm (erfolgreich herstellen.) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 270.00 Tm (  M\366gliche Nebenwirkungen: ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 169.60 270.00 Tm (Das explizite Laden des Treibers ist in neueren Java-Versionen manchmal nicht ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 260.00 Tm (    ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 59.20 260.00 Tm (mehr n\366tig, da der Treiber durch Service-Loader automatisch registriert wird. Dennoch ist diese ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 250.00 Tm (    ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 59.20 250.00 Tm (\304nderung sicher und stellt sicher, dass der Treiber auch manuell geladen wird. Es sollte keine ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 240.00 Tm (    ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 59.20 240.00 Tm (negativen Nebenwirkungen geben.) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 220.00 Tm (ERGEBNIS) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 210.00 Tm (Reviewer:      ) Tj
+/F1 8.00 Tf 0.45 0.45 0.45 rg 1 0 0 1 112.00 210.00 Tm (nicht ausgef\374hrt \(Einzelmodell-Modus\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 200.00 Tm (Verifier:      ) Tj
+/F1 8.00 Tf 0.45 0.45 0.45 rg 1 0 0 1 112.00 200.00 Tm (nicht ausgef\374hrt \(Einzelmodell-Modus\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 190.00 Tm (Re-Run:        ) Tj
+/F2 8.00 Tf 0.05 0.45 0.10 rg 1 0 0 1 112.00 190.00 Tm (Fehler behoben, andere Fehler offen: 2) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 180.00 Tm (Iterationen:   ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 180.00 Tm (1) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 40.00 30.00 Tm (2buggAI report) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 502.20 30.00 Tm (Page 3 of 7) Tj
+ET
+endstream
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.00 842.00] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 13 0 R >>
+endobj
+13 0 obj
+<< /Length 12840 >>
+stream
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 812.00 Tm (mediaplatfrom_report_run3.json) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 329.40 812.00 Tm (Run 20261118-163134-62850   2026-11-18 16:31:34) Tj
+ET
+0.60 G 0.50 w 40.00 806.00 m 555.00 806.00 l S
+0.88 0.90 0.96 rg 37.00 777.50 521.00 16.00 re f
+BT
+/F2 12.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 780.00 Tm (2. ClassNotFoundException in ) Tj
+ET
+0.88 0.90 0.96 rg 37.00 767.50 521.00 16.00 re f
+BT
+/F2 12.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 770.00 Tm (src/main/java/database/DatabaseManager.java) Tj
+ET
+0.97 0.78 0.78 rg 37.00 757.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.75 0.10 0.10 rg 1 0 0 1 40.00 760.00 Tm (  NICHT BEHOBEN - Iterationen: 5) Tj
+ET
+0.97 0.78 0.78 rg 37.00 747.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.75 0.10 0.10 rg 1 0 0 1 40.00 750.00 Tm (  Grund: Nach 5 Versuch\(en\) nicht behoben. Letzter Grund: Fehler ist nach dem Re-Run weiterhin vorhanden) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 730.00 Tm (Datei:         ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 730.00 Tm (src/main/java/database/DatabaseManager.java) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 720.00 Tm (Zeile\(n\):      ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 720.00 Tm (10, 11) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 710.00 Tm (Sprache:       ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 710.00 Tm (java) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 700.00 Tm (Tool/Quelle:   ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 700.00 Tm (Laufzeit \(Programmausgabe\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 690.00 Tm (Schweregrad:   ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 690.00 Tm (error \(Schwierigkeit: leicht\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 680.00 Tm (Kategorie:     ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 680.00 Tm (class_not_found \(Checkliste\); laut Modell: java | class_not_found) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 660.00 Tm (FEHLERMELDUNG) Tj
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 102.40 660.00 Tm (  \(gek\374rzt auf das Relevante\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 647.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 650.00 Tm (  Caused by: java.lang.ClassNotFoundException: org.postgresql.Driver) Tj
+ET
+0.94 0.94 0.94 rg 37.00 637.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 640.00 Tm (      at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass\(BuiltinClassLoader.java:641\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 620.00 Tm (FEHLERHAFTER CODE) Tj
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 121.60 620.00 Tm (  \(src/main/java/database/DatabaseManager.java, vor dem Fix\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 607.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 610.00 Tm (    7 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 610.00 Tm (public enum DatabaseManager {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 597.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 600.00 Tm (    8 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 600.00 Tm (    INSTANCE;) Tj
+ET
+0.94 0.94 0.94 rg 37.00 587.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 590.00 Tm (    9 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 590.00 Tm () Tj
+ET
+1.00 0.87 0.87 rg 37.00 577.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 580.00 Tm (   10 > ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 580.00 Tm (    static {) Tj
+ET
+1.00 0.87 0.87 rg 37.00 567.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 570.00 Tm (   11 > ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 570.00 Tm (        try {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 557.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 560.00 Tm (   12 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 560.00 Tm (            Class.forName\("org.postgresql.Driver"\);) Tj
+ET
+0.94 0.94 0.94 rg 37.00 547.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 550.00 Tm (   13 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 550.00 Tm (        } catch \(ClassNotFoundException e\) {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 537.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 540.00 Tm (   14 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 540.00 Tm (            throw new RuntimeException\("Failed to load PostgreSQL JDBC driver", e\);) Tj
+ET
+0.94 0.94 0.94 rg 37.00 527.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 530.00 Tm (   15 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 530.00 Tm (        }) Tj
+ET
+0.94 0.94 0.94 rg 37.00 517.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 520.00 Tm (   16 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 520.00 Tm (    }) Tj
+ET
+0.94 0.94 0.94 rg 37.00 507.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 510.00 Tm (   17 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 510.00 Tm () Tj
+ET
+1.00 0.87 0.87 rg 37.00 497.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 500.00 Tm (   18 > ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 500.00 Tm (    public Connection getConnection\(\)) Tj
+ET
+1.00 0.87 0.87 rg 37.00 487.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 490.00 Tm (   19 > ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 490.00 Tm (    {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 477.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 480.00 Tm (   20 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 480.00 Tm (        try {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 467.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 470.00 Tm (   21 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 470.00 Tm (            return DriverManager.getConnection\() Tj
+ET
+0.94 0.94 0.94 rg 37.00 457.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 460.00 Tm (   22 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 460.00 Tm (                    "jdbc:postgresql://localhost:5432/swendb",) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 440.00 Tm (WARUM DAS EIN FEHLER IST) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 430.00 Tm (  Der Fehler "Caused by: java.lang.ClassNotFoundException: org.postgresql.Driver" tritt auf, weil zur ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 420.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 420.00 Tm (Laufzeit die JDBC-Treiberklasse f\374r PostgreSQL nicht gefunden wurde. Dies liegt daran, dass der Treiber ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 410.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 410.00 Tm (nicht im Klassenpfad der ausf\374hrbaren Anwendung enthalten ist, obwohl er in der POM definiert ist. Dies ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 400.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 400.00 Tm (kann passieren, wenn im Build- oder Ausf\374hrungsprozess der Abh\344ngigkeitsklassepfad nicht korrekt gesetzt ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 390.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 390.00 Tm (wird. Das Code-Snippet in DatabaseManager versucht zwar, die Klasse zu laden, aber ohne Sicherstellung, ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 380.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 380.00 Tm (dass das JDBC-Treiber-JAR verf\374gbar ist, schl\344gt dies fehl.) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 360.00 Tm (LETZTER VORSCHLAG \(nicht \374bernommen\)) Tj
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 212.80 360.00 Tm (  \(src/main/java/database/DatabaseManager.java, nach dem Fix\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 347.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 350.00 Tm (    7 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 350.00 Tm (public enum DatabaseManager {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 337.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 340.00 Tm (    8 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 340.00 Tm (    INSTANCE;) Tj
+ET
+0.94 0.94 0.94 rg 37.00 327.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 330.00 Tm (    9 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 330.00 Tm () Tj
+ET
+0.94 0.94 0.94 rg 37.00 317.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 320.00 Tm (   10 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 320.00 Tm (    static {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 307.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 310.00 Tm (   11 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 310.00 Tm (        try {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 297.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 300.00 Tm (   12 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 300.00 Tm (            Class.forName\("org.postgresql.Driver"\);) Tj
+ET
+0.94 0.94 0.94 rg 37.00 287.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 290.00 Tm (   13 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 290.00 Tm (        } catch \(ClassNotFoundException e\) {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 277.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 280.00 Tm (   14 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 280.00 Tm (            throw new RuntimeException\("Failed to load PostgreSQL JDBC driver", e\);) Tj
+ET
+0.94 0.94 0.94 rg 37.00 267.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 270.00 Tm (   15 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 270.00 Tm (        }) Tj
+ET
+0.94 0.94 0.94 rg 37.00 257.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 260.00 Tm (   16 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 260.00 Tm (    }) Tj
+ET
+0.94 0.94 0.94 rg 37.00 247.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 250.00 Tm (   17 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 250.00 Tm () Tj
+ET
+0.86 0.96 0.86 rg 37.00 237.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 240.00 Tm (   18 + ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 240.00 Tm (    public Connection getConnection\(\) {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 227.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 230.00 Tm (   19 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 230.00 Tm (        try {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 217.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 220.00 Tm (   20 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 220.00 Tm (            return DriverManager.getConnection\() Tj
+ET
+0.94 0.94 0.94 rg 37.00 207.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 210.00 Tm (   21 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 210.00 Tm (                    "jdbc:postgresql://localhost:5432/swendb",) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 190.00 Tm (DIFF) Tj
+ET
+0.94 0.94 0.94 rg 37.00 177.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 180.00 Tm (--- a/src/main/java/database/DatabaseManager.java) Tj
+ET
+0.94 0.94 0.94 rg 37.00 167.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 170.00 Tm (+++ b/src/main/java/database/DatabaseManager.java) Tj
+ET
+0.94 0.94 0.94 rg 37.00 157.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.10 0.30 0.65 rg 1 0 0 1 40.00 160.00 Tm (@@ -15,8 +15,7 @@) Tj
+ET
+0.94 0.94 0.94 rg 37.00 147.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 150.00 Tm (         }) Tj
+ET
+0.94 0.94 0.94 rg 37.00 137.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 140.00 Tm (     }) Tj
+ET
+0.94 0.94 0.94 rg 37.00 127.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 130.00 Tm ( ) Tj
+ET
+1.00 0.87 0.87 rg 37.00 117.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.65 0.05 0.05 rg 1 0 0 1 40.00 120.00 Tm (-    public Connection getConnection\(\)) Tj
+ET
+1.00 0.87 0.87 rg 37.00 107.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.65 0.05 0.05 rg 1 0 0 1 40.00 110.00 Tm (-    {) Tj
+ET
+0.86 0.96 0.86 rg 37.00 97.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.05 0.42 0.10 rg 1 0 0 1 40.00 100.00 Tm (+    public Connection getConnection\(\) {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 87.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 90.00 Tm (         try {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 77.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 80.00 Tm (             return DriverManager.getConnection\() Tj
+ET
+0.94 0.94 0.94 rg 37.00 67.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 70.00 Tm (                     "jdbc:postgresql://localhost:5432/swendb",) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 40.00 30.00 Tm (2buggAI report) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 502.20 30.00 Tm (Page 4 of 7) Tj
+ET
+endstream
+endobj
+14 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.00 842.00] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 15 0 R >>
+endobj
+15 0 obj
+<< /Length 11052 >>
+stream
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 812.00 Tm (mediaplatfrom_report_run3.json) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 329.40 812.00 Tm (Run 20261118-163134-62850   2026-11-18 16:31:34) Tj
+ET
+0.60 G 0.50 w 40.00 806.00 m 555.00 806.00 l S
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 780.00 Tm (ERKL\304RUNG DER BEHEBUNG) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 770.00 Tm (  Im vorliegenden Code wurde keine direkte Code-\304nderung ben\366tigt, da der Fehler auf ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 760.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 760.00 Tm (Klassenpfad-/Build-Konfigurationsprobleme hinweist. Eine wichtige notwendige \304nderung ist jedoch die ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 750.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 750.00 Tm (Sicherstellung, dass Maven \(bzw. das verwendete Buildsystem\) die PostgreSQL-Abh\344ngigkeit korrekt in das ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 740.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 740.00 Tm (Laufzeitclasspath inkludiert. In der POM-Datei ist bereits die Abh\344ngigkeit vorhanden und hat keinen ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 730.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 730.00 Tm ("scope"-Tag. Daher erscheint der Treiber beim Kompilieren und Testen. Das Problem liegt meistens beim ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 720.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 720.00 Tm (Starten des Java-Prozesses, z.B. wenn der JAR nicht mit den Abh\344ngigkeiten gebaut wird, oder die ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 710.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 710.00 Tm (Abh\344ngigkeiten nicht im Klassenpfad sind. Zum Beispiel muss bei der Ausf\374hrung des "java -jar" Kommandos ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 700.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 700.00 Tm (sichergestellt werden, dass der Treiber im Klassenpfad ist, oder ein "fat-jar" mit allen Abh\344ngigkeiten ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 690.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 690.00 Tm (gebaut wird. Alternativ sollte ein Maven-Plugin wie "maven-assembly-plugin" oder "maven-shade-plugin" ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 680.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 680.00 Tm (verwendet werden, um einen ausf\374hrbaren JAR mit allen Abh\344ngigkeiten zu bauen. Da die Fehlermeldung im ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 670.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 670.00 Tm (Rahmen eines Tests nicht auftritt sondern erst beim Start der main-Klasse, ist wohl das Start-Skript ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 660.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 660.00 Tm (oder die Ausf\374hrungsumgebung nicht korrekt. ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 640.00 Tm (  Kurz gesagt: Um den Fehler zu beheben, muss das Ausf\374hren der Anwendung so eingerichtet werden, dass der ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 630.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 630.00 Tm (PostgreSQL-Treiber im Klassenpfad verf\374gbar ist, dies kann man durch Anwendung eines "fat jar" oder das ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 620.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 620.00 Tm (korrekte Setzen des Klassenpfads beim Ausf\374hren erreichen.) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 610.00 Tm (  M\366gliche Nebenwirkungen: ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 169.60 610.00 Tm (Keine direkte Code\344nderung im Quellcode, daher keine Side-Effekte. Die \304nderung ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 600.00 Tm (    ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 59.20 600.00 Tm (betrifft die Build- und Ausf\374hrungsumgebung.) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 580.00 Tm (ERGEBNIS) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 570.00 Tm (Reviewer:      ) Tj
+/F1 8.00 Tf 0.45 0.45 0.45 rg 1 0 0 1 112.00 570.00 Tm (nicht ausgef\374hrt \(Einzelmodell-Modus\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 560.00 Tm (Verifier:      ) Tj
+/F1 8.00 Tf 0.45 0.45 0.45 rg 1 0 0 1 112.00 560.00 Tm (nicht ausgef\374hrt \(Einzelmodell-Modus\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 550.00 Tm (Re-Run:        ) Tj
+/F1 8.00 Tf 0.65 0.05 0.05 rg 1 0 0 1 112.00 550.00 Tm (Fehler weiterhin vorhanden) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 540.00 Tm (Iterationen:   ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 540.00 Tm (5) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 520.00 Tm (VERSUCHE) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 510.00 Tm (  #1  angewandt, Fehler weiterhin vorhanden - Fehler ist nach dem Re-Run weiterhin vorhanden) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 500.00 Tm (  #2  angewandt, Fehler weiterhin vorhanden - Fehler ist nach dem Re-Run weiterhin vorhanden) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 490.00 Tm (  #3  angewandt, Fehler weiterhin vorhanden - Fehler ist nach dem Re-Run weiterhin vorhanden) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 480.00 Tm (  #4  angewandt, Fehler weiterhin vorhanden - Fehler ist nach dem Re-Run weiterhin vorhanden) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 470.00 Tm (  #5  angewandt, Fehler weiterhin vorhanden - Fehler ist nach dem Re-Run weiterhin vorhanden) Tj
+ET
+0.88 0.90 0.96 rg 37.00 437.50 521.00 16.00 re f
+BT
+/F2 12.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 440.00 Tm (3. ExceptionInInitializerError in ) Tj
+ET
+0.88 0.90 0.96 rg 37.00 427.50 521.00 16.00 re f
+BT
+/F2 12.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 430.00 Tm (src/main/java/database/DatabaseManager.java) Tj
+ET
+0.97 0.78 0.78 rg 37.00 417.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.75 0.10 0.10 rg 1 0 0 1 40.00 420.00 Tm (  NICHT BEHOBEN - Iterationen: 5) Tj
+ET
+0.97 0.78 0.78 rg 37.00 407.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.75 0.10 0.10 rg 1 0 0 1 40.00 410.00 Tm (  Grund: Nach 5 Versuch\(en\) nicht behoben. Letzter Grund: Fehler ist nach dem Re-Run weiterhin vorhanden) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 390.00 Tm (Datei:         ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 390.00 Tm (src/main/java/database/DatabaseManager.java) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 380.00 Tm (Zeile\(n\):      ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 380.00 Tm (10, 11) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 370.00 Tm (Sprache:       ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 370.00 Tm (java) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 360.00 Tm (Tool/Quelle:   ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 360.00 Tm (Laufzeit \(Programmausgabe\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 350.00 Tm (Schweregrad:   ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 350.00 Tm (error \(Schwierigkeit: leicht\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 340.00 Tm (Kategorie:     ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 340.00 Tm (uncaught_exception_main \(Checkliste\); laut Modell: java | class_not_found) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 320.00 Tm (FEHLERMELDUNG) Tj
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 102.40 320.00 Tm (  \(gek\374rzt auf das Relevante\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 307.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 310.00 Tm (  Exception in thread "main" java.lang.ExceptionInInitializerError) Tj
+ET
+0.94 0.94 0.94 rg 37.00 297.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 300.00 Tm (      at database.UnitOfWork.<init>\(UnitOfWork.java:11\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 280.00 Tm (FEHLERHAFTER CODE) Tj
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 121.60 280.00 Tm (  \(src/main/java/database/DatabaseManager.java, vor dem Fix\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 267.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 270.00 Tm (    7 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 270.00 Tm (public enum DatabaseManager {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 257.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 260.00 Tm (    8 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 260.00 Tm (    INSTANCE;) Tj
+ET
+0.94 0.94 0.94 rg 37.00 247.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 250.00 Tm (    9 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 250.00 Tm () Tj
+ET
+1.00 0.87 0.87 rg 37.00 237.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 240.00 Tm (   10 > ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 240.00 Tm (    static {) Tj
+ET
+1.00 0.87 0.87 rg 37.00 227.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 230.00 Tm (   11 > ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 230.00 Tm (        try {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 217.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 220.00 Tm (   12 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 220.00 Tm (            // Make sure the driver class name matches the artifact in the pom.xml) Tj
+ET
+0.94 0.94 0.94 rg 37.00 207.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 210.00 Tm (   13 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 210.00 Tm (            Class.forName\("org.postgresql.Driver"\);) Tj
+ET
+0.94 0.94 0.94 rg 37.00 197.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 200.00 Tm (   14 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 200.00 Tm (        } catch \(ClassNotFoundException e\) {) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 180.00 Tm (WARUM DAS EIN FEHLER IST) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 170.00 Tm (  Der Fehler "java.lang.ClassNotFoundException: org.postgresql.Driver" tritt auf, weil die PostgreSQL ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 160.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 160.00 Tm (JDBC-Treiberklasse zur Laufzeit nicht gefunden wurde. Wenn der Treiber nicht geladen wird, kann keine ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 150.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 150.00 Tm (Verbindung zur Datenbank hergestellt werden. Dies liegt wahrscheinlich daran, dass die Treiberklasse ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 140.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 140.00 Tm (nicht gefunden wurde und daher in der statischen Initialisierung von DatabaseManager die Exception ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 130.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 130.00 Tm (geworfen wurde.) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 40.00 30.00 Tm (2buggAI report) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 502.20 30.00 Tm (Page 5 of 7) Tj
+ET
+endstream
+endobj
+16 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.00 842.00] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 17 0 R >>
+endobj
+17 0 obj
+<< /Length 11090 >>
+stream
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 812.00 Tm (mediaplatfrom_report_run3.json) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 329.40 812.00 Tm (Run 20261118-163134-62850   2026-11-18 16:31:34) Tj
+ET
+0.60 G 0.50 w 40.00 806.00 m 555.00 806.00 l S
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 780.00 Tm (LETZTER VORSCHLAG \(nicht \374bernommen\)) Tj
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 212.80 780.00 Tm (  \(src/main/java/database/DatabaseManager.java, nach dem Fix\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 767.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 770.00 Tm (    7 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 770.00 Tm (public enum DatabaseManager {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 757.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 760.00 Tm (    8 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 760.00 Tm (    INSTANCE;) Tj
+ET
+0.94 0.94 0.94 rg 37.00 747.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 750.00 Tm (    9 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 750.00 Tm () Tj
+ET
+0.94 0.94 0.94 rg 37.00 737.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 740.00 Tm (   10 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 740.00 Tm (    static {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 727.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 730.00 Tm (   11 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 730.00 Tm (        try {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 717.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 720.00 Tm (   12 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 720.00 Tm (            // Make sure the driver class name matches the artifact in the pom.xml) Tj
+ET
+0.94 0.94 0.94 rg 37.00 707.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 710.00 Tm (   13 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 710.00 Tm (            Class.forName\("org.postgresql.Driver"\);) Tj
+ET
+0.94 0.94 0.94 rg 37.00 697.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 700.00 Tm (   14 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 700.00 Tm (        } catch \(ClassNotFoundException e\) {) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 680.00 Tm (ERKL\304RUNG DER BEHEBUNG) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 670.00 Tm (  Ich habe das Klassennamen-Ladekommando \(Class.forName\) in die statische Initialisierung des ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 660.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 660.00 Tm (DatabaseManager-Enums aufgenommen. Dies stellt sicher, dass die PostgreSQL JDBC-Treiberklasse beim Laden ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 650.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 650.00 Tm (der Klasse korrekt registriert wird, sodass der Treiber verf\374gbar ist und keine ClassNotFoundException ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 640.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 640.00 Tm (geworfen wird.) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 630.00 Tm (  M\366gliche Nebenwirkungen: ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 169.60 630.00 Tm (Keine erkennbaren Nebenwirkungen, das Laden des JDBC-Treibers zur ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 620.00 Tm (    ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 59.20 620.00 Tm (Initialisierung ist notwendig und g\344ngige Praxis.) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 600.00 Tm (ERGEBNIS) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 590.00 Tm (Reviewer:      ) Tj
+/F1 8.00 Tf 0.45 0.45 0.45 rg 1 0 0 1 112.00 590.00 Tm (nicht ausgef\374hrt \(Einzelmodell-Modus\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 580.00 Tm (Verifier:      ) Tj
+/F1 8.00 Tf 0.45 0.45 0.45 rg 1 0 0 1 112.00 580.00 Tm (nicht ausgef\374hrt \(Einzelmodell-Modus\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 570.00 Tm (Re-Run:        ) Tj
+/F1 8.00 Tf 0.65 0.05 0.05 rg 1 0 0 1 112.00 570.00 Tm (Fehler weiterhin vorhanden) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 560.00 Tm (Iterationen:   ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 560.00 Tm (5) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 540.00 Tm (VERSUCHE) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 530.00 Tm (  #1  angewandt, Fehler weiterhin vorhanden - Fehler ist nach dem Re-Run weiterhin vorhanden) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 520.00 Tm (  #2  angewandt, Fehler weiterhin vorhanden - Fehler ist nach dem Re-Run weiterhin vorhanden) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 510.00 Tm (  #3  angewandt, Fehler weiterhin vorhanden - Fehler ist nach dem Re-Run weiterhin vorhanden) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 500.00 Tm (  #4  angewandt, Fehler weiterhin vorhanden - Fehler ist nach dem Re-Run weiterhin vorhanden) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 490.00 Tm (  #5  angewandt, Fehler weiterhin vorhanden - Fehler ist nach dem Re-Run weiterhin vorhanden) Tj
+ET
+0.91 0.95 1.00 rg 37.00 457.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 460.00 Tm (Gesamtanalyse des Modells) Tj
+ET
+0.91 0.95 1.00 rg 37.00 447.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 450.00 Tm (Freitext-Analyse nach dem Run, aus $.ai_analysis  \(81 Zeilen\)) Tj
+ET
+0.91 0.95 1.00 rg 37.00 437.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 427.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 430.00 Tm (Summary) Tj
+ET
+0.91 0.95 1.00 rg 37.00 417.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 420.00 Tm (The main issue is a runtime failure due to a `java.sql.SQLException` stating "No suitable driver found for ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 407.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 410.00 Tm (jdbc:postgresql://localhost:5432/swendb" when the application tries to establish a database connection in ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 397.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 400.00 Tm (`DatabaseManager.getConnection\(\)`. This indicates that the PostgreSQL JDBC driver is not properly loaded ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 387.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 390.00 Tm (at runtime.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 377.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 367.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 370.00 Tm (Severity) Tj
+ET
+0.91 0.95 1.00 rg 37.00 357.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 360.00 Tm (critical) Tj
+ET
+0.91 0.95 1.00 rg 37.00 347.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 337.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 340.00 Tm (Bugs) Tj
+ET
+0.91 0.95 1.00 rg 37.00 327.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 317.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 320.00 Tm (Bug 1: JDBC Driver Not Found / Not Registered) Tj
+ET
+0.91 0.95 1.00 rg 37.00 307.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 310.00 Tm (- **File:** `/home/nikog/projects/Mediaplatfrom/src/main/java/database/DatabaseManager.java:13`) Tj
+ET
+0.91 0.95 1.00 rg 37.00 297.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 300.00 Tm (- **Category:** jdbc_driver_not_loaded) Tj
+ET
+0.91 0.95 1.00 rg 37.00 287.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 290.00 Tm (- **Language:** java) Tj
+ET
+0.91 0.95 1.00 rg 37.00 277.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 280.00 Tm (- **Problem:** The PostgreSQL JDBC driver class is not loaded or registered before attempting to establish ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 267.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 270.00 Tm (a connection, causing `DriverManager` to throw "No suitable driver found".) Tj
+ET
+0.91 0.95 1.00 rg 37.00 257.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 247.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 250.00 Tm (**Buggy code:**) Tj
+ET
+0.94 0.94 0.94 rg 37.00 237.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 240.00 Tm (  public Connection getConnection\(\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 227.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 230.00 Tm (  {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 217.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 220.00 Tm (      try {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 207.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 210.00 Tm (          return DriverManager.getConnection\() Tj
+ET
+0.94 0.94 0.94 rg 37.00 197.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 200.00 Tm (                  "jdbc:postgresql://localhost:5432/swendb",) Tj
+ET
+0.94 0.94 0.94 rg 37.00 187.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 190.00 Tm (                  "postgres",) Tj
+ET
+0.94 0.94 0.94 rg 37.00 177.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 180.00 Tm (                  "password"\);) Tj
+ET
+0.94 0.94 0.94 rg 37.00 167.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 170.00 Tm (      } catch \(SQLException e\) {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 157.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 160.00 Tm (          throw new DataAccessException\("Datenbankverbindungsaufbau nicht erfolgreich", e\);) Tj
+ET
+0.94 0.94 0.94 rg 37.00 147.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 150.00 Tm (      }) Tj
+ET
+0.94 0.94 0.94 rg 37.00 137.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 140.00 Tm (  }) Tj
+ET
+0.91 0.95 1.00 rg 37.00 127.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 117.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 120.00 Tm (**Fixed code:**) Tj
+ET
+0.94 0.94 0.94 rg 37.00 107.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 110.00 Tm (  public Connection getConnection\(\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 97.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 100.00 Tm (  {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 87.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 90.00 Tm (      try {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 77.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 80.00 Tm (          // Load and register the PostgreSQL JDBC driver explicitly) Tj
+ET
+0.94 0.94 0.94 rg 37.00 67.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 70.00 Tm (          Class.forName\("org.postgresql.Driver"\);) Tj
+ET
+0.94 0.94 0.94 rg 37.00 57.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 60.00 Tm (  ) Tj
+ET
+0.94 0.94 0.94 rg 37.00 47.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 50.00 Tm (          return DriverManager.getConnection\() Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 40.00 30.00 Tm (2buggAI report) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 502.20 30.00 Tm (Page 6 of 7) Tj
+ET
+endstream
+endobj
+18 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.00 842.00] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 19 0 R >>
+endobj
+19 0 obj
+<< /Length 8407 >>
+stream
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 812.00 Tm (mediaplatfrom_report_run3.json) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 329.40 812.00 Tm (Run 20261118-163134-62850   2026-11-18 16:31:34) Tj
+ET
+0.60 G 0.50 w 40.00 806.00 m 555.00 806.00 l S
+0.94 0.94 0.94 rg 37.00 777.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 780.00 Tm (                  "jdbc:postgresql://localhost:5432/swendb",) Tj
+ET
+0.94 0.94 0.94 rg 37.00 767.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 770.00 Tm (                  "postgres",) Tj
+ET
+0.94 0.94 0.94 rg 37.00 757.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 760.00 Tm (                  "password"\);) Tj
+ET
+0.94 0.94 0.94 rg 37.00 747.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 750.00 Tm (      } catch \(ClassNotFoundException e\) {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 737.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 740.00 Tm (          throw new DataAccessException\("PostgreSQL JDBC Driver not found", e\);) Tj
+ET
+0.94 0.94 0.94 rg 37.00 727.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 730.00 Tm (      } catch \(SQLException e\) {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 717.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 720.00 Tm (          throw new DataAccessException\("Datenbankverbindungsaufbau nicht erfolgreich", e\);) Tj
+ET
+0.94 0.94 0.94 rg 37.00 707.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 710.00 Tm (      }) Tj
+ET
+0.94 0.94 0.94 rg 37.00 697.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 700.00 Tm (  }) Tj
+ET
+0.91 0.95 1.00 rg 37.00 687.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 677.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 680.00 Tm (**Explanation:**  ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 667.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 670.00 Tm (The PostgreSQL JDBC driver must be explicitly loaded at runtime so that `DriverManager` knows about it. ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 657.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 660.00 Tm (This is done by calling `Class.forName\("org.postgresql.Driver"\)`. Without this, the `DriverManager` does ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 647.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 650.00 Tm (not have any registered driver that can handle the JDBC URL's protocol \(`jdbc:postgresql`\), causing the ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 637.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 640.00 Tm (runtime exception.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 627.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 617.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 620.00 Tm (---) Tj
+ET
+0.91 0.95 1.00 rg 37.00 607.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 597.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 600.00 Tm (Additional Notes) Tj
+ET
+0.91 0.95 1.00 rg 37.00 587.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 577.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 580.00 Tm (- The Maven `pom.xml` includes the PostgreSQL JDBC driver dependency \(`org.postgresql:postgresql:42.7.7`\), ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 567.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 570.00 Tm (which is correct and sufficient for compile-time and build.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 557.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 560.00 Tm (- However, some environments or JVM versions require explicit loading of the driver with ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 547.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 550.00 Tm (`Class.forName\(...\)`, especially when the driver does not autoload itself via the service provider ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 537.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 540.00 Tm (mechanism.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 527.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 530.00 Tm (- Make sure the PostgreSQL driver JAR is included in the runtime classpath and the build artifact \(e.g., ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 517.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 520.00 Tm (if packaging a runnable JAR, use the Maven Shade plugin or proper dependency scope\).) Tj
+ET
+0.91 0.95 1.00 rg 37.00 507.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 510.00 Tm (- If using Java 6 or newer with the JDBC 4+ driver, the driver should auto-register, but it sometimes ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 497.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 500.00 Tm (still doesn't work due to classloader or packaging issues.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 487.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 477.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 480.00 Tm (Recommendation \(Optional\)) Tj
+ET
+0.91 0.95 1.00 rg 37.00 467.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 457.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 460.00 Tm (- Add a class initialization block or static initializer in `DatabaseManager` to load the driver once, for ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 447.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 450.00 Tm (example:) Tj
+ET
+0.91 0.95 1.00 rg 37.00 437.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 440.00 Tm (   ```java) Tj
+ET
+0.91 0.95 1.00 rg 37.00 427.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 430.00 Tm (   static {) Tj
+ET
+0.91 0.95 1.00 rg 37.00 417.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 420.00 Tm (       try {) Tj
+ET
+0.91 0.95 1.00 rg 37.00 407.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 410.00 Tm (           Class.forName\("org.postgresql.Driver"\);) Tj
+ET
+0.91 0.95 1.00 rg 37.00 397.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 400.00 Tm (       } catch \(ClassNotFoundException e\) {) Tj
+ET
+0.91 0.95 1.00 rg 37.00 387.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 390.00 Tm (           throw new ExceptionInInitializerError\(e\);) Tj
+ET
+0.91 0.95 1.00 rg 37.00 377.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 380.00 Tm (       }) Tj
+ET
+0.91 0.95 1.00 rg 37.00 367.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 370.00 Tm (   }) Tj
+ET
+0.91 0.95 1.00 rg 37.00 357.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 360.00 Tm (   ```) Tj
+ET
+0.91 0.95 1.00 rg 37.00 347.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 350.00 Tm (- Alternatively, ensure the runtime environment properly includes all required JDBC drivers in the ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 337.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 340.00 Tm (classpath.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 327.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 330.00 Tm (- Verify packaging and runtime execution configurations to include dependencies.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 317.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 307.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 310.00 Tm (---) Tj
+ET
+0.91 0.95 1.00 rg 37.00 297.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 287.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 290.00 Tm (Summary of fix) Tj
+ET
+0.91 0.95 1.00 rg 37.00 277.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 267.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 270.00 Tm (Add explicit driver loading statement `Class.forName\("org.postgresql.Driver"\)` in the `getConnection\(\)` ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 257.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 260.00 Tm (method inside `DatabaseManager` to ensure the PostgreSQL JDBC driver is registered before attempting to ) Tj
+ET
+0.91 0.95 1.00 rg 37.00 247.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 250.00 Tm (get a connection from `DriverManager`. This resolves the "No suitable driver found" exception.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 237.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 40.00 30.00 Tm (2buggAI report) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 502.20 30.00 Tm (Page 7 of 7) Tj
+ET
+endstream
+endobj
+20 0 obj
+<< /Type /Annot /Subtype /Link /Border [0 0 0] /Rect [37.00 607.50 558.00 617.50] /Dest [8 0 R /Fit] >>
+endobj
+21 0 obj
+<< /Type /Annot /Subtype /Link /Border [0 0 0] /Rect [37.00 597.50 558.00 607.50] /Dest [12 0 R /Fit] >>
+endobj
+22 0 obj
+<< /Type /Annot /Subtype /Link /Border [0 0 0] /Rect [37.00 587.50 558.00 597.50] /Dest [14 0 R /Fit] >>
+endobj
+xref
+0 23
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000164 00000 n 
+0000000259 00000 n 
+0000000359 00000 n 
+0000000446 00000 n 
+0000000588 00000 n 
+0000001587 00000 n 
+0000001762 00000 n 
+0000010768 00000 n 
+0000010912 00000 n 
+0000021072 00000 n 
+0000021216 00000 n 
+0000034109 00000 n 
+0000034253 00000 n 
+0000045358 00000 n 
+0000045502 00000 n 
+0000056645 00000 n 
+0000056789 00000 n 
+0000065248 00000 n 
+0000065368 00000 n 
+0000065489 00000 n 
+trailer
+<< /Size 23 /Root 1 0 R /Info 5 0 R >>
+startxref
+65610
+%%EOF

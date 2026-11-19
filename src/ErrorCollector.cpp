@@ -122,7 +122,12 @@ std::vector<std::string> ErrorCollector::collectErrors(const std::string& compil
 std::vector<std::string> ErrorCollector::sortedErrors(const std::vector<std::string>& errors) {
     std::vector<std::string> sorted = errors;
 
-    std::stable_sort(sorted.begin(), sorted.end(), [](const std::string& a, const std::string& b) {
+    // Catch-all categories match every crash ("Exception in thread "main""). They come last, so
+    // the fix loop first works on the specific category, which tells the model much more.
+    auto catchAll = [](const std::string& e) { return e == "uncaught_exception_main"; };
+
+    std::stable_sort(sorted.begin(), sorted.end(), [&](const std::string& a, const std::string& b) {
+        if (catchAll(a) != catchAll(b)) return catchAll(b);
         return difficultyScore(a) < difficultyScore(b);
     });
 

@@ -265,28 +265,28 @@ static void ensureJavaInstalled(const std::string& javaHome,
     if (version == "17") {
 
         installCmd =
-            "sudo apt update && "
-            "sudo apt install -y openjdk-17-jdk";
+            "sudo -n apt update && "
+            "sudo -n apt install -y openjdk-17-jdk";
 
     }
     else if (version == "11") {
 
         installCmd =
-            "sudo apt update && "
-            "sudo apt install -y openjdk-11-jdk";
+            "sudo -n apt update && "
+            "sudo -n apt install -y openjdk-11-jdk";
 
     }
     else if (version == "8") {
 
         installCmd =
-            "sudo apt update && "
-            "sudo apt install -y openjdk-8-jdk";
+            "sudo -n apt update && "
+            "sudo -n apt install -y openjdk-8-jdk";
     }
 
     else if (version == "21") {
         installCmd =
-            "sudo apt update && "
-            "sudo apt install -y openjdk-21-jdk";
+            "sudo -n apt update && "
+            "sudo -n apt install -y openjdk-21-jdk";
     }
 
     std::cout << "Running install command:\n"

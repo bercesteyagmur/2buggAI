@@ -1,0 +1,23 @@
+FAIL src/format.test.ts
+  ● formatUser shows the full name and the email
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "Ada Lovelace <ada@example.com>"
+    Received: "undefined <ada@example.com>"
+
+      4 | test("formatUser shows the full name and the email", () => {
+      5 |   const user = { id: 1, full_name: "Ada Lovelace", email: "ada@example.com" };
+    > 6 |   expect(formatUser(user)).toBe("Ada Lovelace <ada@example.com>");
+        |                            ^
+      7 | });
+      8 |
+
+      at Object.<anonymous> (src/format.test.ts:6:28)
+      at Promise.then.completed (node_modules/jest-circus/build/utils.js:298:28)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 1 total
+Snapshots:   0 total
+Time:        0.612 s
+Ran all test suites.

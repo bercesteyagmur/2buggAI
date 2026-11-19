@@ -3,3 +3,4 @@ build/
 *.o
 *.d
 buggy
+fullstack_live_test.log

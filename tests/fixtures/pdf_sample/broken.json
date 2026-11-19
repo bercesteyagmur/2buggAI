@@ -1,0 +1,2 @@
+{"iteration": 1, "error": "syntax_error", "fixed": true,
+  "remaining_errors": [  <- this file is deliberately broken JSON

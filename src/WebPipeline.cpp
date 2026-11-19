@@ -1,10 +1,12 @@
 #include "WebPipeline.h"
 #include "CodeChanger.h"
+#include "FixRecord.h"
 #include "ErrorCollector.h"
 #include "ErrorMatcher.h"
 #include "FileCollector.h"
 #include "LanguageDetector.h"
 #include "OpenAiClient.h"
+#include "PdfReportExporter.h"
 
 #include <nlohmann/json.hpp>
 
@@ -108,7 +110,9 @@ bool WebPipeline::isEnvironmentError(const std::string& errorName) {
     static const std::set<std::string> environment = {
         "missing_php_extension", "php_version_mismatch", "composer_dependency_conflict",
         "missing_app_key", "db_connection_failed", "npm_dependency_conflict",
-        "node_version_mismatch", "lockfile_outdated"
+        "node_version_mismatch", "lockfile_outdated",
+        // fullstack projects (StackToolchain setup steps)
+        "pip_install_failed", "npm_install_failed", "command_timeout"
     };
     return environment.count(errorName) > 0;
 }
@@ -229,21 +233,35 @@ static std::string relevantOutput(const std::string& output, const std::vector<s
 }
 
 int WebPipeline::run(const WebPipelineOptions& options, const std::vector<std::string>& files) {
-    const std::string& targetPath = options.targetPath;
+    const std::string targetPath = options.targetPath;
+    const bool runtime = options.runtime;
+
+    PipelineHooks hooks;
 
     LanguageDetector detector;
-    std::set<std::string> languages = {"sql"};
+    hooks.languages = {"sql"};
     for (const auto& [lang, _] : detector.detectAll(files)) {
-        languages.insert(lang == "blade" ? "php" : lang);
+        hooks.languages.insert(lang == "blade" ? "php" : lang);
     }
 
-    std::vector<SetupStep> setup = WebEnvironmentManager::setupProject(targetPath);
+    hooks.setup = [targetPath]() { return WebEnvironmentManager::setupProject(targetPath); };
+    // PHP/JS projects are one unit: every re-check runs all checks.
+    hooks.check = [targetPath, runtime](const std::string&) {
+        return WebEnvironmentManager::runChecks(targetPath, runtime);
+    };
+    hooks.parseErrors = [targetPath](const std::string& output) { return parseErrors(output, targetPath); };
+
+    return runWithHooks(options, hooks);
+}
+
+int WebPipeline::runWithHooks(const WebPipelineOptions& options, const PipelineHooks& hooks) {
+    const std::string& targetPath = options.targetPath;
+    const std::set<std::string>& languages = hooks.languages;
+
+    std::vector<SetupStep> setup = hooks.setup();
     WebEnvironmentManager::printSummary(setup);
 
-    auto check = [&]() {
-        return WebEnvironmentManager::runChecks(targetPath, options.runtime);
-    };
-    std::vector<SetupStep> checks = check();
+    std::vector<SetupStep> checks = hooks.check("");
     WebEnvironmentManager::printSummary(checks, "CHECK SUMMARY");
 
     std::vector<SetupStep> allSteps = setup;
@@ -255,7 +273,7 @@ int WebPipeline::run(const WebPipelineOptions& options, const std::vector<std::s
     ErrorMatcher matcher(checklist);
 
     std::vector<std::string> detectedErrors = matchAll(matcher, errorOutput, languages);
-    std::vector<CodeError> codeErrors = parseErrors(errorOutput, targetPath);
+    std::vector<CodeError> codeErrors = hooks.parseErrors(errorOutput);
 
     std::cout << "\n========== DETECTED ERRORS ==========\n";
     if (detectedErrors.empty()) std::cout << "No known errors detected.\n";
@@ -265,9 +283,58 @@ int WebPipeline::run(const WebPipelineOptions& options, const std::vector<std::s
     }
     std::cout << "\nErrors with file and line: " << codeErrors.size() << "\n";
     for (size_t i = 0; i < codeErrors.size() && i < 20; ++i) {
-        std::cout << "  " << codeErrors[i].file << ":" << codeErrors[i].line << "\n";
+        std::cout << "  " << codeErrors[i].file << ":" << codeErrors[i].line;
+        if (!codeErrors[i].component.empty()) {
+            std::cout << "  [" << codeErrors[i].component << " / " << codeErrors[i].tool << "]";
+        }
+        std::cout << "\n";
     }
     std::cout << "=====================================\n\n";
+
+    // Fehler-/Fix-Abschnitte des Reports (docs/PLAN_REPORT_REDESIGN.md)
+    const PdfExportConfig reportConfig = options.pdf ? options.pdf->config() : PdfReportExporter::loadConfig(targetPath);
+    FixReportBuilder fixReport(targetPath, reportConfig.contextLines, reportConfig.language);
+    fixReport.setPipeline(LlmProvider::pipelineEnabled());
+    fixReport.setDescriber([&](const std::string& name) {
+        ErrorInfo info;
+        const std::vector<std::string> keywords = keywordsOf(name, checklist);
+        const CodeError* hit = nullptr;
+        for (const auto& e : codeErrors) {
+            const std::string msg = toLower(e.message);
+            const bool match = std::any_of(keywords.begin(), keywords.end(),
+                                           [&](const std::string& k) { return msg.find(k) != std::string::npos; });
+            if (!match) continue;
+            if (!hit) hit = &e;
+            if (e.file == hit->file && std::find(info.lines.begin(), info.lines.end(), e.line) == info.lines.end())
+                info.lines.push_back(e.line);
+        }
+        if (!hit) {
+            // no message names the error: the first located error of the step that does
+            const std::vector<std::string> files = filesForError(name, codeErrors, checklist, errorOutput);
+            for (const auto& e : codeErrors) {
+                if (!files.empty() && e.file == files.front()) { hit = &e; info.lines.push_back(e.line); break; }
+            }
+        }
+        if (hit) {
+            info.file = hit->file;
+            info.severity = hit->severity;
+            info.tool = hit->tool.empty() ? hit->step : hit->tool;
+            if (!hit->component.empty() && !hit->tool.empty()) info.tool += " (" + hit->component + ")";
+            info.language = LanguageDetector::languageOf(hit->file);
+        }
+        info.message = FixReportBuilder::excerptMessage(errorOutput, keywords, info.file, 14,
+                                                        fs::absolute(targetPath).lexically_normal().string() + "/");
+        return info;
+    });
+    fixReport.observe(detectedErrors);
+    const nlohmann::json reportMeta = {
+        {"project", fs::path(targetPath).lexically_normal().filename().string()},
+        {"target", targetPath},
+        {"fix_description", options.fixDescription},
+        {"languages", [&] { std::string l; for (const auto& x : languages) l += (l.empty() ? "" : ", ") + x; return l; }()},
+        {"run_id", options.pdf ? options.pdf->runId() : std::string()},
+        {"models", OpenAIClient::describeModels()}
+    };
 
     bool allStepsOk = std::all_of(allSteps.begin(), allSteps.end(), [](const SetupStep& s) { return s.ok(); });
     if (detectedErrors.empty() && allStepsOk) {
@@ -281,8 +348,12 @@ int WebPipeline::run(const WebPipelineOptions& options, const std::vector<std::s
                 report["steps"].push_back({{"name", s.name}, {"command", s.command}, {"exit_code", s.result.exit_code}});
             }
             report["detected_errors"] = json::array();
+            if (hooks.extendReport) hooks.extendReport(report);
+            fixReport.finalize({});
+            report["fix_report"] = fixReport.toJson(reportMeta);
             std::ofstream(options.jsonOutFile) << report.dump(2);
             std::cout << "JSON Report gespeichert: " << options.jsonOutFile << "\n";
+            if (options.pdf) options.pdf->exportJson(report.dump(2), options.jsonOutFile);
         }
         return 0;
     }
@@ -291,6 +362,10 @@ int WebPipeline::run(const WebPipelineOptions& options, const std::vector<std::s
     std::vector<std::string> fixedErrors;
     FileCollector collector;
 
+    // name of the PDF when no --json-out file exists, and counter of the fix iterations
+    const std::string pdfName = fs::path(targetPath).lexically_normal().filename().string() + "_report";
+    int pdfIteration = 0;
+
     if (!detectedErrors.empty()) {
         OpenAIClient fixClient;
         std::string checklistRaw = reader.loadRaw();
@@ -298,12 +373,12 @@ int WebPipeline::run(const WebPipelineOptions& options, const std::vector<std::s
         const int MAX_ROUNDS = 20;
         const int MAX_ITER = 5;
 
-        auto redetect = [&]() {
-            checks = check();
+        auto redetect = [&](const std::string& changedFile) {
+            checks = hooks.check(changedFile);
             allSteps = setup;
             allSteps.insert(allSteps.end(), checks.begin(), checks.end());
             errorOutput = collectErrorOutput(allSteps);
-            codeErrors = parseErrors(errorOutput, targetPath);
+            codeErrors = hooks.parseErrors(errorOutput);
             detectedErrors = matchAll(matcher, errorOutput, languages);
         };
 
@@ -322,6 +397,8 @@ int WebPipeline::run(const WebPipelineOptions& options, const std::vector<std::s
             if (isEnvironmentError(current)) {
                 std::cout << "[ENVIRONMENT] " << current
                           << " is a setup/environment problem, not a code bug. Skipping fix attempts.\n";
+                fixReport.skipError(current, fixReport.tr("Setup-/Umgebungsproblem, kein Code-Fehler - kein Fix-Versuch.",
+                                                          "Setup/environment problem, not a code bug - no fix attempt."));
                 giveUp.push_back(current);
                 continue;
             }
@@ -330,6 +407,8 @@ int WebPipeline::run(const WebPipelineOptions& options, const std::vector<std::s
             if (!cause.empty()) {
                 std::cout << "[ROOT CAUSE] " << current << " is caused by " << cause
                           << " (same step), which is an environment problem. Skipping fix attempts.\n";
+                fixReport.skipError(current, fixReport.tr("Folgefehler des Umgebungsproblems ", "Caused by the environment problem ")
+                                             + cause + fixReport.tr(" (gleicher Schritt) - kein Fix-Versuch.", " (same step) - no fix attempt."));
                 giveUp.push_back(current);
                 continue;
             }
@@ -337,12 +416,15 @@ int WebPipeline::run(const WebPipelineOptions& options, const std::vector<std::s
             std::vector<std::string> relevantFiles = filesForError(current, codeErrors, checklist, errorOutput);
             if (relevantFiles.empty()) {
                 std::cout << "No source file found in the output for " << current << ", skipping.\n";
+                fixReport.skipError(current, fixReport.tr("Keine Quelldatei in der Ausgabe gefunden - kein Fix-Versuch.",
+                                                          "No source file found in the output - no fix attempt."));
                 giveUp.push_back(current);
                 continue;
             }
 
             round++;
             bool fixed = false;
+            const int reportId = fixReport.beginError(current);
 
             std::vector<std::string> keywords = keywordsOf(current, checklist);
 
@@ -353,8 +435,25 @@ int WebPipeline::run(const WebPipelineOptions& options, const std::vector<std::s
                 for (const auto& f : relevantFiles) std::cout << " " << f;
                 std::cout << "\n";
 
+                // Additional context (fullstack projects): code under test and related
+                // files of the components on the other side of a boundary, appended after
+                // the files that contain the error.
+                FixContext context;
+                if (hooks.context) context = hooks.context(current, relevantFiles, codeErrors);
+                std::vector<std::string> requestFiles = relevantFiles;
+                for (const auto& f : context.files) {
+                    if (std::find(requestFiles.begin(), requestFiles.end(), f) == requestFiles.end()) {
+                        requestFiles.push_back(f);
+                    }
+                }
+                if (requestFiles.size() > relevantFiles.size()) {
+                    std::cout << "  Additional context files:";
+                    for (size_t i = relevantFiles.size(); i < requestFiles.size(); ++i) std::cout << " " << requestFiles[i];
+                    std::cout << "\n";
+                }
+
                 std::stringstream source;
-                for (const auto& f : relevantFiles) {
+                for (const auto& f : requestFiles) {
                     source << "===== FILE: " << f << " =====\n";
                     source << collector.readSourceCode((fs::path(targetPath) / f).string()) << "\n\n";
                 }
@@ -365,21 +464,43 @@ int WebPipeline::run(const WebPipelineOptions& options, const std::vector<std::s
                 req.language = LanguageDetector::languageOf(relevantFiles.front());
                 req.source_code = limit(source.str(), 80000);
                 req.checklist = checklistRaw;
+                req.cross_context = context.note;
+                req.explanation_language = reportConfig.language == "en" ? "English" : "German";
 
                 FixResult res = fixClient.fix_code(req);
-                if (!res.success || res.fixed_code.empty()) continue;
+                if (!res.success || res.fixed_code.empty()) {
+                    fixReport.addAttempt(reportId, attempt, res, "", false, false, {}, {});
+                    continue;
+                }
 
+                CodeChanger changer(targetPath);
                 try {
-                    CodeChanger changer(targetPath);
                     changer.apply_fix(res);
                     std::cout << "  -> fix applied to " << res.file_path << "\n";
                 } catch (const std::exception& e) {
                     std::cerr << "  -> could not apply fix: " << e.what() << "\n";
+                    fixReport.addAttempt(reportId, attempt, res, "", false, false, {}, {}, e.what());
                     continue;
                 }
 
-                redetect();
+                redetect(res.file_path);
                 bool gone = std::find(detectedErrors.begin(), detectedErrors.end(), current) == detectedErrors.end();
+                std::vector<std::string> failedChecks;
+                for (const auto& step : allSteps) {
+                    if (!step.ok()) failedChecks.push_back(step.name);
+                }
+                fixReport.addAttempt(reportId, attempt, res, changer.previousContent(), true, gone, detectedErrors, failedChecks);
+                fixReport.observe(detectedErrors, reportId);
+
+                // optional PDF of the state after this fix iteration (pdf_export.per_iteration)
+                if (options.pdf && options.pdf->config().perIteration) {
+                    options.pdf->exportIteration(++pdfIteration, {
+                        {"iteration", pdfIteration}, {"error", current}, {"attempt", attempt},
+                        {"file_path", res.file_path}, {"error_fixed", gone},
+                        {"remaining_errors", detectedErrors}, {"fixed_code", res.fixed_code},
+                        {"error_output", limit(errorOutput, 20000)}
+                    }, options.jsonOutFile, pdfName);
+                }
                 if (gone) {
                     std::cout << "  -> fixed. Remaining errors: " << detectedErrors.size() << "\n";
                     fixedErrors.push_back(current);
@@ -391,6 +512,7 @@ int WebPipeline::run(const WebPipelineOptions& options, const std::vector<std::s
                 std::cout << "  -> error still present, retrying\n";
             }
 
+            fixReport.finishError(reportId, fixed);
             if (!fixed) {
                 std::cerr << "Could not fix error: " << current << "\n";
                 giveUp.push_back(current);
@@ -417,9 +539,17 @@ int WebPipeline::run(const WebPipelineOptions& options, const std::vector<std::s
     report["errors_with_location"] = json::array();
     std::set<std::string> reportFiles;
     for (size_t i = 0; i < codeErrors.size() && i < 50; ++i) {
-        report["errors_with_location"].push_back({
+        json entry = {
             {"file", codeErrors[i].file}, {"line", codeErrors[i].line}, {"message", codeErrors[i].message}
-        });
+        };
+        if (!codeErrors[i].tool.empty()) {
+            entry["column"] = codeErrors[i].column;
+            entry["severity"] = codeErrors[i].severity;
+            entry["tool"] = codeErrors[i].tool;
+            entry["service"] = codeErrors[i].service;
+            entry["component"] = codeErrors[i].component;
+        }
+        report["errors_with_location"].push_back(entry);
         if (reportFiles.size() < 5) reportFiles.insert(codeErrors[i].file);
     }
     std::string sourceCode;
@@ -427,12 +557,23 @@ int WebPipeline::run(const WebPipelineOptions& options, const std::vector<std::s
         sourceCode += "===== FILE: " + f + " =====\n" + collector.readSourceCode((fs::path(targetPath) / f).string()) + "\n\n";
     }
     report["source_code"] = limit(sourceCode, 60000);
+    if (hooks.extendReport) hooks.extendReport(report);
 
+    fixReport.finalize(detectedErrors);
+    const json fixReportJson = fixReport.toJson(reportMeta);
+
+    // The written report also has the fix sections; the request to the model below does not
+    // (they would only repeat the code it gets anyway).
     auto writeJson = [&]() {
-        if (options.jsonOutFile.empty()) return;
-        std::ofstream out(options.jsonOutFile);
-        out << report.dump(2);
-        std::cout << "JSON Report gespeichert: " << options.jsonOutFile << "\n";
+        json written = report;
+        written["fix_report"] = fixReportJson;
+        if (!options.jsonOutFile.empty()) {
+            std::ofstream out(options.jsonOutFile);
+            out << written.dump(2);
+            std::cout << "JSON Report gespeichert: " << options.jsonOutFile << "\n";
+        }
+        // PDF next to the JSON (or into the configured folder); never aborts the run
+        if (options.pdf) options.pdf->exportJson(written.dump(2), options.jsonOutFile, pdfName);
     };
     writeJson();
 

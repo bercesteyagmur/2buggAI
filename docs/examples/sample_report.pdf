@@ -1,0 +1,1118 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Count 5 /Kids [ 6 0 R 8 0 R 10 0 R 12 0 R 14 0 R ] >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Title (report.json) /Producer (2buggAI PdfReportExporter) >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.00 842.00] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 7 0 R /Annots [ 16 0 R 17 0 R 18 0 R 19 0 R 20 0 R ] >>
+endobj
+7 0 obj
+<< /Length 10387 >>
+stream
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 812.00 Tm (report.json) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 329.40 812.00 Tm (Run 20261117-200740-51536   2026-11-17 20:07:40) Tj
+ET
+0.60 G 0.50 w 40.00 806.00 m 555.00 806.00 l S
+BT
+/F2 12.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 780.00 Tm (2buggAI Fehlerbericht) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 760.00 Tm (Projekt:       ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 760.00 Tm (proj) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 750.00 Tm (Ziel:          ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 750.00 Tm (/tmp/tmp.TAjUb9sdTX/default/proj) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 740.00 Tm (Run-ID:        ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 740.00 Tm (20261117-200740-51536) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 730.00 Tm (Datum:         ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 730.00 Tm (2026-11-17 20:07:40) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 720.00 Tm (Auftrag:       ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 720.00 Tm (fix all errors) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 710.00 Tm (Sprachen:      ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 710.00 Tm (cpp) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 700.00 Tm (Modus:         ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 700.00 Tm (Agent-Pipeline \(Debugger -> Reviewer -> Verifier\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 690.00 Tm (Debugger:      ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 690.00 Tm (gemini/mock-gemini) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 680.00 Tm (Reviewer:      ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 680.00 Tm (claude/mock-claude) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 670.00 Tm (Verifier:      ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 670.00 Tm (openai/mock-openai) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 660.00 Tm (Analyse:       ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 660.00 Tm (llm/mock-openai) Tj
+ET
+BT
+/F2 12.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 640.00 Tm (Zusammenfassung) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 620.00 Tm (  Gefunden: 5   ) Tj
+/F2 8.00 Tf 0.05 0.45 0.10 rg 1 0 0 1 116.80 620.00 Tm (Behoben: 4   ) Tj
+/F2 8.00 Tf 0.75 0.10 0.10 rg 1 0 0 1 179.20 620.00 Tm (Nicht behoben: 1) Tj
+ET
+0.94 0.94 0.94 rg 37.00 597.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 600.00 Tm ( Nr.  | Datei:Zeile                      | Kategorie                  | Status               | Abschnitt) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 590.00 Tm ( 1    | main.cpp:15                      | syntax_error               | ) Tj
+/F2 8.00 Tf 0.05 0.45 0.10 rg 1 0 0 1 385.60 590.00 Tm (behoben             ) Tj
+/F1 8.00 Tf 0.10 0.30 0.65 rg 1 0 0 1 481.60 590.00 Tm ( | S.  1) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 580.00 Tm ( 2    | main.cpp:8                       | undeclared_variable        | ) Tj
+/F2 8.00 Tf 0.05 0.45 0.10 rg 1 0 0 1 385.60 580.00 Tm (behoben             ) Tj
+/F1 8.00 Tf 0.10 0.30 0.65 rg 1 0 0 1 481.60 580.00 Tm ( | S.  2) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 570.00 Tm ( 3    | main.cpp:14                      | wrong_data_type            | ) Tj
+/F2 8.00 Tf 0.75 0.10 0.10 rg 1 0 0 1 385.60 570.00 Tm (NICHT BEHOBEN       ) Tj
+/F1 8.00 Tf 0.10 0.30 0.65 rg 1 0 0 1 481.60 570.00 Tm ( | S.  3) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 560.00 Tm ( 4    | main.cpp:8                       | missing_include_cpp        | ) Tj
+/F2 8.00 Tf 0.05 0.45 0.10 rg 1 0 0 1 385.60 560.00 Tm (behoben \(mit Nr. 2\) ) Tj
+/F1 8.00 Tf 0.10 0.30 0.65 rg 1 0 0 1 481.60 560.00 Tm ( | S.  4) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 550.00 Tm ( 5    | main.cpp:15                      | missing_semicolon_cpp      | ) Tj
+/F2 8.00 Tf 0.05 0.45 0.10 rg 1 0 0 1 385.60 550.00 Tm (behoben \(mit Nr. 1\) ) Tj
+/F1 8.00 Tf 0.10 0.30 0.65 rg 1 0 0 1 481.60 550.00 Tm ( | S.  4) Tj
+ET
+BT
+/F1 8.00 Tf 0.45 0.45 0.45 rg 1 0 0 1 40.00 530.00 Tm (  Die Zeilen der Tabelle sind Links auf den jeweiligen Abschnitt.) Tj
+ET
+0.88 0.90 0.96 rg 37.00 497.50 521.00 16.00 re f
+BT
+/F2 12.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 500.00 Tm (1. syntax_error in main.cpp) Tj
+ET
+0.78 0.92 0.78 rg 37.00 487.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.05 0.45 0.10 rg 1 0 0 1 40.00 490.00 Tm (  BEHOBEN - Iterationen: 1) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 470.00 Tm (Datei:         ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 470.00 Tm (main.cpp) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 460.00 Tm (Zeile\(n\):      ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 460.00 Tm (15) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 450.00 Tm (Sprache:       ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 450.00 Tm (cpp) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 440.00 Tm (Tool/Quelle:   ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 440.00 Tm (Compiler \(g++\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 430.00 Tm (Schweregrad:   ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 430.00 Tm (error \(Schwierigkeit: leicht\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 420.00 Tm (Kategorie:     ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 420.00 Tm (syntax_error \(Checkliste\); laut Modell: missing_semicolon) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 400.00 Tm (FEHLERMELDUNG) Tj
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 102.40 400.00 Tm (  \(gek\374rzt auf das Relevante\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 387.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 390.00 Tm (  main.cpp:15:13: error: expected ';' before '}' token) Tj
+ET
+0.94 0.94 0.94 rg 37.00 377.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 380.00 Tm (     15 |     return 0) Tj
+ET
+0.94 0.94 0.94 rg 37.00 367.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 370.00 Tm (        |             ^) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 350.00 Tm (FEHLERHAFTER CODE) Tj
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 121.60 350.00 Tm (  \(main.cpp, vor dem Fix\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 337.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 340.00 Tm (   12 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 340.00 Tm (int main\(\) {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 327.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 330.00 Tm (   13 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 330.00 Tm (    int count = std::string\("42"\);) Tj
+ET
+0.94 0.94 0.94 rg 37.00 317.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 320.00 Tm (   14 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 320.00 Tm (    std::cout << compute\(count\) << std::endl;) Tj
+ET
+1.00 0.87 0.87 rg 37.00 307.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 310.00 Tm (   15 > ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 310.00 Tm (    return 0) Tj
+ET
+0.94 0.94 0.94 rg 37.00 297.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 300.00 Tm (   16 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 300.00 Tm (}) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 280.00 Tm (WARUM DAS EIN FEHLER IST) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 270.00 Tm (  Nach der return-Anweisung fehlt das Semikolon. In C++ muss jede Anweisung mit einem Semikolon enden, ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 260.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 260.00 Tm (sonst kann der Compiler das Ende der Anweisung nicht erkennen und bricht beim folgenden '}' ab.) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 240.00 Tm (GEFIXTER CODE) Tj
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 102.40 240.00 Tm (  \(main.cpp, nach dem Fix\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 227.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 230.00 Tm (   12 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 230.00 Tm (int main\(\) {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 217.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 220.00 Tm (   13 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 220.00 Tm (    int count = std::string\("42"\);) Tj
+ET
+0.94 0.94 0.94 rg 37.00 207.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 210.00 Tm (   14 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 210.00 Tm (    std::cout << compute\(count\) << std::endl;) Tj
+ET
+0.86 0.96 0.86 rg 37.00 197.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 200.00 Tm (   15 + ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 200.00 Tm (    return 0;) Tj
+ET
+0.94 0.94 0.94 rg 37.00 187.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 190.00 Tm (   16 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 190.00 Tm (}) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 170.00 Tm (DIFF) Tj
+ET
+0.94 0.94 0.94 rg 37.00 157.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 160.00 Tm (--- a/main.cpp) Tj
+ET
+0.94 0.94 0.94 rg 37.00 147.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 150.00 Tm (+++ b/main.cpp) Tj
+ET
+0.94 0.94 0.94 rg 37.00 137.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.10 0.30 0.65 rg 1 0 0 1 40.00 140.00 Tm (@@ -12,5 +12,5 @@) Tj
+ET
+0.94 0.94 0.94 rg 37.00 127.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 130.00 Tm ( int main\(\) {) Tj
+ET
+0.94 0.94 0.94 rg 37.00 117.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 120.00 Tm (     int count = std::string\("42"\);) Tj
+ET
+0.94 0.94 0.94 rg 37.00 107.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 110.00 Tm (     std::cout << compute\(count\) << std::endl;) Tj
+ET
+1.00 0.87 0.87 rg 37.00 97.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.65 0.05 0.05 rg 1 0 0 1 40.00 100.00 Tm (-    return 0) Tj
+ET
+0.86 0.96 0.86 rg 37.00 87.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.05 0.42 0.10 rg 1 0 0 1 40.00 90.00 Tm (+    return 0;) Tj
+ET
+0.94 0.94 0.94 rg 37.00 77.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 80.00 Tm ( }) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 40.00 30.00 Tm (2buggAI report) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 502.20 30.00 Tm (Page 1 of 5) Tj
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.00 842.00] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 9 0 R >>
+endobj
+9 0 obj
+<< /Length 9964 >>
+stream
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 812.00 Tm (report.json) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 329.40 812.00 Tm (Run 20261117-200740-51536   2026-11-17 20:07:40) Tj
+ET
+0.60 G 0.50 w 40.00 806.00 m 555.00 806.00 l S
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 780.00 Tm (ERKL\304RUNG DER BEHEBUNG) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 770.00 Tm (  Das fehlende Semikolon wurde hinter 'return 0' erg\344nzt. Damit ist die Anweisung vollst\344ndig und main\(\) ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 760.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 760.00 Tm (kompiliert wieder.) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 750.00 Tm (  M\366gliche Nebenwirkungen: ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 169.60 750.00 Tm (Keine.) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 730.00 Tm (ERGEBNIS) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 720.00 Tm (Reviewer:      ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 720.00 Tm (angenommen - Minimaler Fix an der eigentlichen Ursache.) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 710.00 Tm (Verifier:      ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 710.00 Tm (best\344tigt - Diff behebt die Ursache.) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 700.00 Tm (Re-Run:        ) Tj
+/F2 8.00 Tf 0.05 0.45 0.10 rg 1 0 0 1 112.00 700.00 Tm (Fehler behoben, andere Fehler offen: 3) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 690.00 Tm (Iterationen:   ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 690.00 Tm (1) Tj
+ET
+0.88 0.90 0.96 rg 37.00 657.50 521.00 16.00 re f
+BT
+/F2 12.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 660.00 Tm (2. undeclared_variable in main.cpp) Tj
+ET
+0.78 0.92 0.78 rg 37.00 647.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.05 0.45 0.10 rg 1 0 0 1 40.00 650.00 Tm (  BEHOBEN - Iterationen: 1) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 630.00 Tm (Datei:         ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 630.00 Tm (main.cpp) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 620.00 Tm (Zeile\(n\):      ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 620.00 Tm (8) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 610.00 Tm (Sprache:       ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 610.00 Tm (cpp) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 600.00 Tm (Tool/Quelle:   ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 600.00 Tm (Compiler \(g++\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 590.00 Tm (Schweregrad:   ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 590.00 Tm (error \(Schwierigkeit: leicht\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 580.00 Tm (Kategorie:     ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 580.00 Tm (undeclared_variable \(Checkliste\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 560.00 Tm (FEHLERMELDUNG) Tj
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 102.40 560.00 Tm (  \(gek\374rzt auf das Relevante\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 547.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 550.00 Tm (  main.cpp: In function 'int compute\(int\)':) Tj
+ET
+0.94 0.94 0.94 rg 37.00 537.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 540.00 Tm (  main.cpp:8:13: error: 'y' was not declared in this scope) Tj
+ET
+0.94 0.94 0.94 rg 37.00 527.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 530.00 Tm (      8 |     int z = y + a;) Tj
+ET
+0.94 0.94 0.94 rg 37.00 517.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 520.00 Tm (        |             ^) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 500.00 Tm (FEHLERHAFTER CODE) Tj
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 121.60 500.00 Tm (  \(main.cpp, vor dem Fix\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 487.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 490.00 Tm (    5 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 490.00 Tm (const char* api_key = "***";) Tj
+ET
+0.94 0.94 0.94 rg 37.00 477.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 480.00 Tm (    6 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 480.00 Tm () Tj
+ET
+0.94 0.94 0.94 rg 37.00 467.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 470.00 Tm (    7 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 470.00 Tm (int compute\(int a\) {) Tj
+ET
+1.00 0.87 0.87 rg 37.00 457.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 460.00 Tm (    8 > ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 460.00 Tm (    int z = y + a;) Tj
+ET
+0.94 0.94 0.94 rg 37.00 447.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 450.00 Tm (    9 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 450.00 Tm (    return z * 2;) Tj
+ET
+0.94 0.94 0.94 rg 37.00 437.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 440.00 Tm (   10 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 440.00 Tm (}) Tj
+ET
+0.94 0.94 0.94 rg 37.00 427.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 430.00 Tm (   11 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 430.00 Tm () Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 410.00 Tm (WARUM DAS EIN FEHLER IST) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 400.00 Tm (  Die Variable y wird in compute\(\) verwendet, ist dort aber nirgends deklariert. Der Compiler kennt den ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 390.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 390.00 Tm (Namen deshalb nicht.) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 370.00 Tm (GEFIXTER CODE) Tj
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 102.40 370.00 Tm (  \(main.cpp, nach dem Fix\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 357.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 360.00 Tm (    5 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 360.00 Tm (const char* api_key = "***";) Tj
+ET
+0.94 0.94 0.94 rg 37.00 347.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 350.00 Tm (    6 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 350.00 Tm () Tj
+ET
+0.94 0.94 0.94 rg 37.00 337.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 340.00 Tm (    7 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 340.00 Tm (int compute\(int a\) {) Tj
+ET
+0.86 0.96 0.86 rg 37.00 327.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 330.00 Tm (    8 + ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 330.00 Tm (    int y = 1;) Tj
+ET
+0.94 0.94 0.94 rg 37.00 317.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 320.00 Tm (    9 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 320.00 Tm (    int z = y + a;) Tj
+ET
+0.94 0.94 0.94 rg 37.00 307.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 310.00 Tm (   10 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 310.00 Tm (    return z * 2;) Tj
+ET
+0.94 0.94 0.94 rg 37.00 297.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 300.00 Tm (   11 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 300.00 Tm (}) Tj
+ET
+0.94 0.94 0.94 rg 37.00 287.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 290.00 Tm (   12 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 290.00 Tm () Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 270.00 Tm (DIFF) Tj
+ET
+0.94 0.94 0.94 rg 37.00 257.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 260.00 Tm (--- a/main.cpp) Tj
+ET
+0.94 0.94 0.94 rg 37.00 247.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 250.00 Tm (+++ b/main.cpp) Tj
+ET
+0.94 0.94 0.94 rg 37.00 237.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.10 0.30 0.65 rg 1 0 0 1 40.00 240.00 Tm (@@ -5,6 +5,7 @@) Tj
+ET
+0.94 0.94 0.94 rg 37.00 227.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 230.00 Tm ( const char* api_key = "***";) Tj
+ET
+0.94 0.94 0.94 rg 37.00 217.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 220.00 Tm ( ) Tj
+ET
+0.94 0.94 0.94 rg 37.00 207.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 210.00 Tm ( int compute\(int a\) {) Tj
+ET
+0.86 0.96 0.86 rg 37.00 197.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.05 0.42 0.10 rg 1 0 0 1 40.00 200.00 Tm (+    int y = 1;) Tj
+ET
+0.94 0.94 0.94 rg 37.00 187.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 190.00 Tm (     int z = y + a;) Tj
+ET
+0.94 0.94 0.94 rg 37.00 177.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 180.00 Tm (     return z * 2;) Tj
+ET
+0.94 0.94 0.94 rg 37.00 167.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 170.00 Tm ( }) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 150.00 Tm (ERKL\304RUNG DER BEHEBUNG) Tj
+ET
+BT
+/F1 8.00 Tf 0.45 0.45 0.45 rg 1 0 0 1 40.00 140.00 Tm (  Keine Erkl\344rung vom Modell geliefert.) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 130.00 Tm (  M\366gliche Nebenwirkungen: ) Tj
+/F1 8.00 Tf 0.45 0.45 0.45 rg 1 0 0 1 169.60 130.00 Tm (keine angegeben) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 110.00 Tm (ERGEBNIS) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 100.00 Tm (Reviewer:      ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 100.00 Tm (angenommen - Minimaler Fix an der eigentlichen Ursache.) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 90.00 Tm (Verifier:      ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 90.00 Tm (best\344tigt - Diff behebt die Ursache.) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 80.00 Tm (Re-Run:        ) Tj
+/F2 8.00 Tf 0.05 0.45 0.10 rg 1 0 0 1 112.00 80.00 Tm (Fehler behoben, andere Fehler offen: 1) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 70.00 Tm (Iterationen:   ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 70.00 Tm (1) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 40.00 30.00 Tm (2buggAI report) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 502.20 30.00 Tm (Page 2 of 5) Tj
+ET
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.00 842.00] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 11 0 R >>
+endobj
+11 0 obj
+<< /Length 9946 >>
+stream
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 812.00 Tm (report.json) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 329.40 812.00 Tm (Run 20261117-200740-51536   2026-11-17 20:07:40) Tj
+ET
+0.60 G 0.50 w 40.00 806.00 m 555.00 806.00 l S
+0.88 0.90 0.96 rg 37.00 777.50 521.00 16.00 re f
+BT
+/F2 12.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 780.00 Tm (3. wrong_data_type in main.cpp) Tj
+ET
+0.97 0.78 0.78 rg 37.00 767.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.75 0.10 0.10 rg 1 0 0 1 40.00 770.00 Tm (  NICHT BEHOBEN - Iterationen: 5) Tj
+ET
+0.97 0.78 0.78 rg 37.00 757.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.75 0.10 0.10 rg 1 0 0 1 40.00 760.00 Tm (  Grund: Nach 5 Versuch\(en\) nicht behoben. Letzter Grund: Verifier abgelehnt: Ein Cast von std::string ) Tj
+ET
+0.97 0.78 0.78 rg 37.00 747.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 750.00 Tm (  ) Tj
+/F2 8.00 Tf 0.75 0.10 0.10 rg 1 0 0 1 49.60 750.00 Tm (nach int kompiliert nicht; der Fehler bleibt.) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 730.00 Tm (Datei:         ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 730.00 Tm (main.cpp) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 720.00 Tm (Zeile\(n\):      ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 720.00 Tm (14) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 710.00 Tm (Sprache:       ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 710.00 Tm (cpp) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 700.00 Tm (Tool/Quelle:   ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 700.00 Tm (Compiler \(g++\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 690.00 Tm (Schweregrad:   ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 690.00 Tm (error \(Schwierigkeit: leicht\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 680.00 Tm (Kategorie:     ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 680.00 Tm (wrong_data_type \(Checkliste\); laut Modell: type_mismatch) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 660.00 Tm (FEHLERMELDUNG) Tj
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 102.40 660.00 Tm (  \(gek\374rzt auf das Relevante\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 647.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 650.00 Tm (  main.cpp: In function 'int main\(\)':) Tj
+ET
+0.94 0.94 0.94 rg 37.00 637.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 640.00 Tm (  main.cpp:14:22: error: cannot convert 'std::string' {aka 'std::__cxx11::basic_string<char>'} to 'int' in ) Tj
+ET
+0.94 0.94 0.94 rg 37.00 627.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 630.00 Tm (    ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 59.20 630.00 Tm (initialization) Tj
+ET
+0.94 0.94 0.94 rg 37.00 617.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 620.00 Tm (     14 |     int count = std::string\("42"\);) Tj
+ET
+0.94 0.94 0.94 rg 37.00 607.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 610.00 Tm (        |                      ^~~~~~~~~~~~) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 590.00 Tm (FEHLERHAFTER CODE) Tj
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 121.60 590.00 Tm (  \(main.cpp, vor dem Fix\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 577.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 580.00 Tm (   11 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 580.00 Tm (}) Tj
+ET
+0.94 0.94 0.94 rg 37.00 567.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 570.00 Tm (   12 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 570.00 Tm () Tj
+ET
+0.94 0.94 0.94 rg 37.00 557.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 560.00 Tm (   13 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 560.00 Tm (int main\(\) {) Tj
+ET
+1.00 0.87 0.87 rg 37.00 547.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 550.00 Tm (   14 > ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 550.00 Tm (    int count = std::string\("42"\);) Tj
+ET
+0.94 0.94 0.94 rg 37.00 537.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 540.00 Tm (   15 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 540.00 Tm (    std::cout << compute\(count\) << std::endl;) Tj
+ET
+0.94 0.94 0.94 rg 37.00 527.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 530.00 Tm (   16 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 530.00 Tm (    return 0;) Tj
+ET
+0.94 0.94 0.94 rg 37.00 517.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 520.00 Tm (   17 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 520.00 Tm (}) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 500.00 Tm (WARUM DAS EIN FEHLER IST) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 490.00 Tm (  Ein std::string wird einer int-Variablen zugewiesen. Es gibt keine implizite Umwandlung von std::string ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 480.00 Tm (  ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 49.60 480.00 Tm (nach int.) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 460.00 Tm (LETZTER VORSCHLAG \(nicht \374bernommen\)) Tj
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 212.80 460.00 Tm (  \(main.cpp, nach dem Fix\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 447.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 450.00 Tm (   11 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 450.00 Tm (}) Tj
+ET
+0.94 0.94 0.94 rg 37.00 437.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 440.00 Tm (   12 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 440.00 Tm () Tj
+ET
+0.94 0.94 0.94 rg 37.00 427.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 430.00 Tm (   13 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 430.00 Tm (int main\(\) {) Tj
+ET
+0.86 0.96 0.86 rg 37.00 417.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 420.00 Tm (   14 + ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 420.00 Tm (    int count = \(int\)std::string\("42"\);) Tj
+ET
+0.94 0.94 0.94 rg 37.00 407.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 410.00 Tm (   15 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 410.00 Tm (    std::cout << compute\(count\) << std::endl;) Tj
+ET
+0.94 0.94 0.94 rg 37.00 397.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 400.00 Tm (   16 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 400.00 Tm (    return 0;) Tj
+ET
+0.94 0.94 0.94 rg 37.00 387.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 390.00 Tm (   17 | ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 78.40 390.00 Tm (}) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 370.00 Tm (DIFF) Tj
+ET
+0.94 0.94 0.94 rg 37.00 357.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 360.00 Tm (--- a/main.cpp) Tj
+ET
+0.94 0.94 0.94 rg 37.00 347.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 350.00 Tm (+++ b/main.cpp) Tj
+ET
+0.94 0.94 0.94 rg 37.00 337.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.10 0.30 0.65 rg 1 0 0 1 40.00 340.00 Tm (@@ -11,7 +11,7 @@) Tj
+ET
+0.94 0.94 0.94 rg 37.00 327.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 330.00 Tm ( }) Tj
+ET
+0.94 0.94 0.94 rg 37.00 317.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 320.00 Tm ( ) Tj
+ET
+0.94 0.94 0.94 rg 37.00 307.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 310.00 Tm ( int main\(\) {) Tj
+ET
+1.00 0.87 0.87 rg 37.00 297.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.65 0.05 0.05 rg 1 0 0 1 40.00 300.00 Tm (-    int count = std::string\("42"\);) Tj
+ET
+0.86 0.96 0.86 rg 37.00 287.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.05 0.42 0.10 rg 1 0 0 1 40.00 290.00 Tm (+    int count = \(int\)std::string\("42"\);) Tj
+ET
+0.94 0.94 0.94 rg 37.00 277.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 280.00 Tm (     std::cout << compute\(count\) << std::endl;) Tj
+ET
+0.94 0.94 0.94 rg 37.00 267.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 270.00 Tm (     return 0;) Tj
+ET
+0.94 0.94 0.94 rg 37.00 257.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 260.00 Tm ( }) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 240.00 Tm (ERKL\304RUNG DER BEHEBUNG) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 230.00 Tm (  Die Zuweisung wird explizit nach int gecastet.) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 220.00 Tm (  M\366gliche Nebenwirkungen: ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 169.60 220.00 Tm (Der Cast verdeckt den eigentlichen Typfehler.) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 200.00 Tm (ERGEBNIS) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 190.00 Tm (Reviewer:      ) Tj
+/F1 8.00 Tf 0.65 0.05 0.05 rg 1 0 0 1 112.00 190.00 Tm (abgelehnt \(\304nderungen gefordert\) nach einer \334berarbeitung - Der Cast verdeckt den Typfehler ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 180.00 Tm (               ) Tj
+/F1 8.00 Tf 0.65 0.05 0.05 rg 1 0 0 1 112.00 180.00 Tm (nur.) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 170.00 Tm (               - [high] main.cpp: C-Cast von std::string nach int ist ung\374ltig) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 160.00 Tm (Verifier:      ) Tj
+/F1 8.00 Tf 0.65 0.05 0.05 rg 1 0 0 1 112.00 160.00 Tm (abgelehnt - Ein Cast von std::string nach int kompiliert nicht; der Fehler bleibt.) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 150.00 Tm (               - std::stoi statt Cast verwenden) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 140.00 Tm (Re-Run:        ) Tj
+/F1 8.00 Tf 0.45 0.45 0.45 rg 1 0 0 1 112.00 140.00 Tm (nicht ausgef\374hrt \(Fix nicht angewandt\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 130.00 Tm (Iterationen:   ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 130.00 Tm (5) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 40.00 30.00 Tm (2buggAI report) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 502.20 30.00 Tm (Page 3 of 5) Tj
+ET
+endstream
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.00 842.00] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 13 0 R >>
+endobj
+13 0 obj
+<< /Length 7484 >>
+stream
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 812.00 Tm (report.json) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 329.40 812.00 Tm (Run 20261117-200740-51536   2026-11-17 20:07:40) Tj
+ET
+0.60 G 0.50 w 40.00 806.00 m 555.00 806.00 l S
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 780.00 Tm (VERSUCHE) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 770.00 Tm (  #1  abgelehnt, nicht angewandt - Verifier abgelehnt: Ein Cast von std::string nach int kompiliert nicht; ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 760.00 Tm (      ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 68.80 760.00 Tm (der Fehler bleibt.) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 750.00 Tm (  #2  abgelehnt, nicht angewandt - Verifier abgelehnt: Ein Cast von std::string nach int kompiliert nicht; ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 740.00 Tm (      ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 68.80 740.00 Tm (der Fehler bleibt.) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 730.00 Tm (  #3  abgelehnt, nicht angewandt - Verifier abgelehnt: Ein Cast von std::string nach int kompiliert nicht; ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 720.00 Tm (      ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 68.80 720.00 Tm (der Fehler bleibt.) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 710.00 Tm (  #4  abgelehnt, nicht angewandt - Verifier abgelehnt: Ein Cast von std::string nach int kompiliert nicht; ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 700.00 Tm (      ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 68.80 700.00 Tm (der Fehler bleibt.) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 690.00 Tm (  #5  abgelehnt, nicht angewandt - Verifier abgelehnt: Ein Cast von std::string nach int kompiliert nicht; ) Tj
+ET
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 680.00 Tm (      ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 68.80 680.00 Tm (der Fehler bleibt.) Tj
+ET
+0.88 0.90 0.96 rg 37.00 647.50 521.00 16.00 re f
+BT
+/F2 12.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 650.00 Tm (4. missing_include_cpp in main.cpp) Tj
+ET
+0.78 0.92 0.78 rg 37.00 637.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.05 0.45 0.10 rg 1 0 0 1 40.00 640.00 Tm (  BEHOBEN) Tj
+ET
+0.78 0.92 0.78 rg 37.00 627.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 630.00 Tm (  Grund: Mit dem Fix in Abschnitt 2 behoben \(dieselbe Ursache bzw. Meldung\).) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 610.00 Tm (Datei:         ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 610.00 Tm (main.cpp) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 600.00 Tm (Zeile\(n\):      ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 600.00 Tm (8) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 590.00 Tm (Sprache:       ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 590.00 Tm (cpp) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 580.00 Tm (Tool/Quelle:   ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 580.00 Tm (Compiler \(g++\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 570.00 Tm (Schweregrad:   ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 570.00 Tm (error \(Schwierigkeit: leicht\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 560.00 Tm (Kategorie:     ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 560.00 Tm (missing_include_cpp \(Checkliste\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 540.00 Tm (FEHLERMELDUNG) Tj
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 102.40 540.00 Tm (  \(gek\374rzt auf das Relevante\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 527.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 530.00 Tm (  main.cpp: In function 'int compute\(int\)':) Tj
+ET
+0.94 0.94 0.94 rg 37.00 517.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 520.00 Tm (  main.cpp:8:13: error: 'y' was not declared in this scope) Tj
+ET
+0.94 0.94 0.94 rg 37.00 507.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 510.00 Tm (      8 |     int z = y + a;) Tj
+ET
+0.94 0.94 0.94 rg 37.00 497.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 500.00 Tm (        |             ^) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 480.00 Tm (ERGEBNIS) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 470.00 Tm (Reviewer:      ) Tj
+/F1 8.00 Tf 0.45 0.45 0.45 rg 1 0 0 1 112.00 470.00 Tm (nicht ausgef\374hrt \(kein Fix-Versuch\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 460.00 Tm (Verifier:      ) Tj
+/F1 8.00 Tf 0.45 0.45 0.45 rg 1 0 0 1 112.00 460.00 Tm (nicht ausgef\374hrt \(kein Fix-Versuch\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 450.00 Tm (Iterationen:   ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 450.00 Tm (0) Tj
+ET
+0.88 0.90 0.96 rg 37.00 417.50 521.00 16.00 re f
+BT
+/F2 12.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 420.00 Tm (5. missing_semicolon_cpp in main.cpp) Tj
+ET
+0.78 0.92 0.78 rg 37.00 407.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.05 0.45 0.10 rg 1 0 0 1 40.00 410.00 Tm (  BEHOBEN) Tj
+ET
+0.78 0.92 0.78 rg 37.00 397.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 400.00 Tm (  Grund: Mit dem Fix in Abschnitt 1 behoben \(dieselbe Ursache bzw. Meldung\).) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 380.00 Tm (Datei:         ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 380.00 Tm (main.cpp) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 370.00 Tm (Zeile\(n\):      ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 370.00 Tm (15) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 360.00 Tm (Sprache:       ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 360.00 Tm (cpp) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 350.00 Tm (Tool/Quelle:   ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 350.00 Tm (Compiler \(g++\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 340.00 Tm (Schweregrad:   ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 340.00 Tm (error \(Schwierigkeit: leicht\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 330.00 Tm (Kategorie:     ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 330.00 Tm (missing_semicolon_cpp \(Checkliste\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 310.00 Tm (FEHLERMELDUNG) Tj
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 102.40 310.00 Tm (  \(gek\374rzt auf das Relevante\)) Tj
+ET
+0.94 0.94 0.94 rg 37.00 297.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 300.00 Tm (  main.cpp:15:13: error: expected ';' before '}' token) Tj
+ET
+0.94 0.94 0.94 rg 37.00 287.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 290.00 Tm (     15 |     return 0) Tj
+ET
+0.94 0.94 0.94 rg 37.00 277.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 280.00 Tm (        |             ^) Tj
+ET
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 260.00 Tm (ERGEBNIS) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 250.00 Tm (Reviewer:      ) Tj
+/F1 8.00 Tf 0.45 0.45 0.45 rg 1 0 0 1 112.00 250.00 Tm (nicht ausgef\374hrt \(kein Fix-Versuch\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 240.00 Tm (Verifier:      ) Tj
+/F1 8.00 Tf 0.45 0.45 0.45 rg 1 0 0 1 112.00 240.00 Tm (nicht ausgef\374hrt \(kein Fix-Versuch\)) Tj
+ET
+BT
+/F2 8.00 Tf 0.25 0.25 0.30 rg 1 0 0 1 40.00 230.00 Tm (Iterationen:   ) Tj
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 112.00 230.00 Tm (0) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 40.00 30.00 Tm (2buggAI report) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 502.20 30.00 Tm (Page 4 of 5) Tj
+ET
+endstream
+endobj
+14 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.00 842.00] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 15 0 R >>
+endobj
+15 0 obj
+<< /Length 2010 >>
+stream
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 812.00 Tm (report.json) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 329.40 812.00 Tm (Run 20261117-200740-51536   2026-11-17 20:07:40) Tj
+ET
+0.60 G 0.50 w 40.00 806.00 m 555.00 806.00 l S
+0.91 0.95 1.00 rg 37.00 777.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 780.00 Tm (Gesamtanalyse des Modells) Tj
+ET
+0.91 0.95 1.00 rg 37.00 767.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.50 0.50 0.50 rg 1 0 0 1 40.00 770.00 Tm (Freitext-Analyse nach dem Run, aus $.ai_analysis  \(12 Zeilen\)) Tj
+ET
+0.91 0.95 1.00 rg 37.00 757.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 747.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 750.00 Tm (Summary) Tj
+ET
+0.91 0.95 1.00 rg 37.00 737.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 740.00 Tm (Zwei von drei Fehlern wurden behoben.) Tj
+ET
+0.91 0.95 1.00 rg 37.00 727.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 717.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 720.00 Tm (Severity) Tj
+ET
+0.91 0.95 1.00 rg 37.00 707.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 710.00 Tm (medium) Tj
+ET
+0.91 0.95 1.00 rg 37.00 697.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 687.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 690.00 Tm (Bugs) Tj
+ET
+0.91 0.95 1.00 rg 37.00 677.50 521.00 10.00 re f
+0.91 0.95 1.00 rg 37.00 667.50 521.00 10.00 re f
+BT
+/F2 8.00 Tf 0.10 0.10 0.10 rg 1 0 0 1 40.00 670.00 Tm (Bug 1: Typfehler) Tj
+ET
+0.91 0.95 1.00 rg 37.00 657.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 660.00 Tm (- **File:** main.cpp:13) Tj
+ET
+0.94 0.94 0.94 rg 37.00 647.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.00 0.00 0.00 rg 1 0 0 1 40.00 650.00 Tm (  int count = std::stoi\("42"\);) Tj
+ET
+0.91 0.95 1.00 rg 37.00 637.50 521.00 10.00 re f
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 40.00 30.00 Tm (2buggAI report) Tj
+ET
+BT
+/F1 8.00 Tf 0.35 0.35 0.35 rg 1 0 0 1 502.20 30.00 Tm (Page 5 of 5) Tj
+ET
+endstream
+endobj
+16 0 obj
+<< /Type /Annot /Subtype /Link /Border [0 0 0] /Rect [37.00 587.50 558.00 597.50] /Dest [6 0 R /Fit] >>
+endobj
+17 0 obj
+<< /Type /Annot /Subtype /Link /Border [0 0 0] /Rect [37.00 577.50 558.00 587.50] /Dest [8 0 R /Fit] >>
+endobj
+18 0 obj
+<< /Type /Annot /Subtype /Link /Border [0 0 0] /Rect [37.00 567.50 558.00 577.50] /Dest [10 0 R /Fit] >>
+endobj
+19 0 obj
+<< /Type /Annot /Subtype /Link /Border [0 0 0] /Rect [37.00 557.50 558.00 567.50] /Dest [12 0 R /Fit] >>
+endobj
+20 0 obj
+<< /Type /Annot /Subtype /Link /Border [0 0 0] /Rect [37.00 547.50 558.00 557.50] /Dest [12 0 R /Fit] >>
+endobj
+xref
+0 21
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000150 00000 n 
+0000000245 00000 n 
+0000000345 00000 n 
+0000000425 00000 n 
+0000000614 00000 n 
+0000011053 00000 n 
+0000011195 00000 n 
+0000021210 00000 n 
+0000021354 00000 n 
+0000031352 00000 n 
+0000031496 00000 n 
+0000039032 00000 n 
+0000039176 00000 n 
+0000041238 00000 n 
+0000041358 00000 n 
+0000041478 00000 n 
+0000041599 00000 n 
+0000041720 00000 n 
+trailer
+<< /Size 21 /Root 1 0 R /Info 5 0 R >>
+startxref
+41841
+%%EOF

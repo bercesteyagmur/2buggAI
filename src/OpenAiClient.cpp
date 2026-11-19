@@ -1,5 +1,7 @@
 #include "OpenAiClient.h"
 #include "UnifiedDiff.h"
+#include <algorithm>
+#include <cctype>
 #include <filesystem>
 #include <iostream>
 #include <stdexcept>
@@ -14,6 +16,9 @@ constexpr int DEBUGGER_MAX_TOKENS = 16000;   // Thinking-Modelle verbrauchen ein
 constexpr int REVIEW_MAX_TOKENS   = 8000;
 constexpr int REPORT_MAX_TOKENS   = 16000;
 constexpr size_t AGENT_OUTPUT_LIMIT = 20000;  // Fehlerausgabe für Reviewer/Verifier kürzen
+constexpr size_t REVIEW_CONTEXT_LIMIT = 30000; // other files shown to the Reviewer (cross-component)
+
+const char* const CROSS_CONTEXT_HEADER = "===== CROSS-COMPONENT CONTEXT =====\n";
 
 const char* const FIX_INSTRUCTIONS =
     "You are a Senior Debugger. Analyze the error and the code. "
@@ -28,11 +33,21 @@ const char* const FIX_INSTRUCTIONS =
     "  \"fixed_code\": \"...only the content of this one file, in the original language...\",\n"
     "  \"new_errors\": [\"error1\", \"error2\"],\n"
     "  \"success\": true,\n"
-    "  \"is_confident\": true\n"
+    "  \"is_confident\": true,\n"
+    "  \"root_cause_explanation\": \"2-5 sentences: WHY this is an error (the underlying cause, not the error message repeated)\",\n"
+    "  \"fix_explanation\": \"what you changed and why that resolves the error\",\n"
+    "  \"affected_lines\": [12, 13],\n"
+    "  \"error_category\": \"the checklist category of the error you fixed\",\n"
+    "  \"side_effects\": \"possible side effects of the change, or an empty string\"\n"
     "}\n"
-    "go through the errors by order of difficulty (easy -> medium -> hard). Only include errors that are actually present in the code and can be fixed by changing the source code. Do NOT include errors that would require changes to the build system, project structure, or adding new files. "
+    "go through the errors by order of difficulty (easy -> medium -> hard). Only include errors that are actually present in the provided files and can be fixed by changing one of them. Do NOT add new files or restructure the project. "
+    "Fix the root cause in the file where it belongs: when the error comes from the build or packaging "
+    "configuration (for example a JAR without Main-Class, or a dependency such as a JDBC driver that is "
+    "declared but missing from the runtime classpath / not packaged into the executable JAR), change the "
+    "build file (pom.xml, build.gradle, package.json, ...) if it is one of the provided files, instead of "
+    "working around it in source code. "
     "new_errors should only contain errors that are listed in the checklist. "
-    "also inlcude at which error u are and the difficulty of the error u are trying to fix. "
+    "affected_lines are the line numbers of the faulty lines in the ORIGINAL file (before your fix). "
     "Respond in English.";
 
 const char* const REVIEWER_INSTRUCTIONS =
@@ -53,7 +68,9 @@ const char* const REVIEWER_INSTRUCTIONS =
     "{\n"
     "  \"verdict\": \"APPROVE\" or \"CHANGES_REQUESTED\",\n"
     "  \"findings\": [{\"file\": \"...\", \"problem\": \"...\", \"severity\": \"low|medium|high|critical\"}],\n"
-    "  \"summary\": \"...\"\n"
+    "  \"summary\": \"...\",\n"
+    "  \"approved\": true or false (the same decision as verdict),\n"
+    "  \"review_comment\": \"1-3 sentences for the report: why the change is acceptable or not\"\n"
     "}\n"
     "Use CHANGES_REQUESTED only for real problems (root cause not fixed, regression, security, "
     "clearly unnecessary changes), not for style preferences. findings may be empty when you approve. "
@@ -73,13 +90,72 @@ const char* const VERIFIER_INSTRUCTIONS =
     "Set confirmed to true only if the error is fixed and no high or critical issue remains. "
     "Respond in English.";
 
+// Category-specific guidance for errors whose root cause is usually in the build file, not in the
+// source code. Without it, models tend to "fix" a missing runtime dependency with Class.forName or
+// other source changes that cannot work (the class is simply not inside the executable JAR).
+std::string category_hint(const FixRequest& req) {
+    if (req.error_name == "unrecognized_build_failure") {
+        return "Hint: the build failed, but none of the known error messages was recognized. Find the "
+               "first real error in the build output (compiler, linker, build tool or failing tests) "
+               "and fix its cause.\n\n";
+    }
+    if (req.error_name == "unrecognized_runtime_failure") {
+        return "Hint: the program crashed or exited with an error code, but none of the known error "
+               "messages was recognized. Find the cause in the program output (last lines, stack "
+               "trace, error messages, failing tests) and fix it.\n\n";
+    }
+    if (req.language != "java") return "";
+    const bool maven  = req.source_code.find("pom.xml =====") != std::string::npos;
+    const bool gradle = req.source_code.find("build.gradle") != std::string::npos;
+    if (!maven && !gradle) return "";
+    const std::string buildFile = maven ? "pom.xml" : "build.gradle";
+
+    if (req.error_name == "missing_main_manifest") {
+        return "Hint: the program is started with `java -jar` on the JAR built from " + buildFile +
+               ". Set the Main-Class in " + buildFile + " (the class with `public static void main`; "
+               "without a package declaration the name is just the class name).\n\n";
+    }
+    if (req.error_name == "class_not_found" || req.error_name == "jdbc_driver_missing") {
+        return "Hint: the program is started with `java -jar` on the JAR built from " + buildFile +
+               ". If the missing class or JDBC driver belongs to a dependency that is declared in " + buildFile +
+               ", it is on the build classpath but NOT inside the JAR. Then the fix belongs in " + buildFile + ": " +
+               (maven ? "add the maven-shade-plugin (goal shade, phase package) with a ManifestResourceTransformer "
+                        "that sets the mainClass and a ServicesResourceTransformer, so the dependencies and the "
+                        "JDBC driver registration are packaged into the JAR."
+                      : "build a fat JAR that contains the runtime dependencies and sets Main-Class.") +
+               " Do not change source code for this: Class.forName or a different error message cannot make a "
+               "class available that is not in the JAR. Only if the dependency is not declared at all, add it.\n\n";
+    }
+    return "";
+}
+
+std::string previous_attempts_block(const FixRequest& req) {
+    if (req.previous_attempts.empty()) return "";
+    std::string s =
+        "Previous attempts for this error that did NOT solve it. Applied attempts are still in the "
+        "source code below unless the result says they were reverted. Do not repeat them: find the real "
+        "root cause, it may be in a different file (for example the build file).\n";
+    for (const auto& a : req.previous_attempts) s += a;
+    return s + "\n";
+}
+
 std::string fix_input(const FixRequest& req) {
     return
-        "Error name: " + req.error_name + "\n\n"
+        "Error name: " + req.error_name + "\n\n" +
+        category_hint(req) +
+        previous_attempts_block(req) +
         "Language: " + req.language + "\n\n"
         "Error output:\n" + req.error_output + "\n\n"
         "Source code:\n" + req.source_code + "\n\n"
-        "Checklist:\n" + req.checklist + "\n\n"
+        "Checklist:\n" + req.checklist + "\n\n" +
+        // Only present for errors that cross a component boundary (fullstack projects).
+        (req.cross_context.empty() ? std::string()
+            : CROSS_CONTEXT_HEADER + req.cross_context + "\n"
+              "Fix the root cause in the file where it belongs. Keep the contract between the "
+              "components consistent: do not change one side in a way that breaks the other.\n\n") +
+        (req.explanation_language.empty() ? std::string()
+            : "Write root_cause_explanation, fix_explanation and side_effects in " + req.explanation_language +
+              ". All other fields stay as specified.\n\n") +
         "Please analyze and return ONLY the JSON object as specified.";
 }
 
@@ -91,6 +167,21 @@ std::string json_string(const json& j, const char* key) {
     return (j.contains(key) && j[key].is_string()) ? j[key].get<std::string>() : std::string();
 }
 
+// String field; an array of strings is joined (models sometimes return a list of sentences).
+std::string json_text(const json& j, const char* key) {
+    if (!j.contains(key)) return "";
+    const json& v = j[key];
+    if (v.is_string()) return v.get<std::string>();
+    if (!v.is_array()) return "";
+    std::string out;
+    for (const auto& e : v) {
+        if (!e.is_string() || e.get<std::string>().empty()) continue;
+        if (!out.empty()) out += out.back() == '.' ? " " : "; ";
+        out += e.get<std::string>();
+    }
+    return out;
+}
+
 bool json_bool(const json& j, const char* key) {
     return j.contains(key) && j[key].is_boolean() && j[key].get<bool>();
 }
@@ -98,6 +189,66 @@ bool json_bool(const json& j, const char* key) {
 json parse_agent_json(const std::string& text) {
     json j = json::parse(extract_json_object(text), nullptr, false);
     return (j.is_discarded() || !j.is_object()) ? json() : j;
+}
+
+constexpr size_t MAX_AFFECTED_LINES = 200;
+
+void add_line(std::vector<int>& lines, long long value) {
+    if (value < 1 || value > 10'000'000 || lines.size() >= MAX_AFFECTED_LINES) return;
+    const int line = static_cast<int>(value);
+    if (std::find(lines.begin(), lines.end(), line) == lines.end()) lines.push_back(line);
+}
+
+// affected_lines: numbers, numeric strings and ranges ("12-14"); anything else is ignored.
+std::vector<int> parse_lines(const json& v) {
+    std::vector<int> lines;
+    auto fromString = [&](const std::string& s) {
+        size_t pos = 0;
+        while (pos < s.size()) {
+            while (pos < s.size() && !std::isdigit(static_cast<unsigned char>(s[pos]))) ++pos;
+            if (pos >= s.size()) break;
+            size_t end = pos;
+            while (end < s.size() && std::isdigit(static_cast<unsigned char>(s[end])) && end - pos < 9) ++end;
+            const long long first = std::stoll(s.substr(pos, end - pos));
+            size_t next = end;
+            while (next < s.size() && s[next] == ' ') ++next;
+            if (next < s.size() && s[next] == '-' && next + 1 < s.size()) {
+                size_t rs = next + 1;
+                while (rs < s.size() && s[rs] == ' ') ++rs;
+                size_t re = rs;
+                while (re < s.size() && std::isdigit(static_cast<unsigned char>(s[re])) && re - rs < 9) ++re;
+                if (re > rs) {
+                    const long long last = std::stoll(s.substr(rs, re - rs));
+                    for (long long l = first; l <= last && l - first < static_cast<long long>(MAX_AFFECTED_LINES); ++l) add_line(lines, l);
+                    pos = re;
+                    continue;
+                }
+            }
+            add_line(lines, first);
+            pos = end;
+        }
+    };
+    if (v.is_number_integer()) add_line(lines, v.get<long long>());
+    else if (v.is_string()) fromString(v.get<std::string>());
+    else if (v.is_array()) {
+        for (const auto& e : v) {
+            if (e.is_number_integer()) add_line(lines, e.get<long long>());
+            else if (e.is_number_float()) add_line(lines, static_cast<long long>(e.get<double>()));
+            else if (e.is_string()) fromString(e.get<std::string>());
+        }
+    }
+    return lines;
+}
+
+FixExplanation explanation_from(const json& j) {
+    FixExplanation e;
+    if (!j.is_object()) return e;
+    e.root_cause = json_text(j, "root_cause_explanation");
+    e.fix = json_text(j, "fix_explanation");
+    e.error_category = json_text(j, "error_category");
+    e.side_effects = json_text(j, "side_effects");
+    if (j.contains("affected_lines")) e.affected_lines = parse_lines(j["affected_lines"]);
+    return e;
 }
 
 // ---------- Dateien aus dem Request ("===== FILE: <pfad> =====") ----------
@@ -170,6 +321,7 @@ bool parse_fix(const std::string& text, const std::vector<RequestFile>& files,
     if (j.contains("new_errors") && j["new_errors"].is_array())
         for (const auto& e : j["new_errors"])
             if (e.is_string()) out.new_errors.push_back(e.get<std::string>());
+    out.explanation = explanation_from(j);
 
     target = find_request_file(files, out.file_path);
     if (!target) {
@@ -191,6 +343,7 @@ struct Review {
     std::string verdict;
     json findings = json::array();
     std::string summary;
+    std::string comment;   // review_comment, falls back to summary
 };
 
 Review parse_review(const std::string& text) {
@@ -200,12 +353,38 @@ Review parse_review(const std::string& text) {
 
     r.verdict = json_string(j, "verdict");
     for (char& c : r.verdict) c = static_cast<char>(std::toupper(static_cast<unsigned char>(c)));
-    if (r.verdict != "APPROVE" && r.verdict != "CHANGES_REQUESTED") return r;
+    // "verdict" decides; "approved" is only used when the verdict is missing or invalid
+    if (r.verdict != "APPROVE" && r.verdict != "CHANGES_REQUESTED") {
+        if (!j.contains("approved") || !j["approved"].is_boolean()) return r;
+        r.verdict = j["approved"].get<bool>() ? "APPROVE" : "CHANGES_REQUESTED";
+    }
 
     if (j.contains("findings") && j["findings"].is_array()) r.findings = j["findings"];
-    r.summary = json_string(j, "summary");
+    r.summary = json_text(j, "summary");
+    r.comment = json_text(j, "review_comment");
+    if (r.comment.empty()) r.comment = r.summary;
     r.valid = true;
     return r;
+}
+
+ReviewOutcome review_outcome(const Review& r) {
+    ReviewOutcome out;
+    out.ran = r.valid;
+    if (!r.valid) return out;
+    out.verdict = r.verdict;
+    out.approved = r.verdict == "APPROVE";
+    out.comment = r.comment;
+    for (const auto& f : r.findings) {
+        if (f.is_string()) { out.findings.push_back(f.get<std::string>()); continue; }
+        if (!f.is_object()) continue;
+        std::string line;
+        const std::string severity = json_string(f, "severity"), file = json_string(f, "file");
+        if (!severity.empty()) line += "[" + severity + "] ";
+        if (!file.empty()) line += file + ": ";
+        line += json_string(f, "problem");
+        out.findings.push_back(line);
+    }
+    return out;
 }
 
 void print_review(const std::string& tag, const Review& r) {
@@ -219,17 +398,83 @@ void print_review(const std::string& tag, const Review& r) {
     }
 }
 
-std::string review_input(const FixRequest& req, const RequestFile& file, const std::string& diff) {
+// Cross-component section for the Reviewer: the boundary note plus the other files of the
+// request (unchanged by this fix), so the Reviewer can check that the other side of the
+// contract still works. Empty when the request has no cross_context.
+std::string review_cross_context(const FixRequest& req, const std::vector<RequestFile>& files,
+                                 const RequestFile& changed) {
+    if (req.cross_context.empty()) return "";
+
+    std::string others;
+    for (const auto& f : files) {
+        if (&f == &changed) continue;
+        const std::string block = "--- " + f.path + " ---\n" + f.content + "\n";
+        if (others.size() + block.size() > REVIEW_CONTEXT_LIMIT) {
+            others += "--- " + f.path + " --- (omitted, size limit)\n";
+            continue;
+        }
+        others += block;
+    }
+
+    return CROSS_CONTEXT_HEADER + req.cross_context + "\n" +
+           (others.empty() ? std::string() : "Other files of this request (NOT changed by the fix):\n" + others + "\n") +
+           "In addition to the checks above: verify that the change does not break the other "
+           "component (API fields, types, table/column names, migrations). Request changes if "
+           "the contract between the components becomes inconsistent.\n\n";
+}
+
+std::string review_input(const FixRequest& req, const std::vector<RequestFile>& files,
+                         const RequestFile& file, const std::string& diff) {
     return
         "Error name: " + req.error_name + "\n\n"
         "Language: " + req.language + "\n\n"
         "Error output:\n" + clip(req.error_output, AGENT_OUTPUT_LIMIT) + "\n\n"
         "Original source of " + file.path + ":\n" + file.content + "\n\n"
-        "Proposed change (unified diff, generated by the tool):\n" + diff + "\n"
+        "Proposed change (unified diff, generated by the tool):\n" + diff + "\n" +
+        review_cross_context(req, files, file) +
         "Please review and return ONLY the JSON object as specified.";
 }
 
 } // namespace
+
+FixExplanation parse_fix_explanation(const std::string& agentText) {
+    try {
+        return explanation_from(parse_agent_json(agentText));
+    } catch (...) {
+        return FixExplanation{};
+    }
+}
+
+ReviewOutcome parse_review_outcome(const std::string& agentText) {
+    try {
+        return review_outcome(parse_review(agentText));
+    } catch (...) {
+        return ReviewOutcome{};
+    }
+}
+
+json OpenAIClient::describeModels() {
+    json out = json::object();
+    try {
+        const bool pipeline = LlmProvider::pipelineEnabled();
+        out["mode"] = pipeline ? "pipeline" : "single";
+        auto label = [](const LlmConfig& c) { return c.provider + "/" + c.model; };
+        if (pipeline) {
+            for (const char* role : {"Debugger", "Reviewer", "Verifier"}) {
+                std::string key = role;
+                key[0] = static_cast<char>(std::tolower(static_cast<unsigned char>(key[0])));
+                try { out[key] = label(LlmProvider::roleConfig(role)); } catch (...) {}
+            }
+        }
+        try {
+            const std::string legacy = label(LlmProvider::legacyConfig());
+            if (!pipeline) out["fix"] = legacy;
+            out["report"] = legacy;
+        } catch (...) {}
+    } catch (...) {
+    }
+    return out;
+}
 
 OpenAIClient::OpenAIClient() {
     const LlmConfig legacy = LlmProvider::legacyConfig();
@@ -305,9 +550,27 @@ FixResult OpenAIClient::fix_code(const FixRequest& req) const {
         return pipeline_ ? fix_code_pipeline(req) : fix_code_single(req);
     } catch (const std::exception& e) {
         std::cout << "  [fix_code] Fehler: " << e.what() << "\n";
-        return FixResult{};
+        FixResult failed;
+        failed.failure_reason = std::string("Interner Fehler: ") + e.what();
+        return failed;
     }
 }
+
+namespace {
+
+// Result of a failed attempt: everything known so far (proposal, explanation, review) is
+// kept for the report, but success is false, so the fix loop does not apply it.
+FixResult failed_fix(FixResult result, const std::string& reason) {
+    result.success = false;
+    result.failure_reason = reason;
+    return result;
+}
+
+FixResult failed_fix(const std::string& reason) {
+    return failed_fix(FixResult{}, reason);
+}
+
+} // namespace
 
 FixResult OpenAIClient::fix_code_single(const FixRequest& req) const {
     FixResult result;
@@ -316,13 +579,14 @@ FixResult OpenAIClient::fix_code_single(const FixRequest& req) const {
     LlmResponse resp = fixer_.chat(FIX_INSTRUCTIONS, fix_input(req), DEBUGGER_MAX_TOKENS);
     if (!resp.ok) {
         std::cout << "  " << tag << " " << resp.error << "\n";
-        return result;
+        return failed_fix("Modellaufruf fehlgeschlagen: " + resp.error);
     }
 
     const RequestFile* target = nullptr;
     if (!parse_fix(resp.text, request_files(req.source_code), tag, result, target)) {
-        return FixResult{};
+        return failed_fix("Ungültige Antwort des Modells (kein verwertbarer Fix)");
     }
+    if (!result.success) result.failure_reason = "Modell meldet success=false";
     return result;
 }
 
@@ -335,37 +599,40 @@ FixResult OpenAIClient::fix_code_pipeline(const FixRequest& req) const {
     LlmResponse resp = debugger_.chat(FIX_INSTRUCTIONS, fixInput, DEBUGGER_MAX_TOKENS);
     if (!resp.ok) {
         std::cout << "  " << dbgTag << " " << resp.error << "\n";
-        return FixResult{};
+        return failed_fix("Debugger: Modellaufruf fehlgeschlagen: " + resp.error);
     }
 
     FixResult fix;
     const RequestFile* target = nullptr;
-    if (!parse_fix(resp.text, files, dbgTag, fix, target)) return FixResult{};
+    if (!parse_fix(resp.text, files, dbgTag, fix, target)) {
+        return failed_fix("Debugger: ungültige Antwort (kein verwertbarer Fix)");
+    }
     if (!fix.success) {
         std::cout << "  " << dbgTag << " meldet success=false – kein Fix\n";
-        return FixResult{};
+        return failed_fix(fix, "Debugger meldet success=false");
     }
     std::cout << "  " << dbgTag << " Fix für " << fix.file_path << "\n";
 
     std::string diff = unified_diff(target->content, fix.fixed_code, target->path);
     if (diff.empty()) {
         std::cout << "  [Debugger] Fix ändert nichts am Code – Versuch verworfen\n";
-        return FixResult{};
+        return failed_fix(fix, "Debugger-Fix ändert nichts am Code");
     }
 
     // ---------- 2. Reviewer ----------
     const std::string revTag = "[Reviewer " + reviewer_.label() + "]";
-    resp = reviewer_.chat(REVIEWER_INSTRUCTIONS, review_input(req, *target, diff), REVIEW_MAX_TOKENS);
+    resp = reviewer_.chat(REVIEWER_INSTRUCTIONS, review_input(req, files, *target, diff), REVIEW_MAX_TOKENS);
     if (!resp.ok) {
         std::cout << "  " << revTag << " " << resp.error << "\n";
-        return FixResult{};
+        return failed_fix(fix, "Reviewer: Modellaufruf fehlgeschlagen: " + resp.error);
     }
     Review review = parse_review(resp.text);
     if (!review.valid) {
         std::cout << "  " << revTag << " Ungültiges JSON in der Antwort – Versuch verworfen\n";
-        return FixResult{};
+        return failed_fix(fix, "Reviewer: ungültige Antwort");
     }
     print_review(revTag, review);
+    fix.review = review_outcome(review);
 
     // ---------- 2b. Eine Überarbeitung bei CHANGES_REQUESTED ----------
     if (review.verdict == "CHANGES_REQUESTED") {
@@ -381,34 +648,42 @@ FixResult OpenAIClient::fix_code_pipeline(const FixRequest& req) const {
             "shown above, address the findings and return the complete content of the file "
             "in the same JSON format as before.";
 
+        const ReviewOutcome firstReview = fix.review;
         resp = debugger_.chat(FIX_INSTRUCTIONS, revisionInput, DEBUGGER_MAX_TOKENS);
         if (!resp.ok) {
             std::cout << "  [Debugger] " << resp.error << "\n";
-            return FixResult{};
+            return failed_fix(fix, "Reviewer fordert Änderungen; Überarbeitung fehlgeschlagen: " + resp.error);
         }
-        if (!parse_fix(resp.text, files, "[Debugger]", fix, target)) return FixResult{};
+        FixResult revised;
+        if (!parse_fix(resp.text, files, "[Debugger]", revised, target)) {
+            return failed_fix(fix, "Reviewer fordert Änderungen; Überarbeitung ungültig");
+        }
+        fix = revised;
+        fix.review = firstReview;
         if (!fix.success) {
             std::cout << "  [Debugger] meldet success=false – kein Fix\n";
-            return FixResult{};
+            return failed_fix(fix, "Reviewer fordert Änderungen; Debugger meldet success=false");
         }
 
         diff = unified_diff(target->content, fix.fixed_code, target->path);
         if (diff.empty()) {
             std::cout << "  [Debugger] Überarbeitung ändert nichts am Code – Versuch verworfen\n";
-            return FixResult{};
+            return failed_fix(fix, "Überarbeitung ändert nichts am Code");
         }
 
-        resp = reviewer_.chat(REVIEWER_INSTRUCTIONS, review_input(req, *target, diff), REVIEW_MAX_TOKENS);
+        resp = reviewer_.chat(REVIEWER_INSTRUCTIONS, review_input(req, files, *target, diff), REVIEW_MAX_TOKENS);
         if (!resp.ok) {
             std::cout << "  [Reviewer] " << resp.error << "\n";
-            return FixResult{};
+            return failed_fix(fix, "Reviewer: Modellaufruf fehlgeschlagen: " + resp.error);
         }
         review = parse_review(resp.text);
         if (!review.valid) {
             std::cout << "  [Reviewer] Ungültiges JSON in der Antwort – Versuch verworfen\n";
-            return FixResult{};
+            return failed_fix(fix, "Reviewer: ungültige Antwort");
         }
         print_review("[Reviewer]", review);
+        fix.review = review_outcome(review);
+        fix.review.revised = true;
         if (review.verdict == "CHANGES_REQUESTED") {
             std::cout << "  [Reviewer] weiterhin CHANGES_REQUESTED – Verifier entscheidet\n";
         }
@@ -424,26 +699,34 @@ FixResult OpenAIClient::fix_code_pipeline(const FixRequest& req) const {
         "Language: " + req.language + "\n\n"
         "Error output:\n" + clip(req.error_output, AGENT_OUTPUT_LIMIT) + "\n\n"
         "Final change to " + target->path + " (unified diff, generated by the tool):\n" + diff + "\n"
-        "Code review:\n" + reviewJson.dump(2) + "\n\n"
+        "Code review:\n" + reviewJson.dump(2) + "\n\n" +
+        (req.cross_context.empty() ? std::string()
+            : CROSS_CONTEXT_HEADER + req.cross_context + "\n"
+              "Also confirm that the diff keeps the other component working.\n\n") +
         "Please verify and return ONLY the JSON object as specified.";
 
     resp = verifier_.chat(VERIFIER_INSTRUCTIONS, verifyInput, REVIEW_MAX_TOKENS);
     if (!resp.ok) {
         std::cout << "  " << verTag << " " << resp.error << "\n";
-        return FixResult{};
+        return failed_fix(fix, "Verifier: Modellaufruf fehlgeschlagen: " + resp.error);
     }
     json verdict = parse_agent_json(resp.text);
     if (verdict.is_null() || !verdict.contains("confirmed") || !verdict["confirmed"].is_boolean()) {
         std::cout << "  " << verTag << " Ungültiges JSON in der Antwort – Versuch verworfen\n";
-        return FixResult{};
+        return failed_fix(fix, "Verifier: ungültige Antwort");
     }
 
-    if (!verdict["confirmed"].get<bool>()) {
-        std::cout << "  " << verTag << " abgelehnt: " << json_string(verdict, "reason") << "\n";
-        if (verdict.contains("remaining_issues") && verdict["remaining_issues"].is_array())
-            for (const auto& issue : verdict["remaining_issues"])
-                if (issue.is_string()) std::cout << "      - " << issue.get<std::string>() << "\n";
-        return FixResult{};
+    fix.verification.ran = true;
+    fix.verification.confirmed = verdict["confirmed"].get<bool>();
+    fix.verification.reason = json_text(verdict, "reason");
+    if (verdict.contains("remaining_issues") && verdict["remaining_issues"].is_array())
+        for (const auto& issue : verdict["remaining_issues"])
+            if (issue.is_string()) fix.verification.remaining_issues.push_back(issue.get<std::string>());
+
+    if (!fix.verification.confirmed) {
+        std::cout << "  " << verTag << " abgelehnt: " << fix.verification.reason << "\n";
+        for (const auto& issue : fix.verification.remaining_issues) std::cout << "      - " << issue << "\n";
+        return failed_fix(fix, "Verifier abgelehnt: " + fix.verification.reason);
     }
 
     std::cout << "  " << verTag << " bestätigt\n";

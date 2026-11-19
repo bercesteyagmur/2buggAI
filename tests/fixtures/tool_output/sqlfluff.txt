@@ -1,0 +1,8 @@
+== [db/002_orders.sql] FAIL
+L:   2 | P:   1 |  PRS | Line 2, Position 1: Found unparsable section: 'CREATE
+                       | TABEL orders (\n    id INTEGER PRIMARY KEY,\n    user_id
+                       | INTEGER NOT NULL R...'. Expected: <Sequence:
+                       | [<AnyNumberOf: [<Ref: 'DelimiterGrammar'>...,
+                       | <Delimited: [<Ref: 'Sta...
+WARNING: Parsing errors found and dialect is set to 'sqlite'. Have you configured your dialect correctly?
+All Finished!

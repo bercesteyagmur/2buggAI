@@ -82,14 +82,13 @@ RunResult run_capture(const std::string& cmd) {
 
 
 
+// unittest summary of a failed run. ("Ran N tests" alone is printed for successful runs too,
+// and "Ran " appears in ordinary text, so it is no sign of a failure.)
 bool containsTestFailure(const std::string& output) {
 
     return output.find("FAILED (errors=")
            != std::string::npos ||
 
            output.find("FAILED (failures=")
-           != std::string::npos ||
-
-           output.find("Ran ")
            != std::string::npos;
 }

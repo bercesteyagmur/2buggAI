@@ -1,0 +1,30 @@
+
+ RUN  v2.1.8 /work/fullstack_sample/frontend
+
+ ❯ src/format.test.ts (1 test | 1 failed) 6ms
+   × formatUser shows the full name and the email 5ms
+     → expected 'undefined <ada@example.com>' to be 'Ada Lovelace <ada@example.com>' // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/format.test.ts > formatUser shows the full name and the email
+AssertionError: expected 'undefined <ada@example.com>' to be 'Ada Lovelace <ada@example.com>' // Object.is equality
+
+Expected: "Ada Lovelace <ada@example.com>"
+Received: "undefined <ada@example.com>"
+
+ ❯ src/format.test.ts:6:28
+      4| test("formatUser shows the full name and the email", () => {
+      5|   const user = { id: 1, full_name: "Ada Lovelace", email: "ada@example.com" };
+      6|   expect(formatUser(user)).toBe("Ada Lovelace <ada@example.com>");
+       |                            ^
+      7| });
+      8|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  10:12:01
+   Duration  412ms (transform 31ms, setup 0ms, collect 28ms, tests 6ms, environment 0ms, prepare 52ms)
+

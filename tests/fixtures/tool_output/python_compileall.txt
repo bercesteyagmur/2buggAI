@@ -1,0 +1,6 @@
+*** Error compiling 'app/broken.py'...
+  File "app/broken.py", line 1
+    def f(:
+          ^
+SyntaxError: invalid syntax
+

@@ -1,0 +1,28 @@
+{
+  "meta": { "format": "buggy-report-v1" },
+  "config": {
+    "target_path": "demo/main.c",
+    "fix_description": "fix the missing semicolon",
+    "recursive": true,
+    "api_key": "sk-proj-this-must-not-appear-in-the-pdf"
+  },
+  "language": "c",
+  "detected_errors": ["syntax_error", "missing_semicolon_cpp"],
+  "source_code": {
+    "path": "demo/main.c",
+    "content": "#include <stdio.h>\n\nint main(void) {\n    int x = 5;\n    printf(\"%d\\n\", x);\n    return 0\n}\n",
+    "size_bytes": 84,
+    "truncated": false
+  },
+  "compile_output": "demo/main.c: In function 'main':\ndemo/main.c:6:13: error: expected ';' before '}' token\n    6 |     return 0\n      |             ^\n      |             ;\n    7 | }\n      | ~\n",
+  "run": null,
+  "agents": {
+    "debugger": { "provider": "gemini", "success": true, "diff": "--- a/demo/main.c\n+++ b/demo/main.c\n@@ -3,5 +3,5 @@\n int main(void) {\n     int x = 5;\n     printf(\"%d\\n\", x);\n-    return 0\n+    return 0;\n }\n" },
+    "reviewer": { "provider": "claude", "verdict": "APPROVE", "findings": [] },
+    "verifier": { "provider": "openai", "confirmed": true, "remaining_issues": [] }
+  },
+  "usage": { "prompt_tokens": 1830, "completion_tokens": 412 },
+  "note": "Umlaute und Sonderzeichen: Größe, Änderung, Überlauf – 5 € ✓",
+  "long_line": "This is one very long value without line breaks, to show that long lines are wrapped onto the next row with a hanging indent instead of being cut off at the right edge of the page, which would hide the end of the text.",
+  "ai_analysis": "## Summary\nThe program does not compile because a semicolon is missing after `return 0`.\n\n## Severity\nlow\n\n## Bugs\n\n### Bug 1: Missing semicolon\n- **File:** demo/main.c:6\n- **Category:** syntax_error\n- **Language:** c\n\n**Fixed code:**\n```\n    return 0;\n```\n"
+}

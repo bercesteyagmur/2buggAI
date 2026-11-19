@@ -10,7 +10,11 @@ namespace {
 // wird kein LCS mehr berechnet, sondern der Block komplett ersetzt.
 constexpr size_t MAX_LCS_CELLS = 4'000'000;
 
-std::vector<std::string> splitLines(const std::string& text) {
+using Op = DiffOp;
+
+} // namespace
+
+std::vector<std::string> diff_split_lines(const std::string& text) {
     std::vector<std::string> lines;
     std::string line;
     std::istringstream in(text);
@@ -21,13 +25,7 @@ std::vector<std::string> splitLines(const std::string& text) {
     return lines;
 }
 
-struct Op {
-    char type;   // ' ' gleich, '-' entfernt, '+' hinzugefügt
-    size_t a;    // Zeilenindex in alt (für ' ' und '-')
-    size_t b;    // Zeilenindex in neu (für ' ' und '+')
-};
-
-std::vector<Op> diffOps(const std::vector<std::string>& a, const std::vector<std::string>& b) {
+std::vector<DiffOp> diff_lines(const std::vector<std::string>& a, const std::vector<std::string>& b) {
     size_t prefix = 0;
     while (prefix < a.size() && prefix < b.size() && a[prefix] == b[prefix]) ++prefix;
 
@@ -78,15 +76,13 @@ std::vector<Op> diffOps(const std::vector<std::string>& a, const std::vector<std
     return ops;
 }
 
-} // namespace
-
 std::string unified_diff(const std::string& old_text,
                          const std::string& new_text,
                          const std::string& path,
                          int context) {
-    const std::vector<std::string> a = splitLines(old_text);
-    const std::vector<std::string> b = splitLines(new_text);
-    const std::vector<Op> ops = diffOps(a, b);
+    const std::vector<std::string> a = diff_split_lines(old_text);
+    const std::vector<std::string> b = diff_split_lines(new_text);
+    const std::vector<Op> ops = diff_lines(a, b);
     const size_t ctx = static_cast<size_t>(std::max(context, 0));
 
     std::vector<size_t> changes;

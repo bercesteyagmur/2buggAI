@@ -1,0 +1,2 @@
+002_orders.sql:2: error: near "TABEL": syntax error
+migration stopped at 002_orders.sql; later files were not applied

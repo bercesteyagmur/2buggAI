@@ -1,0 +1,10 @@
+
+/work/fullstack_sample/frontend/src/format.ts
+  4:13  error    'usr' is not defined              no-undef
+  7:1   warning  Unexpected console statement      no-console
+
+/work/fullstack_sample/frontend/src/types.ts
+  2:18  error  'Unused' is defined but never used  no-unused-vars
+
+✖ 3 problems (2 errors, 1 warning)
+

@@ -1,6 +1,7 @@
 #include "ChecklistReader.h"
 #include <fstream>
 #include <sstream>
+#include <algorithm>
 
 std::vector<ErrorCategory> ChecklistReader::load() {
 
@@ -150,7 +151,16 @@ bool ChecklistReader::appendIfNew(const std::string& errorName, const std::strin
         return false;
     }
     
-    file << "\n" << lang << " | " << errorName << " | detect_from_output | " << errorName << "\n";
+    // The name doubles as the keyword. A snake_case name ("sql_syntax_error") practically never
+    // appears in normal output, but a plain word ("timeout", "permissions") would match every
+    // output that mentions it and start fix attempts for errors that do not exist.
+    const bool safeKeyword = errorName.find('_') != std::string::npos
+                          && errorName.find(' ') == std::string::npos;
+    if (safeKeyword) {
+        file << "\n" << lang << " | " << errorName << " | detect_from_output | " << errorName << "\n";
+    } else {
+        file << "\n" << lang << " | " << errorName << " | ai_presume | -\n";
+    }
     file.close();
     return true;
 }
@@ -170,6 +180,7 @@ std::vector<std::string> ChecklistReader::appendFromAiAnalysis(const std::string
             std::string category = textLine.substr(catPos + categoryMarker.size());
             size_t slash = category.find('/');
             if (slash != std::string::npos) category = category.substr(0, slash);
+            category.erase(std::remove(category.begin(), category.end(), '`'), category.end());
             pendingCategory = trim(category);
             continue;
         }

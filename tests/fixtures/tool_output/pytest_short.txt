@@ -1,0 +1,28 @@
+F                                                                        [100%]
+==================================== ERRORS ====================================
+______________________ ERROR collecting tests/test_api.py ______________________
+ImportError while importing test module '/work/fullstack_sample/backend/tests/test_api.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_api.py:1: in <module>
+    from app.main import create_app
+app/main.py:3: in <module>
+    from app.modles import USERS
+E   ModuleNotFoundError: No module named 'app.modles'
+=================================== FAILURES ===================================
+______________________ test_slugify_joins_words_with_dash ______________________
+tests/test_utils.py:5: in test_slugify_joins_words_with_dash
+    assert slugify("Hello World") == "hello-world"
+E   AssertionError: assert 'hello_world' == 'hello-world'
+E     
+E     - hello-world
+E     ?      ^
+E     + hello_world
+E     ?      ^
+=========================== short test summary info ============================
+FAILED tests/test_utils.py::test_slugify_joins_words_with_dash - AssertionErr...
+ERROR tests/test_api.py
+1 failed, 1 error in 0.08s

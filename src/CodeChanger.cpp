@@ -1,6 +1,8 @@
 #include "CodeChanger.h"
+#include "UnifiedDiff.h"
 #include <fstream>
 #include <filesystem>
+#include <sstream>
 
 bool CodeChanger::apply_fix(FixResult fix_result){
 
@@ -34,6 +36,13 @@ bool CodeChanger::apply_fix(FixResult fix_result){
 
     std::filesystem::create_directories(backupDir);
 
+    {
+        std::ifstream current(fullPath, std::ios::binary);
+        std::stringstream before;
+        before << current.rdbuf();
+        previous_ = before.str();
+    }
+
     std::filesystem::path backupFile = backupDir / (fullPath.filename().string() + ".bak");
 
     try {
@@ -42,6 +51,22 @@ bool CodeChanger::apply_fix(FixResult fix_result){
         throw std::runtime_error("Failed to create backup for " + fullPath.string() + ": " + e.what());
     }
 
+
+    // In addition to the .bak (previous version, overwritten by the next fix):
+    //  <name>.orig      state before the very first fix, never overwritten
+    //  <name>.<n>.diff  unified diff of every applied fix, in order
+    // Both are best effort; a failure here must not prevent the fix.
+    try {
+        const std::string name = fullPath.filename().string();
+        const std::filesystem::path origFile = backupDir / (name + ".orig");
+        if (!std::filesystem::exists(origFile)) std::filesystem::copy_file(fullPath, origFile);
+
+        int n = 1;
+        while (std::filesystem::exists(backupDir / (name + "." + std::to_string(n) + ".diff"))) ++n;
+        std::ofstream(backupDir / (name + "." + std::to_string(n) + ".diff"))
+            << unified_diff(previous_, fix_result.fixed_code, fix_result.file_path);
+    } catch (const std::exception&) {
+    }
 
     // Write the fixed code back to the original file
     std::ofstream outFile(fullPath, std::ios::trunc);
